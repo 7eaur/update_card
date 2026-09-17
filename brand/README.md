@@ -19,19 +19,28 @@ The letters are not retyped: they are extracted from the supplied custom wordmar
 
 ## Recommended web files
 
-- Header / desktop: `web/logo-horizontal-640.avif` with WebP/PNG fallback
-- Header / small screens: `web/logo-horizontal-320.avif` or `web/logo-icon-256.webp`
+- Header / desktop: `web/logo-horizontal-640.webp`
+- High-density / large use: `web/logo-horizontal-1280.webp`
+- Header / small screens: `web/logo-horizontal-320.webp`
+- Compact mobile use: `web/logo-icon-256.webp`
+- Transparent source-quality horizontal lockup: `logo/horizontal/update-card-horizontal-transparent.png`
 - Footer: `web/logo-horizontal-640.webp`
 - Favicon: `favicon/favicon.ico` plus `favicon/favicon-32x32.png`
 - Apple touch: `app-icons/apple-touch-icon.png`
-- PWA: `app-icons/icon-192.png`, `icon-512.png`, maskable variants
+- PWA: `app-icons/icon-192.png`, `icon-512.png`, and maskable variants
 - Social avatar: `social/social-avatar-1024.png`
 
 ## Format note
 
-A genuine editable vector master (SVG/EPS/PDF paths) is **not claimed** in this package because the supplied source is raster JPEG. The package intentionally prefers faithful raster derivatives over low-quality auto-traced vectors.
+A genuine editable vector master (SVG/EPS/PDF paths) is **not claimed** in this package because the supplied source is a raster JPEG. The package intentionally prefers faithful raster derivatives over inaccurate auto-traced vectors.
 
-Web delivery is optimized through AVIF/WebP where useful, with PNG fallbacks for transparency and compatibility.
+Web delivery currently uses optimized WebP plus PNG/ICO where transparency or platform compatibility requires them. AVIF may be produced later in the deployment image pipeline when useful; it is not required for the logo system to be valid.
+
+## Reproducibility
+
+- `build_identity_assets.py` regenerates the core logo, web, favicon and app/PWA files from the canonical source.
+- `build_social_assets.py` regenerates the social-avatar files from the generated canonical UC icon.
+- `.github/workflows/build-brand-assets.yml` verifies and regenerates the production assets on the identity branch.
 
 ## Important
 
