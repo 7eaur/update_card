@@ -115,10 +115,8 @@ export const renderHomePage = () => `
 
 <section class="home-closing">
   <div class="container home-closing__bar">
-    <div class="home-closing__brand" aria-hidden="true">
-      <img src="/assets/images/home/cta-banner.webp" class="home-closing__image" alt="" width="818" height="210" loading="lazy" decoding="async">
-    </div>
-    <div>
+    <img src="/assets/images/home/cta-banner.webp" class="home-closing__image" alt="" width="818" height="82" loading="lazy" decoding="async" aria-hidden="true">
+    <div class="home-closing__content">
       <h2>ابدأ رحلتك الرقمية الآن</h2>
       <p>اكتشف عالمًا من الخدمات الرقمية الموثوقة مع UPDATE CARD.</p>
     </div>
