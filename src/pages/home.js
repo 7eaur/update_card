@@ -113,14 +113,6 @@ export const renderHomePage = () => `
   </div>
 </section>
 
-<section class="home-contact-strip">
-  <div class="container contact-strip">
-    <a href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')}<span><strong>تواصل عبر واتساب</strong><small>للاستفسارات والطلبات</small></span></a>
-    <a href="${site.phoneHref}">${icon('phone')}<span><strong>${site.phoneDisplay}</strong><small>اتصال مباشر</small></span></a>
-    <a href="${site.facebookHref}" target="_blank" rel="noopener noreferrer">${icon('facebook')}<span><strong>تابعنا على فيسبوك</strong><small>آخر الأخبار والعروض</small></span></a>
-  </div>
-</section>
-
 <section class="home-closing">
   <div class="container home-closing__bar">
     <div class="home-closing__brand">
