@@ -44,6 +44,44 @@ jobs:
       - name: Verify routes and local references
         run: npm run check
 
+      - name: Capture visual QA screenshots
+        run: |
+          mkdir -p qa/mobile qa/desktop
+          python3 -m http.server 4173 --directory dist >/tmp/update-card-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          sleep 2
+
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$CHROME" ]; then
+            echo "::warning::Chrome is unavailable; visual screenshots skipped."
+            exit 0
+          fi
+
+          routes=(
+            "home|"
+            "about|about/"
+            "services|services/"
+            "games|services/games/"
+            "faq|faq/"
+            "contact|contact/"
+          )
+
+          for entry in "${routes[@]}"; do
+            name="${entry%%|*}"
+            path="${entry#*|}"
+            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars               --window-size=390,6000               --screenshot="qa/mobile/${name}.png"               "http://127.0.0.1:4173/${path}"
+
+            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars               --window-size=1440,5000               --screenshot="qa/desktop/${name}.png"               "http://127.0.0.1:4173/${path}"
+          done
+
+      - name: Upload visual QA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-qa
+          path: qa/
+          if-no-files-found: warn
+
       - name: Report production asset sizes
         run: |
           wc -c dist/assets/site.css dist/assets/site.js dist/index.html

@@ -1,12 +1,14 @@
 # UPDATE CARD — Website Implementation Status
 
-## Release
+## Current release state
 
-**Website Profile v1 — deployed to Vercel production**
+**Website Profile v2 — full visual-system refresh implemented in repository**
 
-Production URL during the temporary-domain stage:
+Public production URL during the temporary-domain stage:
 
 - `https://update-card-six.vercel.app/`
+
+The repository and CI state must be distinguished from the public Vercel deployment. The production URL may temporarily lag behind `main` when the Vercel deployment quota blocks a new deployment.
 
 Custom domain and company email remain pending client input and must not be invented.
 
@@ -14,39 +16,85 @@ Custom domain and company email remain pending client input and must not be inve
 
 - Multi-page static informational company/profile site.
 - Not an e-commerce store.
-- Primary conversion path is direct contact through WhatsApp/phone/Facebook.
-- Shared Header and Footer are generated once and reused across all routes.
+- Primary conversion path: WhatsApp, with phone and Facebook as secondary channels.
+- Shared Header, Footer, Page Hero, service cards and Contact CTA are reused across routes.
+- Home and all inner pages now use one visual system.
+
+## Design system status
+
+Implemented across the public site:
+
+- Cairo web typography.
+- Approved UPDATE CARD brand colors and identity assets.
+- Mobile-first responsive hierarchy.
+- Shared white / soft-blue page surfaces, borders, radii and restrained shadows.
+- Two-up service cards on mobile where practical and four-up on desktop.
+- Shared inner-page hero system aligned with the Home design.
+- Horizontal process patterns where they remain readable.
+- Branded Earth/space closing CTA shared across inner pages.
+- Consistent FAQ, contact, content-panel, notice and related-link treatments.
+- Document-level overflow protection on narrow screens.
+
+Full audit and decisions:
+
+- `docs/WEBSITE_FULL_VISUAL_AUDIT_V2.md`
+
+## Approved media state
+
+### Service media
+
+Optimized AVIF, standardized at 640×360:
+
+- `games.avif`
+- `social-entertainment.avif`
+- `gift-cards.avif`
+- `subscriptions.avif`
+- `software-licenses.avif`
+- `digital-payments.avif`
+- `international-shopping.avif`
+- `custom-request.avif`
+
+### Supporting visuals
+
+- Home hero: approved Home hero AVIF.
+- About: approved building visual.
+- Retail: approved retail visual.
+- Wholesale: approved warehouse visual.
+- Closing CTA: refreshed Earth/space WebP.
+- FAQ / service-not-found: refreshed question-mark WebP.
+
+Non-critical images are lazy-loaded. Primary hero media is loaded eagerly.
 
 ## Engineering decisions
 
-- Zero runtime framework and zero third-party frontend dependencies.
-- Build-time shared components for Header, Footer, service cards, CTA and page layout.
-- Service-family pages are generated from a single service data source instead of duplicated by hand.
-- Company/contact values live in one shared configuration source.
-- Brand colors are read from `brand/tokens/brand-tokens.css` and bundled into production CSS.
-- Minimal browser JavaScript: mobile navigation + current year only.
-- Approved brand assets and visual media are reused; no duplicate identity system is created inside the website.
-- The approved Hero keeps the visual subject on the left and the Arabic text-safe area on the right.
-- Hero has a dedicated mobile crop rather than blindly shrinking desktop composition.
-- Service cards and service-family pages reuse the same service image reference from the shared data model.
-- Web media uses optimized WebP assets; non-critical media is lazy-loaded.
-- Vercel runs `npm run build` and publishes `dist/`.
-- Toolchain is pinned to Node 24 across local metadata, GitHub Actions and Vercel.
+- Zero runtime frontend framework.
+- Zero third-party runtime UI dependencies.
+- Build-time shared components.
+- One service data source generates all eight service-family routes.
+- One shared company/contact configuration.
+- Brand tokens are bundled from the approved brand package.
+- Minimal browser JavaScript for navigation/current year.
+- Vercel build remains `npm run build` with `dist/` output.
+- Toolchain remains Node 24.
+- Service visuals use a shared 640×360 image contract.
 
 ## Source structure
 
 ```text
 src/
-  assets/media/ approved optimized website media
+  assets/
+    images/home/ shared Home/supporting imagery
+    media/services/ approved category imagery
   config/       shared company/contact config
   data/         services + FAQ content models
-  components/   reusable UI components
+  components/   Header, Footer, PageHero, ServiceCard, ContactCTA, icons
   templates/    shared document layout
-  pages/        page content renderers
+  pages/        Home, About, Services, FAQ, Contact, service-family renderer
   styles/       tokens/base/layout/components/media
   client/       minimal browser JavaScript
 scripts/        build + preview + route/asset checks
 brand/          approved identity source of truth
+docs/           content/design/implementation source documents
 ```
 
 ## Published routes
@@ -76,32 +124,38 @@ brand/          approved identity source of truth
 - Eight documented service families
 - Custom-request service included
 
-## Verification completed
+## Verification pipeline
 
-- 14 static pages generated successfully.
-- Local route and asset checker passed in GitHub Site CI.
-- GitHub Site CI passed on the release head before merge.
-- Vercel Preview built successfully from the exact reviewed head.
-- Pull Request #4 was squash-merged into `main`.
-- Vercel production deployment completed successfully.
-- Production build logs show `Built 14 static pages into dist/` with no build error.
-- Production HTTP checks returned `200 OK` for:
-  - Home
-  - About
-  - Services directory
-  - Games service-family page
-  - Contact
-- Production HTML contains RTL Arabic semantics, responsive media paths, organization structured data, favicon/manifest references and the official contact links.
+Every Site CI run performs:
+
+1. static build
+2. route/local-asset validation
+3. representative mobile visual screenshots at 390 px
+4. representative desktop visual screenshots at 1440 px
+5. upload of the `visual-qa` screenshot artifact
+6. production asset-size reporting
+
+Representative visual routes:
+
+- Home
+- About
+- Services
+- Games service detail
+- FAQ
+- Contact
+
+The screenshot artifact is a visual-review aid; the build/check step remains the executable routing/asset gate.
 
 ## SEO / discoverability status
 
-Implemented now:
+Implemented:
 
 - unique page titles and meta descriptions
 - semantic headings and landmarks
+- RTL Arabic semantics
 - index/follow production robots meta
 - Organization JSON-LD
-- Open Graph title/description baseline
+- Open Graph baseline
 - favicon and web app manifest
 - crawlable static HTML routes
 
@@ -113,14 +167,19 @@ Deferred until the final custom domain is provided:
 - Search Console setup
 - domain-based Open Graph URL/image declarations where appropriate
 
-## Legal/content items still pending client input
-
-Not release blockers for the current profile preview/production stage:
+## Pending client inputs
 
 - final custom domain
 - official company email
 - approved privacy-policy copy if required
 - approved terms/conditions copy if required
-- any additional verified service details or business claims
+- additional verified business/service claims
 
-Do not invent these items. Add them only after the client supplies or approves them.
+Do not invent these items.
+
+## Deployment reporting rule
+
+Repository/CI status and public deployment status are separate facts.
+
+- A commit can be complete and CI-green while Vercel still serves an older deployment.
+- Production is considered updated only after the exact deployed commit is verified and the public routes return successfully.

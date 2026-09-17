@@ -13,9 +13,9 @@ const specialNotes = {
 };
 
 export const renderServiceFamilyPage = (service) => `
-<section class="service-hero section-shell service-hero--${service.tone}">
+<section class="service-hero service-hero--${service.tone}">
   <div class="container service-hero__grid">
-    <div>
+    <div class="service-hero__content">
       <nav class="breadcrumb" aria-label="مسار الصفحة"><a href="/">الرئيسية</a><span>/</span><a href="/services/">الخدمات</a><span>/</span><span aria-current="page">${service.title}</span></nav>
       <p class="eyebrow">${service.kicker}</p>
       <h1>${service.title}</h1>
@@ -26,14 +26,14 @@ export const renderServiceFamilyPage = (service) => `
   </div>
 </section>
 
-<section class="content-section section-shell">
-  <div class="container content-grid">
+<section class="content-section">
+  <div class="container content-panel content-grid">
     <div><p class="eyebrow">ماذا يشمل هذا المجال؟</p><h2>أمثلة من الخدمات والمنصات</h2><p>القائمة التالية توضح نطاق الفئة الحالي، والتوفر الفعلي يُراجع عند الاستفسار.</p></div>
     <div class="example-grid">${service.examples.map((example) => `<span>${example}</span>`).join('')}</div>
   </div>
 </section>
 
-<section class="content-section section-shell">
+<section class="content-section">
   <div class="container service-process">
     <div><span>01</span><h3>حدد ما تحتاجه</h3><p>اسم الخدمة أو المنصة والمنطقة والخطة أو الرابط عند الحاجة.</p></div>
     <div><span>02</span><h3>تواصل معنا</h3><p>أرسل التفاصيل عبر واتساب أو من صفحة التواصل.</p></div>
@@ -41,10 +41,10 @@ export const renderServiceFamilyPage = (service) => `
   </div>
 </section>
 
-${specialNotes[service.slug] ? `<section class="notice-section section-shell"><div class="container notice">${icon('shield')}<p>${specialNotes[service.slug]}</p></div></section>` : ''}
+${specialNotes[service.slug] ? `<section class="notice-section content-section"><div class="container notice">${icon('shield')}<p>${specialNotes[service.slug]}</p></div></section>` : ''}
 
-<section class="content-section section-shell">
-  <div class="container content-grid">
+<section class="content-section">
+  <div class="container content-panel content-grid">
     <div><p class="eyebrow">خدمات مرتبطة</p><h2>استكشف مجالات أخرى</h2></div>
     <div class="related-links">${services.filter((item) => item.slug !== service.slug).slice(0, 4).map((item) => `<a href="/services/${item.slug}/">${item.title} ${icon('arrow')}</a>`).join('')}</div>
   </div>

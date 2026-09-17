@@ -1,5 +1,5 @@
 const visualVariants = {
-  service: { width: 480, height: 360, folder: 'services', ext: 'avif' },
+  service: { width: 640, height: 360, folder: 'services', ext: 'avif' },
   page: { width: 680, height: 383, folder: 'pages', ext: 'avif' },
 };
 

@@ -6,10 +6,8 @@ export const renderContactCTA = ({
   title = 'عندك خدمة في بالك؟',
   text = 'تواصل معنا مباشرة عبر واتساب، وأرسل لنا تفاصيل طلبك.',
 } = {}) => `
-<section class="contact-cta section-shell">
-  <div class="contact-cta__mark" aria-hidden="true">
-    <img src="/assets/brand/logo-icon-512.webp" width="512" height="256" alt="" loading="lazy" decoding="async">
-  </div>
+<section class="contact-cta">
+  <img class="contact-cta__backdrop" src="/assets/images/home/cta-banner.webp" alt="" width="1220" height="407" loading="lazy" decoding="async" aria-hidden="true">
   <div class="contact-cta__content">
     <p class="eyebrow">${eyebrow}</p>
     <h2>${title}</h2>
