@@ -29,8 +29,15 @@ const assetCopies = [
   ['brand/web/logo-horizontal-320.webp', 'assets/brand/logo-horizontal-320.webp'],
   ['brand/web/logo-horizontal-640.webp', 'assets/brand/logo-horizontal-640.webp'],
   ['brand/web/logo-icon-512.webp', 'assets/brand/logo-icon-512.webp'],
+  ['brand/favicon/favicon-16x16.png', 'assets/favicon/favicon-16x16.png'],
   ['brand/favicon/favicon-32x32.png', 'assets/favicon/favicon-32x32.png'],
+  ['brand/favicon/favicon.ico', 'favicon.ico'],
   ['brand/app-icons/apple-touch-icon.png', 'assets/favicon/apple-touch-icon.png'],
+  ['brand/app-icons/icon-192.png', 'icon-192.png'],
+  ['brand/app-icons/icon-512.png', 'icon-512.png'],
+  ['brand/app-icons/maskable-icon-192.png', 'maskable-icon-192.png'],
+  ['brand/app-icons/maskable-icon-512.png', 'maskable-icon-512.png'],
+  ['brand/app-icons/site.webmanifest', 'site.webmanifest'],
 ];
 for (const [from, to] of assetCopies) {
   await mkdir(dirname(resolve(dist, to)), { recursive: true });
@@ -69,5 +76,6 @@ const notFound = renderLayout({
   content: '<section class="page-hero section-shell"><div class="container page-hero__grid"><div><p class="eyebrow">404</p><h1>الصفحة غير موجودة</h1><p>قد يكون الرابط تغير أو لم يعد متاحًا.</p><a class="button button--primary" href="/">العودة للرئيسية</a></div></div></section>',
 });
 await writeFile(resolve(dist, '404.html'), notFound);
+await writeFile(resolve(dist, 'robots.txt'), 'User-agent: *\nAllow: /\n');
 
 console.log(`Built ${pages.length + 1} static pages into dist/.`);
