@@ -1,0 +1,14 @@
+{
+  "source": "sampled from supplied raster logo reference",
+  "status": "derived",
+  "colors": {
+    "brandRed": "#950331",
+    "brandRedDeep": "#8F1B2A",
+    "brandPurple": "#2B057D",
+    "brandPlum": "#680646",
+    "brandBlue": "#031877",
+    "brandAccentBlue": "#236BA9",
+    "brandCharcoal": "#353B43",
+    "white": "#FFFFFF"
+  }
+}
