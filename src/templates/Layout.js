@@ -5,6 +5,22 @@ import { renderFooter } from '../components/Footer.js';
 export const renderLayout = ({ title, description, currentPath = '/', content, noIndex = false }) => {
   const pageTitle = title ? `${title} | ${site.brandNameAr}` : `${site.brandNameAr} | خدمات رقمية منذ ${site.since}`;
   const metaDescription = description || site.description;
+  const organization = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: site.brandName,
+    alternateName: site.brandNameAr,
+    foundingDate: String(site.since),
+    description: site.description,
+    telephone: '+967770498884',
+    sameAs: [site.facebookHref],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+967770498884',
+      contactType: 'customer service',
+      availableLanguage: ['ar'],
+    },
+  });
 
   return `<!doctype html>
 <html lang="ar" dir="rtl">
@@ -12,16 +28,20 @@ export const renderLayout = ({ title, description, currentPath = '/', content, n
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#031877">
+  <meta name="color-scheme" content="light">
   <title>${pageTitle}</title>
   <meta name="description" content="${metaDescription}">
-  ${noIndex ? '<meta name="robots" content="noindex,follow">' : ''}
+  <meta name="robots" content="${noIndex ? 'noindex,follow' : 'index,follow'}">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ar_YE">
   <meta property="og:title" content="${pageTitle}">
   <meta property="og:description" content="${metaDescription}">
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">${organization}</script>
   <script src="/assets/site.js" defer></script>
 </head>
 <body>
