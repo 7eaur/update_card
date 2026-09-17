@@ -1,5 +1,5 @@
-# Editable source notes
+# Source of truth
 
-`originals/` preserves the supplied raster reference unchanged. The SVG masters in this directory are editable construction sources. Production SVGs are exported with text converted to paths so they have no runtime font dependency.
+`originals/update-card-logo-reference.jpeg` is the supplied source artwork, preserved unchanged.
 
-The construction deliberately uses simple vector geometry rather than automatic tracing. This keeps curves and rounded terminals clean at every size.
+The build script only crops the two logo lockups physically present in that artwork. It does not trace, redraw, recolour, rearrange, or invent any part of the brand.

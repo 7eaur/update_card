@@ -1,7 +1,0 @@
-{
-  "brand": {
-    "clearSpace": { "value": "0.125 × horizontal-logo-height", "description": "Minimum empty area on all sides." },
-    "minimum": { "horizontal": "120px digital / 30mm print", "icon": "24px digital / 7mm print", "favicon": "16px" },
-    "colorSource": "brand-colors.json"
-  }
-}
