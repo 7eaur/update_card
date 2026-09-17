@@ -5,6 +5,7 @@ import { icon } from '../components/icons.js';
 import { renderServiceCard } from '../components/ServiceCard.js';
 import { renderSectionHeader } from '../components/SectionHeader.js';
 import { renderContactCTA } from '../components/ContactCTA.js';
+import { renderResponsiveImage } from '../components/ResponsiveImage.js';
 
 export const renderHomePage = () => `
 <section class="hero section-shell">
@@ -40,9 +41,7 @@ export const renderHomePage = () => `
       <p>نقدم حلولًا للخدمات الرقمية والشحن والدفع والشراء الإلكتروني، مع تجربة تعامل واضحة وسريعة وموثوقة لعملاء التجزئة والجملة.</p>
       <a class="text-link" href="/about/">تعرف علينا أكثر ${icon('arrow')}</a>
     </div>
-    <div class="about-note" aria-hidden="true">
-      <span>سرعة</span><span>وضوح</span><span>موثوقية</span>
-    </div>
+    <div class="about-note" aria-label="قيم العمل"><span>سرعة</span><span>وضوح</span><span>موثوقية</span></div>
   </div>
 </section>
 
@@ -50,12 +49,10 @@ export const renderHomePage = () => `
   <div class="container">
     ${renderSectionHeader({
       eyebrow: 'مجالات خدماتنا',
-      title: 'خدمات متعددة، بهيكل واضح وسهل الاستكشاف',
-      description: 'اختر المجال الأقرب لاحتياجك، ثم تعرّف على الخدمات والمنصات المتوفرة داخله.',
+      title: 'خدمات متعددة، مرتبة لتستكشفها بسهولة',
+      description: 'اختر المجال الأقرب لاحتياجك، ثم تعرّف على الخدمات والمنصات الموجودة داخله.',
     })}
-    <div class="services-bento">
-      ${services.map(renderServiceCard).join('')}
-    </div>
+    <div class="services-bento">${services.map(renderServiceCard).join('')}</div>
     <div class="section-action"><a class="button button--ghost" href="/services/">عرض جميع الخدمات ${icon('arrow')}</a></div>
   </div>
 </section>
@@ -87,16 +84,22 @@ export const renderHomePage = () => `
 <section class="audiences section-shell">
   <div class="container audiences-grid">
     <article class="audience-card audience-card--retail">
-      <p class="eyebrow">للأفراد</p>
-      <h2>خدماتك الرقمية بدون تعقيد</h2>
-      <p>استكشف المجال المناسب وتواصل معنا مباشرة لتأكيد الخدمة المتاحة لك.</p>
-      <a class="text-link" href="/services/">استكشف الخدمات ${icon('arrow')}</a>
+      <div class="audience-card__content">
+        <p class="eyebrow">للأفراد</p>
+        <h2>خدماتك الرقمية بدون تعقيد</h2>
+        <p>استكشف المجال المناسب وتواصل معنا مباشرة لتأكيد الخدمة المتاحة لك.</p>
+        <a class="text-link" href="/services/">استكشف الخدمات ${icon('arrow')}</a>
+      </div>
     </article>
     <article class="audience-card audience-card--wholesale">
-      <p class="eyebrow">للجملة</p>
-      <h2>حلول مرنة للمتاجر والموزعين</h2>
-      <p>نوفر خدمات لقطاع الجملة بحسب نوع الطلب والتوفر والاتفاق المباشر.</p>
-      <a class="text-link" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">استفسر عن الجملة ${icon('arrow')}</a>
+      ${renderResponsiveImage({ name: 'wholesale', alt: '', className: 'audience-card__image', variant: 'page' })}
+      <span class="audience-card__veil" aria-hidden="true"></span>
+      <div class="audience-card__content">
+        <p class="eyebrow">للجملة</p>
+        <h2>حلول مرنة للمتاجر والموزعين</h2>
+        <p>نوفر خدمات لقطاع الجملة بحسب نوع الطلب والتوفر والاتفاق المباشر.</p>
+        <a class="text-link" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">استفسر عن الجملة ${icon('arrow')}</a>
+      </div>
     </article>
   </div>
 </section>
@@ -115,21 +118,21 @@ export const renderHomePage = () => `
 
 <section class="custom-request section-shell">
   <div class="container custom-request__inner">
-    <div class="custom-request__visual" aria-hidden="true">${icon('search')}<span>؟</span></div>
+    <div class="custom-request__media">${renderResponsiveImage({ name: 'custom-request', alt: '', className: 'custom-request__image', variant: 'service' })}</div>
     <div class="custom-request__copy">
       <p class="eyebrow">خدمة حسب الطلب</p>
       <h2>ما لقيت الخدمة التي تبحث عنها؟</h2>
-      <p>أرسل لنا اسم الخدمة أو الرابط والمنطقة والتفاصيل المطلوبة، وسنتحقق من إمكانية توفيرها.</p>
+      <p>أرسل لنا اسم الخدمة أو الرابط والمنطقة والتفاصيل المطلوبة، وسنتحقق من إمكانية توفيرها قبل تأكيد السعر والتنفيذ.</p>
+      <a class="button button--primary" href="/services/custom-request/">اعرف كيف تطلبها ${icon('arrow')}</a>
     </div>
-    <a class="button button--primary" href="/services/custom-request/">اعرف كيف تطلبها ${icon('arrow')}</a>
   </div>
 </section>
 
 <section class="faq-preview section-shell">
   <div class="container faq-preview__grid">
-    ${renderSectionHeader({ eyebrow: 'الأسئلة الشائعة', title: 'إجابات سريعة قبل ما تتواصل', description: 'أهم النقاط التي تساعدك على فهم طريقة التعامل والخدمات.' , align: 'start'})}
+    ${renderSectionHeader({ eyebrow: 'الأسئلة الشائعة', title: 'إجابات سريعة قبل ما تتواصل', description: 'أهم النقاط التي تساعدك على فهم طريقة التعامل والخدمات.', align: 'start' })}
     <div class="faq-list">
-      ${faqs.map((item, index) => `<details ${index === 0 ? 'open' : ''}><summary>${item.question}<span>+</span></summary><p>${item.answer}</p></details>`).join('')}
+      ${faqs.slice(0, 5).map((item, index) => `<details ${index === 0 ? 'open' : ''}><summary>${item.question}<span>+</span></summary><p>${item.answer}</p></details>`).join('')}
       <a class="text-link" href="/faq/">كل الأسئلة الشائعة ${icon('arrow')}</a>
     </div>
   </div>
