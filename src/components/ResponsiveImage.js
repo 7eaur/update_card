@@ -1,19 +1,15 @@
-const visualDimensions = {
-  hero: { width: 1200, height: 675, ext: 'webp' },
-  card: { width: 640, height: 480, ext: 'avif' },
-  landscape: { width: 720, height: 405, ext: 'avif' },
+const visualVariants = {
+  service: { width: 600, height: 450, folder: 'services' },
+  page: { width: 680, height: 383, folder: 'pages' },
 };
 
 export const renderResponsiveImage = ({
   name,
   alt = '',
   className = '',
-  variant = 'card',
+  variant = 'service',
   loading = 'lazy',
-  fetchPriority,
 }) => {
-  const asset = visualDimensions[variant] ?? visualDimensions.card;
-  const priority = fetchPriority ? ` fetchpriority="${fetchPriority}"` : '';
-
-  return `<img class="${className}" src="/assets/visuals/${name}.${asset.ext}" width="${asset.width}" height="${asset.height}" alt="${alt}" loading="${loading}" decoding="async"${priority}>`;
+  const asset = visualVariants[variant] ?? visualVariants.service;
+  return `<img class="${className}" src="/assets/media/${asset.folder}/${name}.avif" width="${asset.width}" height="${asset.height}" alt="${alt}" loading="${loading}" decoding="async">`;
 };
