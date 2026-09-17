@@ -1,0 +1,11 @@
+:root {
+  --uc-brand-red: #950331;
+  --uc-brand-red-deep: #8F1B2A;
+  --uc-brand-purple: #2B057D;
+  --uc-brand-plum: #680646;
+  --uc-brand-blue: #031877;
+  --uc-brand-accent-blue: #236BA9;
+  --uc-brand-charcoal: #353B43;
+  --uc-white: #FFFFFF;
+  --uc-gradient-primary: linear-gradient(135deg, #8F1B2A 0%, #950331 30%, #680646 62%, #031877 100%);
+}
