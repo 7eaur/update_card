@@ -103,7 +103,7 @@ export const renderHomePage = () => `
 <section class="home-custom">
   <div class="container home-custom__bar">
     <div class="home-custom__visual" aria-hidden="true">
-      ${renderResponsiveImage({ name: 'custom-request', alt: '', className: 'home-custom__image', variant: 'service' })}
+      <img src="/assets/images/home/service-not-found.webp" class="home-custom__image" alt="" width="160" height="76" loading="lazy" decoding="async">
     </div>
     <div class="home-custom__content">
       <h2>ما لقيت خدمتك؟</h2>
@@ -115,8 +115,8 @@ export const renderHomePage = () => `
 
 <section class="home-closing">
   <div class="container home-closing__bar">
-    <div class="home-closing__brand">
-      <img src="/assets/brand/logo-icon-512.webp" width="512" height="256" alt="" loading="lazy" decoding="async">
+    <div class="home-closing__brand" aria-hidden="true">
+      <img src="/assets/images/home/cta-banner.webp" class="home-closing__image" alt="" width="818" height="210" loading="lazy" decoding="async">
     </div>
     <div>
       <h2>ابدأ رحلتك الرقمية الآن</h2>
