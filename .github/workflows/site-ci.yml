@@ -1,0 +1,50 @@
+name: Site CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'site/**'
+    paths:
+      - 'src/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'brand/**'
+      - 'vercel.json'
+      - '.github/workflows/site-ci.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'brand/**'
+      - 'vercel.json'
+      - '.github/workflows/site-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Verify routes and local references
+        run: npm run check
+
+      - name: Report production asset sizes
+        run: |
+          wc -c dist/assets/site.css dist/assets/site.js dist/index.html
+          find dist -type f | wc -l
