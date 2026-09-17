@@ -1,0 +1,59 @@
+name: Build brand assets
+
+on:
+  push:
+    branches:
+      - brand/identity-v2
+    paths:
+      - 'brand/build_identity_assets.py'
+      - 'brand/source/originals/update-card-logo-reference.jpeg'
+      - '.github/workflows/build-brand-assets.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: brand/identity-v2
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install image dependencies
+        run: python -m pip install --upgrade pillow numpy
+
+      - name: Generate source-faithful assets
+        run: python brand/build_identity_assets.py
+
+      - name: Verify expected production files
+        run: |
+          test -f brand/logo/horizontal/update-card-horizontal-transparent.png
+          test -f brand/logo/icon/update-card-uc-transparent.png
+          test -f brand/logo/stacked/update-card-stacked-transparent.png
+          test -f brand/favicon/favicon.ico
+          test -f brand/app-icons/icon-192.png
+          test -f brand/app-icons/icon-512.png
+          test -f brand/web/logo-horizontal-320.webp
+          test -f brand/web/logo-horizontal-640.webp
+          test -f brand/web/logo-icon-256.webp
+
+      - name: Commit generated production assets
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add brand/logo brand/web brand/favicon brand/app-icons
+          if git diff --cached --quiet; then
+            echo 'No generated asset changes.'
+          else
+            git commit -m 'brand: generate production identity assets'
+            git push origin HEAD:brand/identity-v2
+          fi
