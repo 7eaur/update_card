@@ -6,7 +6,7 @@ export const services = [
     description: 'شحن وخدمات رقمية لعدد من الألعاب والمنصات المدعومة حسب التوفر.',
     intro: 'نغطي مجموعة واسعة من الألعاب الشائعة، وتُراجع تفاصيل الشحن والمنصة والحساب قبل تأكيد التنفيذ.',
     icon: 'gamepad',
-    examples: ['PUBG Mobile', 'PUBG: New State', 'Free Fire', 'EA SPORTS FC Mobile', 'eFootball', 'Call of Duty', 'Clash of Clans', 'Clash Royale', 'Brawl Stars', 'Clash of Kings', 'Zynga Poker', 'Jawaker'],
+    examples: ['PUBG Mobile', 'PUBG: New State', 'Free Fire', 'EA SPORTS FC Mobile', 'eFootball', 'Call of Duty', 'Clash of Clans', 'Clash Royale', 'Brawl Stars', 'Clash of Kings', 'Jawaker'],
     image: 'games',
     imageAlt: 'تصور بصري لخدمات شحن الألعاب لدى أبديت كارد',
     tone: 'blue',
