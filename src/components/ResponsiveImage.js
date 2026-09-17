@@ -1,6 +1,6 @@
 const visualVariants = {
-  service: { width: 440, height: 330, folder: 'services' },
-  page: { width: 680, height: 383, folder: 'pages' },
+  service: { width: 480, height: 360, folder: 'services', ext: 'avif' },
+  page: { width: 680, height: 383, folder: 'pages', ext: 'avif' },
 };
 
 export const renderResponsiveImage = ({
@@ -11,5 +11,5 @@ export const renderResponsiveImage = ({
   loading = 'lazy',
 }) => {
   const asset = visualVariants[variant] ?? visualVariants.service;
-  return `<img class="${className}" src="/assets/media/${asset.folder}/${name}.webp" width="${asset.width}" height="${asset.height}" alt="${alt}" loading="${loading}" decoding="async">`;
+  return `<img class="${className}" src="/assets/media/${asset.folder}/${name}.${asset.ext}" width="${asset.width}" height="${asset.height}" alt="${alt}" loading="${loading}" decoding="async">`;
 };
