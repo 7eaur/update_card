@@ -9,6 +9,11 @@ import { renderContactCTA } from '../components/ContactCTA.js';
 export const renderHomePage = () => `
 <section class="hero section-shell">
   <div class="container hero-grid">
+    <picture class="hero-media" aria-hidden="true">
+      <source media="(max-width: 680px)" srcset="/assets/media/hero/hero-mobile.webp">
+      <source srcset="/assets/media/hero/hero.webp">
+      <img src="/assets/media/hero/hero.webp" width="800" height="450" alt="" fetchpriority="high" decoding="async">
+    </picture>
     <div class="hero-content">
       <p class="eyebrow">UPDATE CARD · منذ ${site.since}</p>
       <h1>نقرّب لك عالم<br><span>الخدمات الرقمية</span></h1>
@@ -22,16 +27,6 @@ export const renderHomePage = () => `
         <li>${icon('check')} للجملة والتجزئة</li>
         <li>${icon('check')} خدمات رقمية متعددة</li>
       </ul>
-    </div>
-
-    <div class="hero-art" aria-label="هوية أبديت كارد وعالم الخدمات الرقمية">
-      <div class="hero-art__orbit" aria-hidden="true"></div>
-      <img class="hero-art__mark" src="/assets/brand/logo-icon-512.webp" width="512" height="256" alt="رمز أبديت كارد" fetchpriority="high">
-      <span class="hero-chip hero-chip--1">GAMES</span>
-      <span class="hero-chip hero-chip--2">USDT</span>
-      <span class="hero-chip hero-chip--3">CARDS</span>
-      <span class="hero-chip hero-chip--4">SUBSCRIPTIONS</span>
-      <span class="hero-art__caption">خدمات رقمية · دفع · شحن · شراء عالمي</span>
     </div>
   </div>
 </section>
