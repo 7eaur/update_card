@@ -48,3 +48,11 @@ jobs:
         run: |
           wc -c dist/assets/site.css dist/assets/site.js dist/index.html
           find dist -type f | wc -l
+
+
+      - name: Upload built site for QA
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-qa-dist
+          path: dist/
+          if-no-files-found: error
