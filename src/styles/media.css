@@ -1,75 +1,9 @@
-/* Approved visual integration. Kept separate from structural component styles. */
-
-.hero-grid{position:relative;display:flex;align-items:center;justify-content:flex-start;min-height:610px;padding:clamp(2rem,4vw,4rem);overflow:hidden;background:#fff}
-.hero-media{position:absolute;inset:0;display:block}
-.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,.35) 42%,rgba(255,255,255,.97) 72%,#fff 100%)}
-.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-.hero-content{position:relative;z-index:1;width:min(620px,49%)}
-.hero-copy{max-width:560px}
-.hero-content::before{content:"";position:absolute;z-index:-1;inset:-1.8rem -1.8rem -1.8rem -.8rem;background:rgba(255,255,255,.82);filter:blur(22px);border-radius:32px}
-.hero-grid .hero-art{display:none}
-
-.service-card__visual{position:relative;min-height:215px;padding:0;background:var(--surface-dark)}
-.service-card__image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s var(--ease)}
-.service-card__veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,15,44,.05) 22%,rgba(3,15,44,.82) 100%)}
-.service-card:hover .service-card__image{transform:scale(1.025)}
-.service-card__icon{position:absolute;z-index:2;top:18px;inset-inline-end:18px;background:rgba(5,17,45,.48);backdrop-filter:blur(10px);border-color:rgba(255,255,255,.28)}
-.service-card__kicker{z-index:2;top:22px;inset-inline-start:22px;text-shadow:0 1px 10px rgba(0,0,0,.28)}
-.service-card__chips{z-index:2}
-.service-card__chips span{background:rgba(4,17,43,.48);backdrop-filter:blur(8px);border-color:rgba(255,255,255,.25)}
-
-.page-hero__visual,.service-hero__visual{overflow:hidden;border-radius:28px;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow-sm)}
+.page-hero__visual,.service-hero__visual{overflow:hidden;border-radius:14px;border:1px solid var(--line);background:#fff}
 .page-hero__image,.service-hero__image{display:block;width:100%;height:100%;object-fit:cover}
-.page-hero__visual{aspect-ratio:16/9}
-.service-hero__visual{aspect-ratio:4/3}
-.service-hero__grid{align-items:center}
-.service-hero__art{display:none}
-
-.audience-card{position:relative;overflow:hidden}
-.audience-card__content{position:relative;z-index:2;max-width:560px}
-.audience-card--wholesale{color:white;background:#081833;border-color:#162c50}
-.audience-card--wholesale .audience-card__image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.audience-card--wholesale .audience-card__veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,17,44,.9),rgba(5,17,44,.42))}
-.audience-card--wholesale p{color:#e2eaf7}
-.audience-card--wholesale .eyebrow,.audience-card--wholesale .text-link{color:white}
-
-.custom-request__inner{overflow:hidden;padding:0;grid-template-columns:minmax(300px,.9fr) 1.1fr;gap:0;background:#fff}
-.custom-request__media{height:100%;min-height:330px;background:var(--surface-dark)}
-.custom-request__image{width:100%;height:100%;object-fit:cover;display:block}
-.custom-request__copy{padding:clamp(1.8rem,5vw,4rem)}
-.custom-request__copy .button{margin-top:1rem}
-
-.services-note{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(2rem,6vw,5rem);padding:clamp(1.5rem,4vw,2.8rem);background:white;border:1px solid var(--line);border-radius:var(--radius-lg)}
-.services-note p{margin:0}
-.split-panel--accent{background:linear-gradient(145deg,#fff,#f2f5fb);border:1px solid var(--line)}
-
-.service-process{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.service-process>div{padding:1.5rem;background:white;border:1px solid var(--line);border-radius:var(--radius-md)}
-.service-process span{display:inline-block;margin-bottom:1.7rem;color:var(--uc-brand-red);font-weight:900}
-.service-process h3{margin-bottom:.4rem}
-.service-process p{margin:0;font-size:.9rem}
-
-@media(max-width:1000px){
-  .hero-content{width:min(650px,58%)}
-  .hero-content::before{inset:-1.5rem}
-  .service-process{grid-template-columns:1fr 1fr 1fr}
-}
-
-@media(max-width:680px){
-  .hero-grid{display:flex;flex-direction:column;align-items:stretch;padding:1.35rem;gap:1.25rem;background:#fff}
-  .hero-media{position:relative;order:2;aspect-ratio:4/3;border-radius:20px;overflow:hidden}
-  .hero-media::after{display:none}
-  .hero-media img{object-position:center}
-  .hero-content{order:1;width:100%}
-  .hero-content::before{display:none}
-  .hero h1{font-size:2.65rem}
-  .hero-copy{max-width:none}
-  .service-card__visual{min-height:220px}
-  .page-hero__visual,.service-hero__visual{border-radius:20px}
-  .custom-request__inner{grid-template-columns:1fr}
-  .custom-request__media{min-height:240px}
-  .custom-request__copy{padding:1.5rem}
-  .services-note{grid-template-columns:1fr}
-  .service-process{grid-template-columns:1fr}
-  .audience-card--wholesale .audience-card__veil{background:linear-gradient(180deg,rgba(5,17,44,.28),rgba(5,17,44,.9))}
-}
+.page-hero__visual{aspect-ratio:16/9}.service-hero__visual{aspect-ratio:4/3}.service-hero__art{display:none}
+.audience-card{position:relative;overflow:hidden}.audience-card__content{position:relative;z-index:2;max-width:560px}.audience-card__image{width:100%;height:100%;object-fit:cover}
+.custom-request__media{min-height:260px}.custom-request__image{width:100%;height:100%;object-fit:cover}
+.services-note{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(2rem,6vw,5rem);padding:clamp(1.5rem,4vw,2.5rem);background:#fff;border:1px solid var(--line);border-radius:14px}.services-note p{margin:0}
+.split-panel--accent{background:var(--surface-soft)}
+.service-process{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.service-process>div{padding:1.4rem;background:#fff;border:1px solid var(--line);border-radius:12px}.service-process span{display:inline-block;margin-bottom:1.4rem;color:var(--uc-brand-red);font-weight:900}.service-process h3{margin-bottom:.4rem}.service-process p{margin:0;font-size:.9rem}
+@media(max-width:680px){.page-hero__visual,.service-hero__visual{border-radius:12px}.services-note{grid-template-columns:1fr}.service-process{grid-template-columns:1fr}}
