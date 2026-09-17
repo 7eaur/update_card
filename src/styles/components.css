@@ -1,4 +1,4 @@
-/* Mobile-first Home */
+/* Mobile-first Home · approved reference pass */
 .home-hero{padding-block:10px 4px}.home-hero__grid{display:grid;grid-template-columns:1fr;gap:8px}.home-hero__content{order:1;padding-block:14px}.home-hero__visual{order:2;min-height:220px;display:flex;align-items:center;justify-content:center}
 .home-hero__visual picture,.home-hero__visual img{width:100%;height:100%}.home-hero__visual img{object-fit:contain}
 .hero-kicker{color:var(--text-soft);font-size:.78rem;margin-bottom:8px}.home-hero h1{font-size:2.45rem;line-height:1.08;margin-bottom:12px;color:var(--uc-brand-blue)}.home-hero h1 span{color:var(--uc-brand-red)}
