@@ -7,25 +7,24 @@ import { renderResponsiveImage } from '../components/ResponsiveImage.js';
 export const renderHomePage = () => `
 <section class="home-hero">
   <div class="container home-hero__grid">
-    <div class="home-hero__visual">
-      <picture aria-hidden="true">
-        <source media="(max-width: 680px)" srcset="/assets/media/hero/hero-mobile.webp">
-        <img src="/assets/media/hero/hero.webp" width="800" height="450" alt="" fetchpriority="high" decoding="async">
-      </picture>
-    </div>
     <div class="home-hero__content">
       <p class="hero-kicker">UPDATE CARD · منذ ${site.since}</p>
-      <h1>نقرّب لك عالم<br><span>الخدمات الرقمية</span></h1>
-      <p>في UPDATE CARD نقدم الخدمات والحلول الرقمية منذ عام ${site.since} لعملائنا من الأفراد، وكذلك لعملاء الجملة والتوزيع، بوضوح وتجربة مباشرة.</p>
+      <h1>نقرّب لك عالم <span>الخدمات الرقمية</span></h1>
+      <p class="home-hero__lead">شحن الألعاب، البطاقات الرقمية، الاشتراكات والدفع الإلكتروني والشراء من المواقع العالمية بخدمة واضحة ومباشرة.</p>
+      <div class="home-hero__visual">
+        <picture aria-hidden="true">
+          <source media="(max-width: 680px)" srcset="/assets/images/home/hero-services.webp">
+          <img src="/assets/images/home/hero-services.webp" width="1536" height="864" alt="" fetchpriority="high" decoding="async">
+        </picture>
+      </div>
       <div class="home-hero__actions">
-        <a class="button button--primary" href="/services/">استكشف خدماتنا ${icon('arrow')}</a>
         <a class="button button--whatsapp" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} تواصل عبر واتساب</a>
+        <a class="button button--primary" href="/services/">استكشف خدماتنا ${icon('arrow')}</a>
       </div>
       <ul class="hero-features">
-        <li>${icon('check')} منذ عام ${site.since}</li>
-        <li>${icon('check')} سرعة في التنفيذ</li>
-        <li>${icon('check')} دعم مستمر</li>
-        <li>${icon('check')} موثوقية وأمان</li>
+        <li>${icon('check')} منذ ${site.since}</li>
+        <li>${icon('check')} سريع وموثوق</li>
+        <li>${icon('check')} واضح وسهل</li>
       </ul>
     </div>
   </div>
