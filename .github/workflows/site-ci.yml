@@ -10,6 +10,7 @@ on:
       - 'scripts/**'
       - 'package.json'
       - 'brand/**'
+      - 'vercel.json'
       - '.github/workflows/site-ci.yml'
   pull_request:
     branches:
@@ -19,6 +20,7 @@ on:
       - 'scripts/**'
       - 'package.json'
       - 'brand/**'
+      - 'vercel.json'
       - '.github/workflows/site-ci.yml'
 
 permissions:
@@ -34,7 +36,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Build static site
         run: npm run build
