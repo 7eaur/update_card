@@ -19,7 +19,7 @@ await mkdir(resolve(dist, 'assets/favicon'), { recursive: true });
 await mkdir(resolve(dist, 'assets/media'), { recursive: true });
 
 const brandTokens = await readFile(resolve(root, 'brand/tokens/brand-tokens.css'), 'utf8');
-const cssFiles = ['tokens.css', 'base.css', 'layout.css', 'components.css', 'media.css'];
+const cssFiles = ['tokens.css', 'base.css', 'layout.css', 'components.css', 'media.css', 'home.css'];
 const css = [brandTokens, ...(await Promise.all(cssFiles.map((file) => readFile(resolve(root, 'src/styles', file), 'utf8'))))].join('\n\n');
 await writeFile(resolve(dist, 'assets/site.css'), css);
 await cp(resolve(root, 'src/client/site.js'), resolve(dist, 'assets/site.js'));
