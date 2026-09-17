@@ -4,7 +4,7 @@ import { renderResponsiveImage } from './ResponsiveImage.js';
 export const renderServiceCard = (service) => `
 <a class="service-card service-card--${service.feature} service-card--${service.tone}" href="/services/${service.slug}/">
   <div class="service-card__visual">
-    ${renderResponsiveImage({ name: service.image, alt: '', className: 'service-card__image', variant: 'card' })}
+    ${renderResponsiveImage({ name: service.image, alt: '', className: 'service-card__image', variant: 'service' })}
     <span class="service-card__veil" aria-hidden="true"></span>
     <span class="service-card__icon" aria-hidden="true">${icon(service.icon)}</span>
     <span class="service-card__kicker">${service.kicker}</span>
