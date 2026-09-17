@@ -21,23 +21,25 @@ Approved website lockup:
 - `CARD` on the second line.
 - The two words keep the original custom letterforms and relative letter height.
 
-Production file: `brand/logo/horizontal/update-card-horizontal-transparent.png`
+Source-quality production file:
+- `brand/logo/horizontal/update-card-horizontal-transparent.png`
 
-Recommended web derivatives:
-- `brand/web/logo-horizontal-320.avif`
-- `brand/web/logo-horizontal-640.avif`
+Optimized web derivatives:
 - `brand/web/logo-horizontal-320.webp`
 - `brand/web/logo-horizontal-640.webp`
+- `brand/web/logo-horizontal-1280.webp`
 
 ### UC mark
 
 Use the full UC mark for service artwork, larger compact placements, social profile art and app/PWA icons.
 
-`brand/logo/icon/update-card-uc-transparent.png`
+- `brand/logo/icon/update-card-uc-transparent.png`
+- `brand/web/logo-icon-256.webp`
+- `brand/web/logo-icon-512.webp`
 
 ### Original source composition
 
-The original supplied artwork remains the archival source and is retained under `brand/source/originals/`.
+The supplied artwork remains the archival source and is retained under `brand/source/originals/`.
 
 ### Wordmark only
 
@@ -84,7 +86,7 @@ Do not replace the logo artwork with this CSS gradient.
 
 ### Light surfaces
 
-Transparent or on-white production assets may be used directly.
+Transparent production assets may be used directly.
 
 ### Dark or photographic surfaces
 
@@ -103,9 +105,10 @@ Implementation guidance:
 
 ## 9. Web image strategy
 
-- AVIF or WebP for optimized modern delivery when a fallback strategy is in place.
-- PNG as the faithful fallback and transparent source derivative.
-- ICO for browser favicon compatibility.
+- WebP is the current optimized delivery format for the website logo files.
+- PNG is retained as the faithful transparent production derivative and compatibility fallback.
+- ICO is provided for browser favicon compatibility.
+- AVIF can be produced later by the deployment/image pipeline where it materially improves delivery; it is not required for the core identity package.
 - Do not use JPEG for transparent UI logo delivery.
 
 ## 10. Do / don't
@@ -130,24 +133,36 @@ Implementation guidance:
 ## 11. Asset roles
 
 ### Website header
-`brand/web/logo-horizontal-640.avif` / WebP fallback.
+Use `brand/web/logo-horizontal-640.webp` by default, with the transparent PNG as the source-quality fallback.
 
 ### Small mobile header
-Use `brand/web/logo-horizontal-320.avif` if space allows. Otherwise use `brand/web/logo-icon-256.webp` and keep the accessible brand name in HTML.
+Use `brand/web/logo-horizontal-320.webp` if space allows. Otherwise use `brand/web/logo-icon-256.webp` and keep the accessible brand name in HTML.
 
 ### Footer
 Use the horizontal lockup. On dark footer backgrounds, place it inside a light/neutral brand-safe container or use a light footer surface.
 
 ### Browser
-`brand/favicon/favicon.ico`
-`brand/favicon/favicon-32x32.png`
+- `brand/favicon/favicon.ico`
+- `brand/favicon/favicon-16x16.png`
+- `brand/favicon/favicon-32x32.png`
+- `brand/favicon/favicon-48x48.png`
 
 ### Apple / PWA
-See `brand/app-icons/`.
+- `brand/app-icons/apple-touch-icon.png`
+- `brand/app-icons/icon-192.png`
+- `brand/app-icons/icon-512.png`
+- `brand/app-icons/maskable-icon-192.png`
+- `brand/app-icons/maskable-icon-512.png`
+- `brand/app-icons/site.webmanifest`
 
 ### Social
-See `brand/social/`.
+- `brand/social/social-avatar-512.png`
+- `brand/social/social-avatar-1024.png`
 
 ## 12. Accessibility
 
 The logo image should use appropriate alternative text when it identifies the site, for example `UPDATE CARD`. If adjacent visible text already names the brand and the image is decorative, use an empty alt attribute to avoid duplicate announcements.
+
+## 13. Reproduction and QA
+
+Core assets are generated from the canonical source by `brand/build_identity_assets.py`, and social assets by `brand/build_social_assets.py`. The GitHub workflow `.github/workflows/build-brand-assets.yml` regenerates and verifies expected files on the identity branch. This makes the identity package reproducible and reduces accidental manual drift.
