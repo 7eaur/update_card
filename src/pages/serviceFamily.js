@@ -1,0 +1,16 @@
+import { icon } from '../components/icons.js';
+import { services } from '../data/services.js';
+import { renderContactCTA } from '../components/ContactCTA.js';
+
+const specialNotes = {
+  'digital-payments': 'خدمات الدفع والأصول الرقمية مرتبطة بالتوفر والمنصة والمنطقة. لا نعتمد صياغات مطلقة أو وعودًا غير مؤكدة.',
+  'international-shopping': 'آلية الشراء والتوصيل تختلف حسب المتجر والدولة والمنتج، ويتم تأكيد التفاصيل عند مراجعة الرابط.',
+  'custom-request': 'إرسال الطلب لا يعني ضمان توفره. يتم التحقق من إمكانية الخدمة والسعر قبل التنفيذ.',
+};
+
+export const renderServiceFamilyPage = (service) => `
+<section class="service-hero section-shell service-hero--${service.tone}"><div class="container service-hero__grid"><div><nav class="breadcrumb" aria-label="مسار الصفحة"><a href="/">الرئيسية</a><span>/</span><a href="/services/">الخدمات</a><span>/</span><span aria-current="page">${service.title}</span></nav><p class="eyebrow">${service.kicker}</p><h1>${service.title}</h1><p>${service.description}</p><a class="button button--primary" href="/contact/">استفسر عن الخدمة ${icon('arrow')}</a></div><div class="service-hero__art">${icon(service.icon)}<span>${service.kicker}</span></div></div></section>
+<section class="content-section section-shell"><div class="container content-grid"><div><p class="eyebrow">ماذا يشمل هذا المجال؟</p><h2>أمثلة من الخدمات والمنصات</h2><p>القائمة التالية أمثلة حالية تساعدك على فهم نطاق الفئة، وليست حصرًا نهائيًا للتوفر.</p></div><div class="example-grid">${service.examples.map((example) => `<span>${example}</span>`).join('')}</div></div></section>
+${specialNotes[service.slug] ? `<section class="notice-section section-shell"><div class="container notice">${icon('shield')}<p>${specialNotes[service.slug]}</p></div></section>` : ''}
+<section class="content-section section-shell"><div class="container content-grid"><div><p class="eyebrow">خدمات مرتبطة</p><h2>استكشف مجالات أخرى</h2></div><div class="related-links">${services.filter((item) => item.slug !== service.slug).slice(0, 4).map((item) => `<a href="/services/${item.slug}/">${item.title} ${icon('arrow')}</a>`).join('')}</div></div></section>
+<div class="container">${renderContactCTA({ title: `عندك استفسار عن ${service.title}؟` })}</div>`;
