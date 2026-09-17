@@ -9,3 +9,7 @@ Official baseline:
 - `docs/WEB_DESIGN_ENGINEERING_STANDARD.md`
 
 Product-specific ideas, services, content, conversion flows, and visual direction must be documented separately and must not be mixed into the general standard.
+
+## Production
+
+Vercel production is deployed from the `main` branch.
