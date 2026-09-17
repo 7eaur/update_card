@@ -2,21 +2,17 @@ import { site } from '../config/site.js';
 import { services } from '../data/services.js';
 import { icon } from '../components/icons.js';
 import { renderServiceCard } from '../components/ServiceCard.js';
-import { renderResponsiveImage } from '../components/ResponsiveImage.js';
 
 export const renderHomePage = () => `
 <section class="home-hero">
   <div class="container home-hero__grid">
-    <div class="home-hero__visual">
-      <picture aria-hidden="true">
-        <source media="(max-width: 680px)" srcset="/assets/media/hero/hero-mobile.webp">
-        <img src="/assets/media/hero/hero.webp" width="800" height="450" alt="" fetchpriority="high" decoding="async">
-      </picture>
+    <div class="home-hero__visual" aria-hidden="true">
+      <img class="home-hero__image" src="/assets/images/home/hero-services.jpg" width="1536" height="864" alt="" fetchpriority="high" decoding="async">
     </div>
     <div class="home-hero__content">
       <p class="hero-kicker">UPDATE CARD · منذ ${site.since}</p>
       <h1>نقرّب لك عالم<br><span>الخدمات الرقمية</span></h1>
-      <p>في UPDATE CARD نقدم الخدمات والحلول الرقمية منذ عام ${site.since} لعملائنا من الأفراد، وكذلك لعملاء الجملة والتوزيع، بوضوح وتجربة مباشرة.</p>
+      <p>شحن الألعاب، البطاقات الرقمية، الاشتراكات، الدفع الإلكتروني والشراء من المواقع العالمية بخدمة واضحة ومباشرة.</p>
       <div class="home-hero__actions">
         <a class="button button--primary" href="/services/">استكشف خدماتنا ${icon('arrow')}</a>
         <a class="button button--whatsapp" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} تواصل عبر واتساب</a>
@@ -40,7 +36,7 @@ export const renderHomePage = () => `
       <a class="button button--primary button--small" href="/about/">تعرف علينا أكثر ${icon('arrow')}</a>
     </div>
     <div class="home-about__visual" aria-hidden="true">
-      ${renderResponsiveImage({ name: 'about', alt: '', className: 'home-about__image', variant: 'page' })}
+      <img src="/assets/images/home/about-building.jpg" class="home-about__image" alt="" width="1536" height="864" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -62,7 +58,7 @@ export const renderHomePage = () => `
   <div class="container audience-split">
     <article class="audience-block audience-block--retail">
       <div class="audience-block__visual" aria-hidden="true">
-        ${renderResponsiveImage({ name: 'subscriptions', alt: '', className: 'audience-block__image', variant: 'service' })}
+        <img src="/assets/images/home/retail-digital.jpg" class="audience-block__image" alt="" width="1534" height="1025" loading="lazy" decoding="async">
       </div>
       <div class="audience-block__content">
         <p class="section-kicker">للأفراد</p>
@@ -73,7 +69,7 @@ export const renderHomePage = () => `
     </article>
     <article class="audience-block audience-block--wholesale">
       <div class="audience-block__visual" aria-hidden="true">
-        ${renderResponsiveImage({ name: 'wholesale', alt: '', className: 'audience-block__image', variant: 'page' })}
+        <img src="/assets/images/home/wholesale-warehouse.jpg" class="audience-block__image" alt="" width="1526" height="1031" loading="lazy" decoding="async">
       </div>
       <div class="audience-block__content">
         <p class="section-kicker">للجملة والتوزيع</p>
