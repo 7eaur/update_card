@@ -5,14 +5,11 @@ import { icon } from './icons.js';
 export const renderFooter = () => `
 <footer class="site-footer">
   <div class="container footer-grid">
-    <section class="footer-brand" aria-labelledby="footer-brand-title">
-      <img src="/assets/brand/logo-horizontal-320.webp" width="320" height="137" alt="${site.brandName}" loading="lazy" decoding="async">
-      <h2 id="footer-brand-title" class="sr-only">${site.brandNameAr}</h2>
-      <p>خدمات رقمية وحلول شحن ودفع وشراء إلكتروني منذ ${site.since}.</p>
-      <div class="footer-social">
-        <a href="${site.facebookHref}" target="_blank" rel="noopener noreferrer" aria-label="صفحة أبديت كارد على فيسبوك">${icon('facebook')}</a>
-        <a href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer" aria-label="التواصل عبر واتساب">${icon('whatsapp')}</a>
-      </div>
+    <section class="footer-contact" aria-labelledby="footer-contact-title">
+      <h2 id="footer-contact-title">تواصل معنا</h2>
+      <a href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')}<span>تواصل عبر واتساب</span></a>
+      <a href="${site.phoneHref}">${icon('phone')}<span>${site.phoneDisplay}</span></a>
+      <a href="${site.facebookHref}" target="_blank" rel="noopener noreferrer">${icon('facebook')}<span>تابعنا على فيسبوك</span></a>
     </section>
 
     <nav class="footer-links" aria-label="روابط سريعة">
@@ -21,22 +18,20 @@ export const renderFooter = () => `
     </nav>
 
     <nav class="footer-links footer-services" aria-label="فئات الخدمات">
-      <h2>الخدمات</h2>
-      ${services.map((service) => `<a href="/services/${service.slug}/">${service.title}</a>`).join('')}
+      <h2>خدماتنا</h2>
+      ${services.slice(0,6).map((service) => `<a href="/services/${service.slug}/">${service.title}</a>`).join('')}
     </nav>
 
-    <section class="footer-contact" aria-labelledby="footer-contact-title">
-      <h2 id="footer-contact-title">تواصل معنا</h2>
-      <a href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')}<span>واتساب<br><b>${site.phoneDisplay}</b></span></a>
-      <a href="${site.phoneHref}">${icon('phone')}<span>اتصال مباشر<br><b>${site.phoneDisplay}</b></span></a>
-      <a href="${site.facebookHref}" target="_blank" rel="noopener noreferrer">${icon('facebook')}<span>صفحتنا الرسمية<br><b>Facebook</b></span></a>
+    <section class="footer-brand" aria-labelledby="footer-brand-title">
+      <img src="/assets/brand/logo-horizontal-320.webp" width="320" height="137" alt="${site.brandName}" loading="lazy" decoding="async">
+      <h2 id="footer-brand-title" class="sr-only">${site.brandNameAr}</h2>
+      <p>أكثر من مجرد خدمات رقمية. نقدم لك حلولاً رقمية موثوقة منذ عام ${site.since} لتكون دائمًا أقرب إلى احتياجاتك.</p>
     </section>
   </div>
-
   <div class="footer-bottom">
     <div class="container footer-bottom__inner">
-      <p>© <span data-current-year></span> ${site.brandName}. جميع الحقوق محفوظة.</p>
-      <p>موقع تعريفي للخدمات الرقمية.</p>
+      <p>جميع الحقوق محفوظة © <span data-current-year></span> UPDATE CARD</p>
+      <p>معًا نحو عالم رقمي أفضل</p>
     </div>
   </div>
 </footer>`;

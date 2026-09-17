@@ -1,142 +1,126 @@
 import { site } from '../config/site.js';
 import { services } from '../data/services.js';
-import { faqs } from '../data/faqs.js';
 import { icon } from '../components/icons.js';
 import { renderServiceCard } from '../components/ServiceCard.js';
-import { renderSectionHeader } from '../components/SectionHeader.js';
-import { renderContactCTA } from '../components/ContactCTA.js';
 import { renderResponsiveImage } from '../components/ResponsiveImage.js';
 
 export const renderHomePage = () => `
-<section class="hero section-shell">
-  <div class="container hero-grid">
-    <picture class="hero-media" aria-hidden="true">
-      <source media="(max-width: 680px)" srcset="/assets/media/hero/hero-mobile.webp">
-      <source srcset="/assets/media/hero/hero.webp">
-      <img src="/assets/media/hero/hero.webp" width="800" height="450" alt="" fetchpriority="high" decoding="async">
-    </picture>
-    <div class="hero-content">
-      <p class="eyebrow">UPDATE CARD · منذ ${site.since}</p>
+<section class="home-hero">
+  <div class="container home-hero__grid">
+    <div class="home-hero__visual">
+      <picture aria-hidden="true">
+        <source media="(max-width: 680px)" srcset="/assets/media/hero/hero-mobile.webp">
+        <img src="/assets/media/hero/hero.webp" width="800" height="450" alt="" fetchpriority="high" decoding="async">
+      </picture>
+    </div>
+    <div class="home-hero__content">
+      <p class="hero-kicker">UPDATE CARD · منذ ${site.since}</p>
       <h1>نقرّب لك عالم<br><span>الخدمات الرقمية</span></h1>
-      <p class="hero-copy">حلول للشحن والدفع والبطاقات والاشتراكات والشراء عبر الإنترنت، ضمن خدمات متعددة للأفراد وقطاع الجملة.</p>
-      <div class="hero-actions">
+      <p>في UPDATE CARD نقدم الخدمات والحلول الرقمية منذ عام ${site.since} لعملائنا من الأفراد، وكذلك لعملاء الجملة والتوزيع، بوضوح وتجربة مباشرة.</p>
+      <div class="home-hero__actions">
         <a class="button button--primary" href="/services/">استكشف خدماتنا ${icon('arrow')}</a>
-        <a class="button button--ghost" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} تواصل عبر واتساب</a>
+        <a class="button button--whatsapp" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} تواصل عبر واتساب</a>
       </div>
-      <ul class="hero-trust" aria-label="مميزات التعامل">
-        <li>${icon('check')} خبرة منذ ${site.since}</li>
-        <li>${icon('check')} للجملة والتجزئة</li>
-        <li>${icon('check')} خدمات رقمية متعددة</li>
+      <ul class="hero-features">
+        <li>${icon('check')} منذ عام ${site.since}</li>
+        <li>${icon('check')} سرعة في التنفيذ</li>
+        <li>${icon('check')} دعم مستمر</li>
+        <li>${icon('check')} موثوقية وأمان</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section class="about-teaser section-shell">
-  <div class="container about-teaser__grid">
-    <div class="about-year"><span>${site.since}</span><small>بداية الخبرة</small></div>
-    <div class="about-copy">
-      <p class="eyebrow">عن أبديت كارد</p>
-      <h2>خبرة متخصصة في عالم يتغير كل يوم</h2>
-      <p>نقدم حلولًا للخدمات الرقمية والشحن والدفع والشراء الإلكتروني، مع تجربة تعامل واضحة وسريعة وموثوقة لعملاء التجزئة والجملة.</p>
-      <a class="text-link" href="/about/">تعرف علينا أكثر ${icon('arrow')}</a>
+<section class="home-about">
+  <div class="container home-about__card">
+    <div class="home-about__content">
+      <p class="section-kicker">من نحن</p>
+      <h2>منذ عام <span>${site.since}</span></h2>
+      <p>نحن في أبديت كارد نتخصص في تقديم أفضل الخدمات الرقمية والحلول المبتكرة لعملائنا في مختلف أنحاء العالم. نعمل على توفير تجربة سهلة وآمنة تشمل الأفراد وكذلك عملاء الجملة والتوزيع.</p>
+      <a class="button button--primary button--small" href="/about/">تعرف علينا أكثر ${icon('arrow')}</a>
     </div>
-    <div class="about-note" aria-label="قيم العمل"><span>سرعة</span><span>وضوح</span><span>موثوقية</span></div>
-  </div>
-</section>
-
-<section class="services-section section-shell">
-  <div class="container">
-    ${renderSectionHeader({
-      eyebrow: 'مجالات خدماتنا',
-      title: 'خدمات متعددة، مرتبة لتستكشفها بسهولة',
-      description: 'اختر المجال الأقرب لاحتياجك، ثم تعرّف على الخدمات والمنصات الموجودة داخله.',
-    })}
-    <div class="services-bento">${services.map(renderServiceCard).join('')}</div>
-    <div class="section-action"><a class="button button--ghost" href="/services/">عرض جميع الخدمات ${icon('arrow')}</a></div>
-  </div>
-</section>
-
-<section class="platforms-strip section-shell" aria-label="أمثلة على المنصات والخدمات">
-  <div class="container">
-    <p class="eyebrow">أمثلة من عالم خدماتنا</p>
-    <div class="platforms-list" role="list">
-      ${['PUBG Mobile','Free Fire','Amazon','PlayStation','Netflix','YouTube Premium','USDT','PayPal','Windows','Adobe','SHEIN','Noon'].map((name) => `<span role="listitem">${name}</span>`).join('')}
+    <div class="home-about__visual" aria-hidden="true">
+      ${renderResponsiveImage({ name: 'about', alt: '', className: 'home-about__image', variant: 'page' })}
     </div>
   </div>
 </section>
 
-<section class="values-section section-shell">
-  <div class="container values-grid">
-    <div class="values-copy">
-      <p class="eyebrow">طريقة عمل واضحة</p>
-      <h2>الراحة لا تأتي من كثرة الخيارات، بل من وضوحها</h2>
-      <p>نرتب الخدمات بطريقة تساعدك على فهم ما نقدمه ثم التواصل معنا مباشرة عندما تجد ما يناسبك.</p>
+<section class="home-services">
+  <div class="container home-services__panel">
+    <div class="home-services__head">
+      <a class="section-link" href="/services/">كل الخدمات ${icon('arrow')}</a>
+      <div>
+        <p class="section-kicker">مجالات خدماتنا</p>
+        <h2>استكشف خدماتنا</h2>
+      </div>
     </div>
-    <div class="values-list">
-      <article><strong>01</strong><div><h3>السرعة</h3><p>استجابة وتنفيذ بكفاءة ضمن طبيعة كل خدمة وتوفرها.</p></div></article>
-      <article><strong>02</strong><div><h3>الوضوح</h3><p>تفاصيل الطلب والتوفر والسعر تُراجع قبل التنفيذ.</p></div></article>
-      <article><strong>03</strong><div><h3>الموثوقية</h3><p>نتعامل مع الطلبات بخطوات واضحة ومنظمة من البداية للنهاية.</p></div></article>
-    </div>
+    <div class="home-services__grid">${services.map(renderServiceCard).join('')}</div>
   </div>
 </section>
 
-<section class="audiences section-shell">
-  <div class="container audiences-grid">
-    <article class="audience-card audience-card--retail">
-      <div class="audience-card__content">
-        <p class="eyebrow">للأفراد</p>
-        <h2>خدماتك الرقمية بدون تعقيد</h2>
-        <p>استكشف المجال المناسب وتواصل معنا مباشرة لتأكيد الخدمة المتاحة لك.</p>
-        <a class="text-link" href="/services/">استكشف الخدمات ${icon('arrow')}</a>
+<section class="home-audiences">
+  <div class="container audience-split">
+    <article class="audience-block audience-block--retail">
+      <div class="audience-block__visual" aria-hidden="true">
+        ${renderResponsiveImage({ name: 'subscriptions', alt: '', className: 'audience-block__image', variant: 'service' })}
+      </div>
+      <div class="audience-block__content">
+        <p class="section-kicker">للأفراد</p>
+        <h2>خدمات تلبي احتياجاتك</h2>
+        <p>تجربة سهلة وآمنة للحصول على جميع خدماتك الرقمية في مكان واحد.</p>
+        <a class="button button--primary button--small" href="/services/">استكشف الخدمات ${icon('arrow')}</a>
       </div>
     </article>
-    <article class="audience-card audience-card--wholesale">
-      ${renderResponsiveImage({ name: 'wholesale', alt: '', className: 'audience-card__image', variant: 'page' })}
-      <span class="audience-card__veil" aria-hidden="true"></span>
-      <div class="audience-card__content">
-        <p class="eyebrow">للجملة</p>
-        <h2>حلول مرنة للمتاجر والموزعين</h2>
-        <p>نوفر خدمات لقطاع الجملة بحسب نوع الطلب والتوفر والاتفاق المباشر.</p>
-        <a class="text-link" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">استفسر عن الجملة ${icon('arrow')}</a>
+    <article class="audience-block audience-block--wholesale">
+      <div class="audience-block__visual" aria-hidden="true">
+        ${renderResponsiveImage({ name: 'wholesale', alt: '', className: 'audience-block__image', variant: 'page' })}
+      </div>
+      <div class="audience-block__content">
+        <p class="section-kicker">للجملة والتوزيع</p>
+        <h2>شركاء في نمو أعمالك</h2>
+        <p>نوفر حلولاً خاصة لعملاء الجملة والتوزيع مع آلية تعامل واضحة ودعم مباشر.</p>
+        <a class="button button--primary button--small" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">تعرف على مزايا الجملة ${icon('arrow')}</a>
       </div>
     </article>
   </div>
 </section>
 
-<section class="process section-shell">
+<section class="home-process">
   <div class="container">
-    ${renderSectionHeader({ eyebrow: 'كيف نتعامل؟', title: 'خطوات قليلة وواضحة', description: 'لا متجر ولا خطوات شراء معقدة؛ استكشف ثم تواصل مباشرة.' })}
-    <ol class="process-list">
-      <li><span>01</span><div><h3>استكشف</h3><p>تعرّف على الفئات والخدمات المتاحة.</p></div></li>
-      <li><span>02</span><div><h3>تواصل</h3><p>أرسل تفاصيل ما تحتاجه عبر واتساب.</p></div></li>
-      <li><span>03</span><div><h3>تأكيد</h3><p>نراجع التوفر والتفاصيل والسعر الحالي.</p></div></li>
-      <li><span>04</span><div><h3>تنفيذ</h3><p>يتم تنفيذ الخدمة وفق التفاصيل المتفق عليها.</p></div></li>
+    <div class="process-heading">
+      <h2>كيف تتعامل معنا</h2>
+      <p>من الطلب حتى التنفيذ، بخطوات بسيطة وواضحة</p>
+    </div>
+    <ol class="process-timeline">
+      <li><span class="process-icon">${icon('search')}</span><div><small>01</small><h3>اختر الخدمة</h3><p>تصفح الخدمات واختر ما يناسبك.</p></div></li>
+      <li><span class="process-icon">${icon('whatsapp')}</span><div><small>02</small><h3>تواصل معنا</h3><p>عبر واتساب أو أي قناة متاحة.</p></div></li>
+      <li><span class="process-icon">${icon('card')}</span><div><small>03</small><h3>راجع طلبك</h3><p>نتأكد من التفاصيل ونوضح لك المعلومات.</p></div></li>
+      <li><span class="process-icon">${icon('check')}</span><div><small>04</small><h3>يتم التنفيذ</h3><p>ننّفذ طلبك وفق التفاصيل المتفق عليها.</p></div></li>
     </ol>
   </div>
 </section>
 
-<section class="custom-request section-shell">
-  <div class="container custom-request__inner">
-    <div class="custom-request__media">${renderResponsiveImage({ name: 'custom-request', alt: '', className: 'custom-request__image', variant: 'service' })}</div>
-    <div class="custom-request__copy">
-      <p class="eyebrow">خدمة حسب الطلب</p>
-      <h2>ما لقيت الخدمة التي تبحث عنها؟</h2>
-      <p>أرسل لنا اسم الخدمة أو الرابط والمنطقة والتفاصيل المطلوبة، وسنتحقق من إمكانية توفيرها قبل تأكيد السعر والتنفيذ.</p>
-      <a class="button button--primary" href="/services/custom-request/">اعرف كيف تطلبها ${icon('arrow')}</a>
+<section class="home-custom">
+  <div class="container home-custom__bar">
+    <div class="home-custom__visual" aria-hidden="true">
+      <img src="/assets/images/home/service-not-found.webp" class="home-custom__image" alt="" width="160" height="76" loading="lazy" decoding="async">
     </div>
+    <div class="home-custom__content">
+      <h2>ما لقيت خدمتك؟</h2>
+      <p>نوفر لك خدمة رقمية حسب الطلب. فقط تواصل معنا الآن.</p>
+    </div>
+    <a class="button button--whatsapp" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} تواصل عبر واتساب</a>
   </div>
 </section>
 
-<section class="faq-preview section-shell">
-  <div class="container faq-preview__grid">
-    ${renderSectionHeader({ eyebrow: 'الأسئلة الشائعة', title: 'إجابات سريعة قبل ما تتواصل', description: 'أهم النقاط التي تساعدك على فهم طريقة التعامل والخدمات.', align: 'start' })}
-    <div class="faq-list">
-      ${faqs.slice(0, 5).map((item, index) => `<details ${index === 0 ? 'open' : ''}><summary>${item.question}<span>+</span></summary><p>${item.answer}</p></details>`).join('')}
-      <a class="text-link" href="/faq/">كل الأسئلة الشائعة ${icon('arrow')}</a>
+<section class="home-closing">
+  <div class="container home-closing__bar">
+    <img src="/assets/images/home/cta-banner.webp" class="home-closing__image" alt="" width="818" height="82" loading="lazy" decoding="async" aria-hidden="true">
+    <div class="home-closing__content">
+      <h2>ابدأ رحلتك الرقمية الآن</h2>
+      <p>اكتشف عالمًا من الخدمات الرقمية الموثوقة مع UPDATE CARD.</p>
     </div>
+    <a class="button button--light" href="/services/">استكشف خدماتنا ${icon('arrow')}</a>
   </div>
 </section>
-
-<div class="container">${renderContactCTA()}</div>
 `;
