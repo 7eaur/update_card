@@ -60,5 +60,6 @@ jobs:
             echo 'No generated asset changes.'
           else
             git commit -m 'brand: generate production identity assets'
+            git pull --rebase origin brand/identity-v2
             git push origin HEAD:brand/identity-v2
           fi
