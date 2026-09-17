@@ -3,7 +3,7 @@ export const site = {
   brandNameAr: 'أبديت كارد',
   since: 2018,
   phoneDisplay: '770498884',
-  phoneHref: 'tel:770498884',
+  phoneHref: 'tel:+967770498884',
   whatsappHref: 'https://wa.me/967770498884',
   facebookHref: 'https://www.facebook.com/Update.Cards.770498884/',
   description:
