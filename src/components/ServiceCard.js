@@ -6,11 +6,7 @@ export const renderServiceCard = (service) => `
   <div class="service-card__visual">
     ${renderResponsiveImage({ name: service.image, alt: '', className: 'service-card__image', variant: 'service' })}
     <span class="service-card__veil" aria-hidden="true"></span>
-    <span class="service-card__icon" aria-hidden="true">${icon(service.icon)}</span>
-    <span class="service-card__kicker">${service.kicker}</span>
-    <div class="service-card__chips" aria-hidden="true">
-      ${service.examples.slice(0, 3).map((example) => `<span>${example}</span>`).join('')}
-    </div>
+    <span class="service-card__index" aria-hidden="true">${service.kicker}</span>
   </div>
   <div class="service-card__body">
     <div>
