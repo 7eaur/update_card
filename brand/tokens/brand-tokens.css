@@ -1,0 +1,10 @@
+:root {
+  --update-card-red: #a91535;
+  --update-card-blue: #173b8f;
+  --update-card-accent: #1f83b6;
+  --update-card-gradient-mid: #7b0b4b;
+  --update-card-ink: #303845;
+  --update-card-white: #fff;
+  --update-card-gradient: linear-gradient(135deg, #b21d35 0%, #7b0b4b 48%, #102b82 100%);
+  --update-card-logo-clear-space: 12.5%;
+}

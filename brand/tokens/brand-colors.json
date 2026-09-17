@@ -1,0 +1,14 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "color": {
+    "primary-red": { "value": "#A91535", "type": "color", "description": "UC mark / primary warm tone" },
+    "primary-blue": { "value": "#173B8F", "type": "color", "description": "UC mark / primary cool tone" },
+    "accent-blue": { "value": "#1F83B6", "type": "color", "description": "Update bars and wordmark rule" },
+    "gradient-mid": { "value": "#7B0B4B", "type": "color", "description": "Midpoint sampled from UC gradient" },
+    "ink": { "value": "#303845", "type": "color", "description": "Wordmark / dark monochrome" },
+    "white": { "value": "#FFFFFF", "type": "color", "description": "White monochrome" }
+  },
+  "gradient": {
+    "brand": { "value": "linear-gradient(135deg, #B21D35 0%, #7B0B4B 48%, #102B82 100%)", "type": "gradient" }
+  }
+}
