@@ -6,7 +6,7 @@ export const renderContactPage = () => `
 <section class="page-hero section-shell">
   <div class="container page-hero__grid">
     <div><p class="eyebrow">تواصل معنا</p><h1>نحن قريبون عندما تحتاج خدمة أو استفسار</h1><p>اختر وسيلة التواصل الأنسب لك. واتساب هو القناة الرئيسية للاستفسارات والطلبات.</p></div>
-    <div class="page-hero__visual">${renderResponsiveImage({ name: 'contact', alt: 'تصور بصري لقنوات التواصل مع أبديت كارد', className: 'page-hero__image', variant: 'page', loading: 'eager' })}</div>
+    <div class="page-hero__visual">${renderResponsiveImage({ name: 'about', alt: 'هوية أبديت كارد وقنوات التواصل الرسمية', className: 'page-hero__image', variant: 'page', loading: 'eager' })}</div>
   </div>
 </section>
 
