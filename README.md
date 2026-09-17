@@ -1,15 +1,11 @@
 # UPDATE CARD
 
-Static Arabic profile website for UPDATE CARD.
+## Web design and engineering standard
 
-## Project purpose
+The repository uses a general, product-agnostic web quality standard covering UX/UI, accessibility, responsive design, clean frontend architecture, performance, image optimization, animation, SEO, security basics, testing, and release quality.
 
-The website is a fast, clear, mobile-first profile that presents UPDATE CARD services and guides the customer to WhatsApp. It is not an e-commerce platform at this stage.
+Official baseline:
 
-## Design source of truth
+- `docs/WEB_DESIGN_ENGINEERING_STANDARD.md`
 
-The official UX/UI and web design rules for this project are documented in:
-
-- `docs/UPDATE_CARD_WEB_EXPERIENCE_STANDARD.md`
-
-Any future UX, UI, frontend, accessibility, performance, or content decision should be checked against that standard before implementation.
+Product-specific ideas, services, content, conversion flows, and visual direction must be documented separately and must not be mixed into the general standard.
