@@ -2,7 +2,6 @@ import { site } from '../config/site.js';
 import { services } from '../data/services.js';
 import { icon } from '../components/icons.js';
 import { renderServiceCard } from '../components/ServiceCard.js';
-import { renderResponsiveImage } from '../components/ResponsiveImage.js';
 
 export const renderHomePage = () => `
 <section class="home-hero">
