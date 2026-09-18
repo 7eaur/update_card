@@ -47,6 +47,7 @@ jobs:
       - name: Capture visual QA screenshots
         run: |
           mkdir -p qa/mobile qa/desktop
+          python3 -m pip install --quiet pillow
           python3 -m http.server 4173 --directory dist >/tmp/update-card-server.log 2>&1 &
           SERVER_PID=$!
           trap 'kill $SERVER_PID' EXIT
@@ -74,6 +75,28 @@ jobs:
 
             "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars               --window-size=1440,5000               --screenshot="qa/desktop/${name}.png"               "http://127.0.0.1:4173/${path}"
           done
+
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageChops
+
+          def crop_trailing_canvas(path: Path):
+              image = Image.open(path).convert("RGB")
+              # CI uses an intentionally tall viewport to capture the whole page.
+              # Trim only the uniform trailing canvas below the document/footer.
+              background = Image.new("RGB", image.size, image.getpixel((0, image.height - 1)))
+              diff = ImageChops.difference(image, background)
+              bbox = diff.getbbox()
+              if not bbox:
+                  return
+              bottom = min(image.height, bbox[3] + 12)
+              if bottom < image.height - 40:
+                  image.crop((0, 0, image.width, bottom)).save(path)
+
+          for folder in (Path("qa/mobile"), Path("qa/desktop")):
+              for screenshot in folder.glob("*.png"):
+                  crop_trailing_canvas(screenshot)
+          PY
 
       - name: Upload visual QA artifact
         uses: actions/upload-artifact@v4
