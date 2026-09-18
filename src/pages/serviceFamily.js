@@ -1,5 +1,6 @@
 import { icon } from '../components/icons.js';
 import { services } from '../data/services.js';
+import { site } from '../config/site.js';
 import { renderContactCTA } from '../components/ContactCTA.js';
 import { renderResponsiveImage } from '../components/ResponsiveImage.js';
 
@@ -17,10 +18,10 @@ export const renderServiceFamilyPage = (service) => `
   <div class="container service-hero__grid">
     <div class="service-hero__content">
       <nav class="breadcrumb" aria-label="مسار الصفحة"><a href="/">الرئيسية</a><span>/</span><a href="/services/">الخدمات</a><span>/</span><span aria-current="page">${service.title}</span></nav>
-      <p class="eyebrow">${service.kicker}</p>
+      <p class="service-hero__label">${service.kicker}</p>
       <h1>${service.title}</h1>
-      <p>${service.intro}</p>
-      <a class="button button--primary" href="/contact/">استفسر عن الخدمة ${icon('arrow')}</a>
+      <p class="service-hero__intro">${service.intro}</p>
+      <a class="button button--whatsapp service-hero__cta" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} استفسر عبر واتساب</a>
     </div>
     <div class="service-hero__visual">${renderResponsiveImage({ name: service.image, alt: service.imageAlt, className: 'service-hero__image', variant: 'service', loading: 'eager' })}</div>
   </div>
