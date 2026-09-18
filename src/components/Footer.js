@@ -9,6 +9,9 @@ export const renderFooter = () => `
       <h2 id="footer-contact-title">تواصل معنا</h2>
       <a href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')}<span>تواصل عبر واتساب</span></a>
       <a href="${site.phoneHref}">${icon('phone')}<span>${site.phoneDisplay}</span></a>
+      <a href="${site.emailHref}">${icon('mail')}<span>${site.email}</span></a>
+      <span class="footer-contact__item">${icon('mapPin')}<span>${site.location}</span></span>
+      <a href="${site.siteUrl}" target="_blank" rel="noopener noreferrer">${icon('globe')}<span>${site.domainDisplay}</span></a>
       <a href="${site.facebookHref}" target="_blank" rel="noopener noreferrer">${icon('facebook')}<span>تابعنا على فيسبوك</span></a>
     </section>
 
@@ -31,7 +34,7 @@ export const renderFooter = () => `
   <div class="footer-bottom">
     <div class="container footer-bottom__inner">
       <p>جميع الحقوق محفوظة © <span data-current-year></span> UPDATE CARD</p>
-      <p>معًا نحو عالم رقمي أفضل</p>
+      <p class="footer-credit">تم التطوير بواسطة <a href="${site.developerUrl}" target="_blank" rel="noopener noreferrer">${site.developerNameAr}</a></p>
     </div>
   </div>
 </footer>`;
