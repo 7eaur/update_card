@@ -23,9 +23,9 @@
 
 .site-footer{margin-top:22px;background:#fff;border-top:1px solid var(--line);color:var(--text)}
 .footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 18px;padding-block:30px}.footer-grid h2{font-size:.92rem;margin-bottom:9px;color:var(--text)}
-.footer-links{display:flex;flex-direction:column;gap:6px}.footer-links a,.footer-contact a{color:var(--text-soft);font-size:.8rem}.footer-contact{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.footer-contact h2{grid-column:1/-1;margin-bottom:2px}.footer-contact>a{display:flex;gap:6px;align-items:center;min-width:0}.footer-contact .icon{font-size:1.05rem;color:var(--uc-brand-blue)}
+.footer-links{display:flex;flex-direction:column;gap:6px}.footer-links a,.footer-contact a,.footer-contact__item{color:var(--text-soft);font-size:.8rem}.footer-contact{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.footer-contact h2{grid-column:1/-1;margin-bottom:2px}.footer-contact>a,.footer-contact__item{display:flex;gap:6px;align-items:center;min-width:0}.footer-contact .icon{font-size:1.05rem;color:var(--uc-brand-blue)}
 .footer-brand{grid-column:1/-1;text-align:start;order:-1}.footer-brand img{width:165px;margin-bottom:9px}.footer-brand p{max-width:340px;color:var(--text-soft);font-size:.82rem;line-height:1.7}
-.footer-bottom{background:var(--surface-soft);border-top:1px solid var(--line)}.footer-bottom__inner{padding-block:13px;display:flex;align-items:flex-start;flex-direction:column;gap:4px}.footer-bottom p{margin:0;color:#7b879c;font-size:.75rem}
+.footer-bottom{background:var(--surface-soft);border-top:1px solid var(--line)}.footer-bottom__inner{padding-block:13px;display:flex;align-items:flex-start;flex-direction:column;gap:4px}.footer-bottom p{margin:0;color:#7b879c;font-size:.75rem}.footer-credit a{color:var(--uc-brand-blue);font-weight:800;text-decoration:none}.footer-credit a:hover{text-decoration:underline}
 
 @media(min-width:681px){
   .header-shell{min-height:68px}.brand-link img{width:145px}.primary-nav{top:68px;inset-inline:16px}
