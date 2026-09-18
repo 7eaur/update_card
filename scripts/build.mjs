@@ -9,6 +9,7 @@ import { renderFaqPage } from '../src/pages/faq.js';
 import { renderContactPage } from '../src/pages/contact.js';
 import { renderServiceFamilyPage } from '../src/pages/serviceFamily.js';
 import { services } from '../src/data/services.js';
+import { site } from '../src/config/site.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = resolve(root, 'dist');
@@ -78,6 +79,16 @@ const notFound = renderLayout({
   content: '<section class="page-hero section-shell"><div class="container page-hero__grid"><div><p class="eyebrow">404</p><h1>الصفحة غير موجودة</h1><p>قد يكون الرابط تغير أو لم يعد متاحًا.</p><a class="button button--primary" href="/">العودة للرئيسية</a></div></div></section>',
 });
 await writeFile(resolve(dist, '404.html'), notFound);
-await writeFile(resolve(dist, 'robots.txt'), 'User-agent: *\nAllow: /\n');
+const sitemapEntries = pages
+  .map((page) => `  <url><loc>${new URL(page.path, site.siteUrl).toString()}</loc></url>`)
+  .join('\n');
+await writeFile(
+  resolve(dist, 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>\n`,
+);
+await writeFile(
+  resolve(dist, 'robots.txt'),
+  `User-agent: *\nAllow: /\nSitemap: ${site.siteUrl}/sitemap.xml\n`,
+);
 
 console.log(`Built ${pages.length + 1} static pages into dist/.`);

@@ -20,6 +20,14 @@ ${renderPageHero({
 </section>
 
 <section class="content-section">
+  <div class="container contact-meta">
+    <a class="contact-meta__item" href="${site.emailHref}">${icon('mail')}<div><span>البريد الإلكتروني</span><strong>${site.email}</strong></div></a>
+    <div class="contact-meta__item">${icon('mapPin')}<div><span>الموقع</span><strong>${site.location}</strong></div></div>
+    <a class="contact-meta__item" href="${site.siteUrl}" target="_blank" rel="noopener noreferrer">${icon('globe')}<div><span>الموقع الإلكتروني</span><strong>${site.domainDisplay}</strong></div></a>
+  </div>
+</section>
+
+<section class="content-section">
   <div class="container split-panel split-panel--accent">
     <div><p class="eyebrow">قبل أن تراسلنا</p><h2>كلما كان طلبك أوضح، كان الرد أسرع</h2><p>أرسل اسم الخدمة أو المنصة، الدولة أو المنطقة إن كانت مهمة، والرابط أو الخطة أو الكمية عند الحاجة.</p></div>
     <a class="button button--primary" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">ابدأ عبر واتساب ${icon('whatsapp')}</a>
