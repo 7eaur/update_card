@@ -64,6 +64,7 @@ jobs:
             "about|about/"
             "services|services/"
             "games|services/games/"
+            "gift-cards|services/gift-cards/"
             "faq|faq/"
             "contact|contact/"
           )

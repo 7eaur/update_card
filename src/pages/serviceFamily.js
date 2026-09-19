@@ -3,6 +3,8 @@ import { services } from '../data/services.js';
 import { site } from '../config/site.js';
 import { renderContactCTA } from '../components/ContactCTA.js';
 import { renderResponsiveImage } from '../components/ResponsiveImage.js';
+import { renderSubserviceCard } from '../components/SubserviceCard.js';
+import { getServiceCatalog } from '../data/serviceCatalog.js';
 
 const specialNotes = {
   'gift-cards': 'منطقة البطاقة يجب أن تتوافق مع منطقة الحساب أو المتجر المستخدم. يتم تأكيد المنطقة والفئة قبل التنفيذ.',
@@ -13,7 +15,11 @@ const specialNotes = {
   'custom-request': 'إرسال الطلب لا يعني ضمان توفره. يتم التحقق من إمكانية الخدمة والسعر قبل التنفيذ.',
 };
 
-export const renderServiceFamilyPage = (service) => `
+export const renderServiceFamilyPage = (service) => {
+  const catalog = getServiceCatalog(service.slug);
+  const hasRichCatalog = catalog.length > 0;
+
+  return `
 <section class="service-hero service-hero--${service.tone}">
   <div class="container service-hero__grid">
     <div class="service-hero__content">
@@ -27,12 +33,23 @@ export const renderServiceFamilyPage = (service) => `
   </div>
 </section>
 
+${hasRichCatalog ? `
+<section class="content-section">
+  <div class="container subservice-panel">
+    <div class="subservice-heading">
+      <p class="eyebrow">ماذا يشمل هذا المجال؟</p>
+      <h2>اختر البطاقة التي تناسبك</h2>
+      <p>تعرف على نوع كل بطاقة والمناطق المدعومة قبل التواصل لتأكيد القيمة والتوفر.</p>
+    </div>
+    <div class="subservice-grid">${catalog.map((item) => renderSubserviceCard(item, service.slug)).join('')}</div>
+  </div>
+</section>` : `
 <section class="content-section">
   <div class="container content-panel content-grid">
     <div><p class="eyebrow">ماذا يشمل هذا المجال؟</p><h2>أمثلة من الخدمات والمنصات</h2><p>القائمة التالية توضح نطاق الفئة الحالي، والتوفر الفعلي يُراجع عند الاستفسار.</p></div>
     <div class="example-grid">${service.examples.map((example) => `<span>${example}</span>`).join('')}</div>
   </div>
-</section>
+</section>`}
 
 <section class="content-section">
   <div class="container service-process">
@@ -52,3 +69,4 @@ ${specialNotes[service.slug] ? `<section class="notice-section content-section">
 </section>
 
 <div class="container">${renderContactCTA({ title: `عندك استفسار عن ${service.title}؟` })}</div>`;
+};
