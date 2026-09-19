@@ -209,8 +209,17 @@
   .subservice-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:stretch}
   .subservice-card{border-radius:12px}
   .subservice-card__body{padding:10px 9px 11px}
-  .subservice-card h3{min-height:2.55em;margin:0;font-size:.82rem;line-height:1.28}
-  .subservice-card p{display:none}
+  .subservice-card h3{min-height:2.55em;margin:0 0 5px;font-size:.82rem;line-height:1.28}
+  .subservice-card p{
+    display:-webkit-box;
+    min-height:2.9em;
+    margin:0;
+    color:#6d7890;
+    font-size:.62rem;
+    line-height:1.45;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+  }
 }
 @media(hover:hover) and (pointer:fine){
   .subservice-card:hover{
@@ -243,4 +252,5 @@
   .subservice-grid{gap:8px}
   .subservice-card__body{padding:9px 8px 10px}
   .subservice-card h3{font-size:.79rem;line-height:1.28}
+  .subservice-card p{font-size:.6rem;line-height:1.42}
 }
