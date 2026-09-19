@@ -10,8 +10,8 @@ export const serviceCatalog = {
     { slug: 'clash-royale', title: 'كلاش رويال', description: 'شحن وخدمات Clash Royale حسب الحساب والتوفر.', image: 'clash-royale', imageAlt: 'خدمات Clash Royale الرقمية' },
     { slug: 'brawl-stars', title: 'براول ستارز', description: 'شحن وخدمات Brawl Stars ضمن المناطق والحسابات المدعومة.', image: 'brawl-stars', imageAlt: 'خدمات Brawl Stars الرقمية' },
     { slug: 'clash-of-kings', title: 'تحدي الملوك', description: 'شحن وخدمات Clash of Kings حسب التوفر.', image: 'clash-of-kings', imageAlt: 'خدمات Clash of Kings الرقمية' },
-    { slug: 'zynga-poker', title: 'زنجا بوكر', description: 'خدمات وشحن Zynga Poker حسب الخيارات المتاحة.', image: 'zynga-poker', imageAlt: 'خدمات Zynga Poker الرقمية' },
-    { slug: 'jawaker', title: 'جواكر', description: 'شحن وخدمات جواكر حسب الحساب والخدمة المتاحة.', image: 'jawaker', imageAlt: 'خدمات جواكر الرقمية' },
+    { slug: 'zynga-poker', title: 'زنجا بوكر', description: 'خدمات وشحن Zynga Poker حسب الخيارات المتاحة.' },
+    { slug: 'jawaker', title: 'جواكر', description: 'شحن وخدمات جواكر حسب الحساب والخدمة المتاحة.' },
   ],
 
   'social-entertainment': [
