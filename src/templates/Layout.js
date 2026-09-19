@@ -42,18 +42,18 @@ export const renderLayout = ({ title, description, currentPath = '/', content, n
   <meta name="description" content="${metaDescription}">
   <meta name="robots" content="${noIndex ? 'noindex,follow' : 'index,follow'}">
   <link rel="canonical" href="${canonicalUrl}">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="website">\n  <meta property="og:site_name" content="${site.brandName}">
   <meta property="og:locale" content="ar_YE">
   <meta property="og:title" content="${pageTitle}">
   <meta property="og:description" content="${metaDescription}">
-  <meta property="og:url" content="${canonicalUrl}">
+  <meta property="og:url" content="${canonicalUrl}">\n  <meta name="twitter:card" content="summary">\n  <meta name="twitter:title" content="${pageTitle}">\n  <meta name="twitter:description" content="${metaDescription}">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/site.css">
   <script type="application/ld+json">${organization}</script>
   <script src="/assets/site.js" defer></script>
