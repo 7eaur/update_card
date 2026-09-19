@@ -49,12 +49,12 @@ export const serviceCatalog = {
   ],
 
   'software-licenses': [
-    { slug: 'windows-10', title: 'Windows 10', description: 'تراخيص وتفعيل Windows 10 حسب الإصدار ونوع الجهاز.' },
-    { slug: 'windows-11', title: 'Windows 11', description: 'تراخيص وتفعيل Windows 11 حسب الإصدار المطلوب.' },
-    { slug: 'microsoft-office', title: 'Microsoft Office', description: 'تراخيص Office حسب الإصدار والخطة المتاحة.' },
-    { slug: 'adobe', title: 'خدمات Adobe', description: 'تراخيص وخدمات Adobe للمنتجات المدعومة حسب التوفر.' },
-    { slug: 'kaspersky', title: 'Kaspersky', description: 'تراخيص حماية Kaspersky حسب المنتج ومدة الترخيص.' },
-    { slug: 'software-codes', title: 'أكواد البرامج والألعاب', description: 'أكواد وتفعيلات رقمية لبرامج وألعاب مدعومة حسب الطلب.' },
+    { slug: 'windows-10', title: 'Windows 10', description: 'تراخيص وتفعيل Windows 10 حسب الإصدار ونوع الجهاز.', image: 'windows-10', imageAlt: 'ترخيص وتفعيل Windows 10' },
+    { slug: 'windows-11', title: 'Windows 11', description: 'تراخيص وتفعيل Windows 11 حسب الإصدار المطلوب.', image: 'windows-11', imageAlt: 'ترخيص وتفعيل Windows 11' },
+    { slug: 'microsoft-office', title: 'Microsoft Office', description: 'تراخيص Office حسب الإصدار والخطة المتاحة.', image: 'microsoft-office', imageAlt: 'تراخيص Microsoft Office' },
+    { slug: 'adobe', title: 'خدمات Adobe', description: 'تراخيص وخدمات Adobe للمنتجات المدعومة حسب التوفر.', image: 'adobe', imageAlt: 'تراخيص وخدمات Adobe' },
+    { slug: 'kaspersky', title: 'Kaspersky', description: 'تراخيص حماية Kaspersky حسب المنتج ومدة الترخيص.', image: 'kaspersky', imageAlt: 'تراخيص حماية Kaspersky' },
+    { slug: 'software-codes', title: 'أكواد البرامج والألعاب', description: 'أكواد وتفعيلات رقمية لبرامج وألعاب مدعومة حسب الطلب.', image: 'activation-key', imageAlt: 'أكواد وتفعيلات البرامج والألعاب' },
   ],
 
   'digital-payments': [
