@@ -1,19 +1,22 @@
+import { site } from '../config/site.js';
+
 export const renderSubserviceCard = (item, serviceSlug) => {
   const hasDedicatedImage = Boolean(item.image);
   const imageSrc = hasDedicatedImage
     ? `/assets/media/subservices/${serviceSlug}/${item.image}.avif`
     : `/assets/media/services/${serviceSlug}.avif`;
   const imageAlt = item.imageAlt || `تصور بصري لخدمة ${item.title}`;
-  const width = hasDedicatedImage ? 480 : 640;
+  const width = hasDedicatedImage ? 512 : 640;
+  const height = hasDedicatedImage ? 512 : 360;
 
   return `
 <article class="subservice-card${hasDedicatedImage ? '' : ' subservice-card--fallback'}">
   <div class="subservice-card__visual">
     <img
       class="subservice-card__image"
-      src="${imageSrc}"
+      src="${imageSrc}?v=${site.assetVersion}"
       width="${width}"
-      height="360"
+      height="${height}"
       alt="${imageAlt}"
       loading="lazy"
       fetchpriority="low"
