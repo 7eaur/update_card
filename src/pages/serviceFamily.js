@@ -23,7 +23,7 @@ export const renderServiceFamilyPage = (service) => `
       <p class="service-hero__intro">${service.intro}</p>
       <a class="button button--whatsapp service-hero__cta" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} استفسر عبر واتساب</a>
     </div>
-    <div class="service-hero__visual">${renderResponsiveImage({ name: service.image, alt: service.imageAlt, className: 'service-hero__image', variant: 'service', loading: 'eager' })}</div>
+    <div class="service-hero__visual">${renderResponsiveImage({ name: service.image, alt: service.imageAlt, className: 'service-hero__image', variant: 'service', loading: 'eager', fetchPriority: 'high' })}</div>
   </div>
 </section>
 
