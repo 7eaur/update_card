@@ -129,22 +129,34 @@ docs/           content/design/implementation source documents
 Every Site CI run performs:
 
 1. static build
-2. route/local-asset validation
-3. representative mobile visual screenshots at 390 px
-4. representative desktop visual screenshots at 1440 px
-5. upload of the `visual-qa` screenshot artifact
-6. production asset-size reporting
+2. required-route and local-asset validation, including all eight service-family routes
+3. decode verification for every production subservice AVIF
+4. orphan/unreferenced subservice-media detection
+5. visual screenshots at 360 px and 390 px mobile widths
+6. visual screenshots at 1440 px desktop width
+7. visual coverage for Home, About, Services, all eight service-family pages, FAQ and Contact
+8. upload of the `visual-qa` screenshot artifact
+9. production performance budgets, including the 50 KB maximum per content image
 
-Representative visual routes:
+Current dedicated subservice-image coverage:
 
-- Home
-- About
-- Services
-- Games service detail
-- FAQ
-- Contact
+- Social & entertainment: 8/8
+- Gift cards: 7/7
+- Software & licenses: 6/6
+- Digital payments: 6/6
+- Custom request: 4/4
+- Games: 0/12 dedicated (category fallback active)
+- Subscriptions: 0/10 dedicated (category fallback active)
+- International shopping: 0/13 dedicated (category fallback active)
 
-The screenshot artifact is a visual-review aid; the build/check step remains the executable routing/asset gate.
+Total dedicated subservice AVIF assets currently referenced: 31.
+Remaining dedicated-image work: 35 images.
+
+Detailed live handoff and image-ingestion procedure:
+
+- `docs/PROJECT_HANDOFF_20260919.md`
+
+The screenshot artifact is a visual-review aid; build/check/image-integrity steps remain executable gates.
 
 ## SEO / discoverability status
 
