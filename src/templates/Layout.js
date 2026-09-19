@@ -1,6 +1,7 @@
 import { site } from '../config/site.js';
 import { renderHeader } from '../components/Header.js';
 import { renderFooter } from '../components/Footer.js';
+import { icon } from '../components/icons.js';
 
 export const renderLayout = ({ title, description, currentPath = '/', content, noIndex = false }) => {
   const pageTitle = title ? `${title} | ${site.brandNameAr}` : `${site.brandNameAr} | خدمات رقمية منذ ${site.since}`;
@@ -63,6 +64,9 @@ export const renderLayout = ({ title, description, currentPath = '/', content, n
   ${renderHeader(currentPath)}
   <main id="main-content">${content}</main>
   ${renderFooter()}
+  <button class="back-to-top" type="button" aria-label="العودة إلى أعلى الصفحة" title="العودة إلى الأعلى" data-back-to-top tabindex="-1" aria-hidden="true">
+    ${icon('arrowUp')}
+  </button>
 </body>
 </html>`;
 };
