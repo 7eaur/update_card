@@ -198,15 +198,12 @@
   -webkit-line-clamp:3;
 }
 @media(max-width:680px){
-  .subservice-grid .subservice-card:first-child{
-    grid-column:1/-1;
-    display:grid;
-    grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
-  }
-  .subservice-grid .subservice-card:first-child .subservice-card__visual{aspect-ratio:auto;min-height:128px}
-  .subservice-grid .subservice-card:first-child .subservice-card__body{justify-content:center;padding:12px}
-  .subservice-grid .subservice-card:first-child h3{font-size:.9rem}
-  .subservice-grid .subservice-card:first-child p{font-size:.68rem;-webkit-line-clamp:3}
+  .subservice-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:stretch}
+  .subservice-card{border-radius:11px}
+  .subservice-card__visual{aspect-ratio:4/3}
+  .subservice-card__body{padding:9px 8px 10px}
+  .subservice-card h3{min-height:2.7em;margin:0 0 4px;font-size:.76rem;line-height:1.35}
+  .subservice-card p{min-height:3.1em;font-size:.61rem;line-height:1.52;-webkit-line-clamp:2}
 }
 @media(hover:hover) and (pointer:fine){
   .subservice-card:hover{
