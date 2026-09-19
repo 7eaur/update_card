@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -23,8 +24,11 @@ await mkdir(resolve(dist, 'assets/images'), { recursive: true });
 const brandTokens = await readFile(resolve(root, 'brand/tokens/brand-tokens.css'), 'utf8');
 const cssFiles = ['tokens.css', 'base.css', 'layout.css', 'components.css', 'media.css'];
 const css = [brandTokens, ...(await Promise.all(cssFiles.map((file) => readFile(resolve(root, 'src/styles', file), 'utf8'))))].join('\n\n');
+const siteJs = await readFile(resolve(root, 'src/client/site.js'), 'utf8');
+const contentVersion = createHash('sha256').update(css).update('\n').update(siteJs).digest('hex').slice(0, 12);
+const assetVersion = (process.env.VERCEL_GIT_COMMIT_SHA || contentVersion).slice(0, 12);
 await writeFile(resolve(dist, 'assets/site.css'), css);
-await cp(resolve(root, 'src/client/site.js'), resolve(dist, 'assets/site.js'));
+await writeFile(resolve(dist, 'assets/site.js'), siteJs);
 await cp(resolve(root, 'src/assets/media'), resolve(dist, 'assets/media'), { recursive: true });
 await cp(resolve(root, 'src/assets/images'), resolve(dist, 'assets/images'), { recursive: true });
 
@@ -61,14 +65,14 @@ for (const service of services) {
     file: `services/${service.slug}/index.html`,
     title: service.title,
     description: `${service.title} ضمن خدمات أبديت كارد الرقمية. تعرف على أمثلة الخدمات والمنصات المدعومة حسب التوفر.`,
-    content: renderServiceFamilyPage(service),
+    content: renderServiceFamilyPage(service, { assetVersion }),
   });
 }
 
 for (const page of pages) {
   const output = resolve(dist, page.file);
   await mkdir(dirname(output), { recursive: true });
-  await writeFile(output, renderLayout({ title: page.title, description: page.description, currentPath: page.path, content: page.content }));
+  await writeFile(output, renderLayout({ title: page.title, description: page.description, currentPath: page.path, content: page.content, assetVersion }));
 }
 
 const notFound = renderLayout({
@@ -77,6 +81,7 @@ const notFound = renderLayout({
   currentPath: '/404/',
   noIndex: true,
   content: '<section class="page-hero section-shell"><div class="container page-hero__grid"><div><p class="eyebrow">404</p><h1>الصفحة غير موجودة</h1><p>قد يكون الرابط تغير أو لم يعد متاحًا.</p><a class="button button--primary" href="/">العودة للرئيسية</a></div></div></section>',
+  assetVersion,
 });
 await writeFile(resolve(dist, '404.html'), notFound);
 const sitemapEntries = pages

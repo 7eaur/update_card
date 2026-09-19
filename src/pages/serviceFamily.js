@@ -15,7 +15,7 @@ const specialNotes = {
   'custom-request': 'إرسال الطلب لا يعني ضمان توفره. يتم التحقق من إمكانية الخدمة والسعر قبل التنفيذ.',
 };
 
-export const renderServiceFamilyPage = (service) => {
+export const renderServiceFamilyPage = (service, { assetVersion = '' } = {}) => {
   const catalog = getServiceCatalog(service.slug);
   const hasRichCatalog = catalog.length > 0;
 
@@ -29,7 +29,7 @@ export const renderServiceFamilyPage = (service) => {
       <p class="service-hero__intro">${service.intro}</p>
       <a class="button button--whatsapp service-hero__cta" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} استفسر عبر واتساب</a>
     </div>
-    <div class="service-hero__visual">${renderResponsiveImage({ name: service.image, alt: service.imageAlt, className: 'service-hero__image', variant: 'service', loading: 'eager', fetchPriority: 'high' })}</div>
+    <div class="service-hero__visual">${renderResponsiveImage({ name: service.image, alt: service.imageAlt, className: 'service-hero__image', variant: 'service', loading: 'eager', fetchPriority: 'high', assetVersion })}</div>
   </div>
 </section>
 
@@ -41,7 +41,7 @@ ${hasRichCatalog ? `
       <h2>اختر الخدمة التي تناسبك</h2>
       <p>كل بطاقة توضح نوع الخدمة بشكل مختصر، ويمكنك التواصل معنا لتأكيد التوفر والتفاصيل.</p>
     </div>
-    <div class="subservice-grid">${catalog.map((item) => renderSubserviceCard(item, service.slug)).join('')}</div>
+    <div class="subservice-grid">${catalog.map((item) => renderSubserviceCard(item, service.slug, assetVersion)).join('')}</div>
   </div>
 </section>` : `
 <section class="content-section">
