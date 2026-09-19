@@ -24,8 +24,11 @@ document.querySelectorAll('[data-current-year]').forEach((node) => {
 });
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const network = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+const constrainedConnection =
+  Boolean(network?.saveData) || ['slow-2g', '2g'].includes(network?.effectiveType);
 
-if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+if (!prefersReducedMotion && !constrainedConnection && 'IntersectionObserver' in window) {
   const singleRevealSelectors = [
     '[data-reveal]',
     '.page-hero__grid',
