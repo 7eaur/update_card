@@ -145,12 +145,12 @@ Current dedicated subservice-image coverage:
 - Software & licenses: 6/6
 - Digital payments: 6/6
 - Custom request: 4/4
-- Games: 12/12 dedicated
+- Games: 10/12 dedicated (2 category fallbacks active)
 - Subscriptions: 10/10 dedicated
 - International shopping: 0/13 dedicated (category fallback active)
 
-Total dedicated subservice AVIF assets currently referenced: 53.
-Remaining dedicated-image work: 13 images.
+Total dedicated subservice AVIF assets currently referenced: 51.
+Remaining dedicated-image work: 15 images.
 
 Detailed live handoff and image-ingestion procedure:
 
