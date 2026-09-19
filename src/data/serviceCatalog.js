@@ -36,16 +36,16 @@ export const serviceCatalog = {
   ],
 
   subscriptions: [
-    { slug: 'netflix', title: 'نتفلكس', description: 'اشتراكات Netflix ضمن الخطط والخيارات المتاحة.' },
-    { slug: 'shahid-vip', title: 'شاهد VIP', description: 'اشتراكات شاهد VIP حسب الخطة ومدة الاشتراك المتاحة.' },
-    { slug: 'youtube-premium', title: 'يوتيوب بريميوم', description: 'اشتراك YouTube Premium حسب الخطة والمنطقة المتاحة.' },
-    { slug: 'youtube-music', title: 'يوتيوب ميوزك', description: 'اشتراك YouTube Music ضمن الخيارات المدعومة.' },
-    { slug: 'amazon-prime', title: 'أمازون برايم', description: 'اشتراك Amazon Prime حسب الخطة والمنطقة المتاحة.' },
-    { slug: 'anghami', title: 'أنغامي', description: 'اشتراكات أنغامي حسب الباقة والمدة المتاحة.' },
-    { slug: 'playstation-plus', title: 'بلايستيشن بلس', description: 'اشتراكات PlayStation Plus حسب المنطقة والخطة.' },
-    { slug: 'expressvpn', title: 'ExpressVPN', description: 'اشتراكات ExpressVPN حسب المدة والخطة المتاحة.' },
-    { slug: 'nordvpn', title: 'NordVPN', description: 'اشتراكات NordVPN ضمن الخطط المتاحة.' },
-    { slug: 'surfshark', title: 'Surfshark', description: 'اشتراكات Surfshark حسب المدة والخيار المتاح.' },
+    { slug: 'netflix', title: 'نتفلكس', description: 'اشتراكات Netflix ضمن الخطط والخيارات المتاحة.', image: 'netflix', imageAlt: 'اشتراكات Netflix الرقمية' },
+    { slug: 'shahid-vip', title: 'شاهد VIP', description: 'اشتراكات شاهد VIP حسب الخطة ومدة الاشتراك المتاحة.', image: 'shahid-vip', imageAlt: 'اشتراكات شاهد VIP الرقمية' },
+    { slug: 'youtube-premium', title: 'يوتيوب بريميوم', description: 'اشتراك YouTube Premium حسب الخطة والمنطقة المتاحة.', image: 'youtube-premium', imageAlt: 'اشتراكات YouTube Premium الرقمية' },
+    { slug: 'youtube-music', title: 'يوتيوب ميوزك', description: 'اشتراك YouTube Music ضمن الخيارات المدعومة.', image: 'youtube-music', imageAlt: 'اشتراكات YouTube Music الرقمية' },
+    { slug: 'amazon-prime', title: 'أمازون برايم', description: 'اشتراك Amazon Prime حسب الخطة والمنطقة المتاحة.', image: 'amazon-prime', imageAlt: 'اشتراكات Amazon Prime الرقمية' },
+    { slug: 'anghami', title: 'أنغامي', description: 'اشتراكات أنغامي حسب الباقة والمدة المتاحة.', image: 'anghami', imageAlt: 'اشتراكات أنغامي الرقمية' },
+    { slug: 'playstation-plus', title: 'بلايستيشن بلس', description: 'اشتراكات PlayStation Plus حسب المنطقة والخطة.', image: 'playstation-plus', imageAlt: 'اشتراكات PlayStation Plus الرقمية' },
+    { slug: 'expressvpn', title: 'ExpressVPN', description: 'اشتراكات ExpressVPN حسب المدة والخطة المتاحة.', image: 'expressvpn', imageAlt: 'اشتراكات ExpressVPN الرقمية' },
+    { slug: 'nordvpn', title: 'NordVPN', description: 'اشتراكات NordVPN ضمن الخطط المتاحة.', image: 'nordvpn', imageAlt: 'اشتراكات NordVPN الرقمية' },
+    { slug: 'surfshark', title: 'Surfshark', description: 'اشتراكات Surfshark حسب المدة والخيار المتاح.', image: 'surfshark', imageAlt: 'اشتراكات Surfshark الرقمية' },
   ],
 
   'software-licenses': [

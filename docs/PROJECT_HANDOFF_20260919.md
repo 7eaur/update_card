@@ -81,7 +81,7 @@ Dedicated card images use 480×360 intrinsic markup, 4:3 framing, native lazy lo
 
 ## Current dedicated subservice coverage
 
-Production currently contains **31 referenced dedicated subservice AVIF assets**.
+Production currently contains **41 referenced dedicated subservice AVIF assets**.
 
 Completed groups:
 
@@ -90,24 +90,20 @@ Completed groups:
 - Software & licenses: **6/6**
 - Digital payments: **6/6**
 - Custom request: **4/4**
+- Subscriptions: **10/10**
 
 Still missing dedicated images:
 
 - Games: **12**
-- Subscriptions: **10**
 - International shopping: **13**
 
-Total remaining dedicated images: **35**.
+Total remaining dedicated images: **25**.
 
-These 35 cards are **not broken**; they intentionally use the parent category fallback until dedicated images are supplied.
+These 25 cards are **not broken**; they intentionally use the parent category fallback until dedicated images are supplied.
 
 ### Games — missing slugs
 
 `pubg-mobile`, `pubg-new-state`, `free-fire`, `fc-mobile`, `efootball`, `call-of-duty`, `clash-of-clans`, `clash-royale`, `brawl-stars`, `clash-of-kings`, `zynga-poker`, `jawaker`.
-
-### Subscriptions — missing slugs
-
-`netflix`, `shahid-vip`, `youtube-premium`, `youtube-music`, `amazon-prime`, `anghami`, `playstation-plus`, `expressvpn`, `nordvpn`, `surfshark`.
 
 ### International shopping — missing slugs
 
@@ -125,6 +121,7 @@ Recently completed and connected:
 - Software/licenses: 6 AVIF.
 - Digital payments: 6 AVIF.
 - Custom request: 4 AVIF.
+- Subscriptions: 10 AVIF.
 
 The earlier broken-image problem was caused by catalog paths pointing to files that had not actually been committed. It is fixed on `main`.
 
@@ -187,10 +184,10 @@ A previous Vercel deployment was rate-limited. That was an external deployment q
 ## Next execution order
 
 1. Receive the next source-image batch.
-2. Prefer completing one missing family at a time: subscriptions, then games, then international-shopping (unless the user supplies another order).
+2. Prefer completing one missing family at a time: games, then international-shopping (unless the user supplies another order).
 3. Optimize, map, connect, test, visually review, and merge.
 4. Update this handoff/counts after each completed family.
-5. When all 35 dedicated images are complete, run all-route visual QA and verify production deployment.
+5. When all 25 remaining dedicated images are complete, run all-route visual QA and verify production deployment.
 
 ## Resume rule
 
