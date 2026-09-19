@@ -5,7 +5,7 @@ import { renderServiceCard } from '../components/ServiceCard.js';
 
 export const renderHomePage = () => `
 <section class="home-hero">
-  <div class="container home-hero__shell">
+  <div class="container home-hero__shell" data-reveal="hero">
     <div class="home-hero__copy">
       <p class="hero-kicker">UPDATE CARD · منذ ${site.since}</p>
       <h1>نقرّب لك عالم<br><span>الخدمات الرقمية</span></h1>
@@ -30,7 +30,7 @@ export const renderHomePage = () => `
 </section>
 
 <section class="home-about">
-  <div class="container home-about__card">
+  <div class="container home-about__card" data-reveal>
     <div class="home-about__content">
       <p class="section-kicker">من نحن</p>
       <h2>منذ عام <span>${site.since}</span></h2>
@@ -44,7 +44,7 @@ export const renderHomePage = () => `
 </section>
 
 <section class="home-services">
-  <div class="container home-services__panel">
+  <div class="container home-services__panel" data-reveal>
     <div class="home-services__head">
       <a class="section-link" href="/services/">كل الخدمات ${icon('arrow')}</a>
       <div>
@@ -52,12 +52,12 @@ export const renderHomePage = () => `
         <h2>استكشف خدماتنا</h2>
       </div>
     </div>
-    <div class="home-services__grid">${services.map(renderServiceCard).join('')}</div>
+    <div class="home-services__grid" data-reveal-group>${services.map(renderServiceCard).join('')}</div>
   </div>
 </section>
 
 <section class="home-audiences">
-  <div class="container audience-split">
+  <div class="container audience-split" data-reveal-group>
     <article class="audience-block audience-block--retail">
       <div class="audience-block__visual" aria-hidden="true">
         <img src="/assets/images/home/retail.avif" class="audience-block__image" width="560" height="374" alt="" loading="lazy" decoding="async">
@@ -89,7 +89,7 @@ export const renderHomePage = () => `
       <h2>كيف تتعامل معنا</h2>
       <p>من الطلب حتى التنفيذ، بخطوات بسيطة وواضحة</p>
     </div>
-    <ol class="process-timeline">
+    <ol class="process-timeline" data-reveal-group>
       <li><span class="process-icon">${icon('search')}</span><div><small>01</small><h3>اختر الخدمة</h3><p>تصفح الخدمات واختر ما يناسبك.</p></div></li>
       <li><span class="process-icon">${icon('whatsapp')}</span><div><small>02</small><h3>تواصل معنا</h3><p>عبر واتساب أو أي قناة متاحة.</p></div></li>
       <li><span class="process-icon">${icon('card')}</span><div><small>03</small><h3>راجع طلبك</h3><p>نتأكد من التفاصيل ونوضح لك المعلومات.</p></div></li>
@@ -99,7 +99,7 @@ export const renderHomePage = () => `
 </section>
 
 <section class="home-custom">
-  <div class="container home-custom__bar">
+  <div class="container home-custom__bar" data-reveal>
     <div class="home-custom__visual" aria-hidden="true">
       <img src="/assets/images/home/service-not-found.webp" class="home-custom__image" alt="" width="160" height="76" loading="lazy" decoding="async">
     </div>
@@ -112,7 +112,7 @@ export const renderHomePage = () => `
 </section>
 
 <section class="home-closing">
-  <div class="container home-closing__bar">
+  <div class="container home-closing__bar" data-reveal>
     <img src="/assets/images/home/cta-banner.webp" class="home-closing__image" alt="" width="818" height="82" loading="lazy" decoding="async" aria-hidden="true">
     <div class="home-closing__content">
       <h2>ابدأ رحلتك الرقمية الآن</h2>

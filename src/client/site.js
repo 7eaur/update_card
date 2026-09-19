@@ -22,3 +22,81 @@ if (menuButton && mobileMenu) {
 document.querySelectorAll('[data-current-year]').forEach((node) => {
   node.textContent = new Date().getFullYear();
 });
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const network = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+const constrainedConnection =
+  Boolean(network?.saveData) || ['slow-2g', '2g'].includes(network?.effectiveType);
+
+if (!prefersReducedMotion && !constrainedConnection && 'IntersectionObserver' in window) {
+  const singleRevealSelectors = [
+    '[data-reveal]',
+    '.page-hero__grid',
+    '.service-hero__grid',
+    '.content-section > .container',
+    '.contact-cta',
+    '.home-about__card',
+    '.home-services__panel',
+    '.home-custom__bar',
+    '.home-closing__bar',
+  ];
+
+  const groupSelectors = [
+    '[data-reveal-group]',
+    '.home-services__grid',
+    '.audience-split',
+    '.process-timeline',
+    '.services-directory',
+    '.about-facts',
+    '.about-principles__grid',
+    '.about-audiences',
+    '.about-official__grid',
+    '.contact-grid',
+    '.contact-meta',
+    '.faq-page-list',
+    '.example-grid',
+    '.service-process',
+    '.related-links',
+  ];
+
+  const singleItems = new Set();
+  singleRevealSelectors.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((item) => {
+      item.setAttribute('data-reveal', item.getAttribute('data-reveal') || 'section');
+      singleItems.add(item);
+    });
+  });
+
+  const groupItems = new Set();
+  groupSelectors.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((group) => {
+      [...group.children].forEach((item, index) => {
+        if (singleItems.has(item)) return;
+        item.setAttribute('data-reveal-item', '');
+        item.style.setProperty('--reveal-delay', `${Math.min(index, 5) * 50}ms`);
+        groupItems.add(item);
+      });
+    });
+  });
+
+  const revealItems = [...singleItems, ...groupItems];
+  if (revealItems.length) {
+    document.documentElement.classList.add('motion-ready');
+
+    const observer = new IntersectionObserver(
+      (entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-revealed');
+          currentObserver.unobserve(entry.target);
+        });
+      },
+      {
+        rootMargin: '0px 0px -8% 0px',
+        threshold: 0.08,
+      },
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+  }
+}

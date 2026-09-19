@@ -13,13 +13,13 @@ ${renderPageHero({
 })}
 
 <section class="services-section content-section">
-  <div class="container services-panel">
-    <div class="services-directory">${services.map(renderServiceCard).join('')}</div>
+  <div class="container services-panel" data-reveal>
+    <div class="services-directory" data-reveal-group>${services.map(renderServiceCard).join('')}</div>
   </div>
 </section>
 
 <section class="content-section">
-  <div class="container services-note">
+  <div class="container services-note" data-reveal>
     <div><p class="eyebrow">مهم</p><h2>القائمة للتعريف والاستكشاف، وليست متجرًا</h2></div>
     <p>التوفر والسعر وآلية التنفيذ قد تختلف حسب المنصة والمنطقة ونوع الطلب. عند اختيار المجال المناسب تواصل معنا لتأكيد التفاصيل الحالية.</p>
   </div>

@@ -18,6 +18,6 @@ export const renderPageHero = ({
       ${text ? `<p>${text}</p>` : ''}
       ${actionHref && actionLabel ? `<a class="button button--primary page-hero__action" href="${actionHref}">${actionLabel} ${icon('arrow')}</a>` : ''}
     </div>
-    ${imageSrc ? `<div class="page-hero__visual"><img class="page-hero__image" src="${imageSrc}" alt="${imageAlt}" width="640" height="360" loading="eager" decoding="async"></div>` : ''}
+    ${imageSrc ? `<div class="page-hero__visual"><img class="page-hero__image" src="${imageSrc}" alt="${imageAlt}" width="640" height="360" loading="eager" fetchpriority="high" decoding="async"></div>` : ''}
   </div>
 </section>`;
