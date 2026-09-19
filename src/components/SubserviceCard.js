@@ -16,7 +16,9 @@ export const renderSubserviceCard = (item, serviceSlug) => {
       height="360"
       alt="${imageAlt}"
       loading="lazy"
+      fetchpriority="low"
       decoding="async"
+      sizes="(max-width: 680px) 46vw, (max-width: 1000px) 31vw, 23vw"
     >
   </div>
   <div class="subservice-card__body">
