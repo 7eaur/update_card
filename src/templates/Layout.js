@@ -2,10 +2,11 @@ import { site } from '../config/site.js';
 import { renderHeader } from '../components/Header.js';
 import { renderFooter } from '../components/Footer.js';
 
-export const renderLayout = ({ title, description, currentPath = '/', content, noIndex = false }) => {
+export const renderLayout = ({ title, description, currentPath = '/', content, noIndex = false, assetVersion = '' }) => {
   const pageTitle = title ? `${title} | ${site.brandNameAr}` : `${site.brandNameAr} | خدمات رقمية منذ ${site.since}`;
   const metaDescription = description || site.description;
   const canonicalUrl = new URL(currentPath, site.siteUrl).toString();
+  const version = assetVersion ? `?v=${encodeURIComponent(assetVersion)}` : '';
   const organization = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -54,9 +55,9 @@ export const renderLayout = ({ title, description, currentPath = '/', content, n
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/site.css${version}">
   <script type="application/ld+json">${organization}</script>
-  <script src="/assets/site.js" defer></script>
+  <script src="/assets/site.js${version}" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">انتقل إلى المحتوى</a>
