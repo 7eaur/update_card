@@ -23,24 +23,62 @@ document.querySelectorAll('[data-current-year]').forEach((node) => {
   node.textContent = new Date().getFullYear();
 });
 
-
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const motionEnabledRoutes = new Set(['/', '/services/']);
-const currentMotionPath = window.location.pathname.endsWith('/')
-  ? window.location.pathname
-  : `${window.location.pathname}/`;
 
-if (!prefersReducedMotion && motionEnabledRoutes.has(currentMotionPath)) {
-  const revealItems = [...document.querySelectorAll('[data-reveal], [data-reveal-group] > *')];
+if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+  const singleRevealSelectors = [
+    '[data-reveal]',
+    '.page-hero__grid',
+    '.service-hero__grid',
+    '.content-section > .container',
+    '.contact-cta',
+    '.home-about__card',
+    '.home-services__panel',
+    '.home-custom__bar',
+    '.home-closing__bar',
+  ];
 
-  if (revealItems.length) {
-    document.documentElement.classList.add('motion-ready');
+  const groupSelectors = [
+    '[data-reveal-group]',
+    '.home-services__grid',
+    '.audience-split',
+    '.process-timeline',
+    '.services-directory',
+    '.about-facts',
+    '.about-principles__grid',
+    '.about-audiences',
+    '.about-official__grid',
+    '.contact-grid',
+    '.contact-meta',
+    '.faq-page-list',
+    '.example-grid',
+    '.service-process',
+    '.related-links',
+  ];
 
-    document.querySelectorAll('[data-reveal-group]').forEach((group) => {
+  const singleItems = new Set();
+  singleRevealSelectors.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((item) => {
+      item.setAttribute('data-reveal', item.getAttribute('data-reveal') || 'section');
+      singleItems.add(item);
+    });
+  });
+
+  const groupItems = new Set();
+  groupSelectors.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((group) => {
       [...group.children].forEach((item, index) => {
+        if (singleItems.has(item)) return;
+        item.setAttribute('data-reveal-item', '');
         item.style.setProperty('--reveal-delay', `${Math.min(index, 5) * 50}ms`);
+        groupItems.add(item);
       });
     });
+  });
+
+  const revealItems = [...singleItems, ...groupItems];
+  if (revealItems.length) {
+    document.documentElement.classList.add('motion-ready');
 
     const observer = new IntersectionObserver(
       (entries, currentObserver) => {
