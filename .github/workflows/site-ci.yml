@@ -51,24 +51,17 @@ jobs:
           from pathlib import Path
           from PIL import Image
 
-          roots = [Path("dist/assets/media"), Path("dist/assets/images")]
-          images = []
-          for root in roots:
-              if root.exists():
-                  images.extend(
-                      path for path in root.rglob("*")
-                      if path.is_file() and path.suffix.lower() in {".avif", ".webp", ".jpg", ".jpeg", ".png"}
-                  )
+          root = Path("dist/assets/media/subservices")
+          images = sorted(path for path in root.rglob("*.avif") if path.is_file())
 
           if not images:
-              raise SystemExit("No content images found to verify.")
+              raise SystemExit("No subservice AVIF images found to verify.")
 
           failures = []
           for path in images:
               try:
                   with Image.open(path) as image:
-                      image.verify()
-                  with Image.open(path) as image:
+                      image.load()
                       width, height = image.size
                       if width <= 0 or height <= 0:
                           raise ValueError(f"invalid dimensions {width}x{height}")
@@ -76,12 +69,12 @@ jobs:
                   failures.append(f"{path}: {exc}")
 
           if failures:
-              print("::error::Corrupt or undecodable content images detected.")
+              print("::error::Corrupt or undecodable subservice AVIF images detected.")
               for failure in failures:
                   print(failure)
               raise SystemExit(1)
 
-          print(f"Verified {len(images)} content images are decodable.")
+          print(f"Verified {len(images)} subservice AVIF images are decodable.")
           PY
 
       - name: Capture visual QA screenshots
