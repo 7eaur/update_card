@@ -1,3 +1,5 @@
+const runtimeAssetVersion = (process.env.VERCEL_GIT_COMMIT_SHA || process.env.GITHUB_SHA || 'local').slice(0, 12);
+
 export const site = {
   brandName: 'UPDATE CARD',
   brandNameAr: 'أبديت كارد',
@@ -13,6 +15,7 @@ export const site = {
   facebookHref: 'https://www.facebook.com/Update.Cards.770498884/',
   developerNameAr: 'وصل تك',
   developerUrl: 'https://www.wasl-tech.com',
+  assetVersion: runtimeAssetVersion,
   description:
     'أبديت كارد جهة متخصصة في الخدمات الرقمية وحلول الشحن والدفع والشراء الإلكتروني منذ عام 2018، وتخدم عملاء التجزئة والجملة عبر مجموعة واسعة من الخدمات والمنصات المدعومة.',
 };
