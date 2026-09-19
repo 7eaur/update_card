@@ -58,12 +58,12 @@ export const serviceCatalog = {
   ],
 
   'digital-payments': [
-    { slug: 'usdt', title: 'تيثر USDT', description: 'خدمات USDT عبر الشبكات والمحافظ المدعومة حسب التوفر.' },
-    { slug: 'paypal', title: 'PayPal', description: 'خدمات دفع وتحويل عبر PayPal حسب نوع العملية والتوفر.' },
-    { slug: 'binance', title: 'Binance', description: 'خدمات مرتبطة بمنصة Binance والمحافظ المدعومة حسب الطلب.' },
-    { slug: 'mexc', title: 'MEXC', description: 'خدمات مرتبطة بمنصة MEXC حسب نوع العملية والتوفر.' },
-    { slug: 'visa-mastercard', title: 'VISA / Mastercard', description: 'تنفيذ مدفوعات مباشرة بالبطاقات للمواقع والخدمات المدعومة.' },
-    { slug: 'website-payment', title: 'الدفع للمواقع', description: 'مساعدة في سداد قيمة خدمات ومشتريات من مواقع مدعومة.' },
+    { slug: 'usdt', title: 'تيثر USDT', description: 'خدمات USDT عبر الشبكات والمحافظ المدعومة حسب التوفر.', image: 'usdt', imageAlt: 'خدمات تيثر USDT الرقمية' },
+    { slug: 'paypal', title: 'PayPal', description: 'خدمات دفع وتحويل عبر PayPal حسب نوع العملية والتوفر.', image: 'paypal', imageAlt: 'خدمات PayPal الرقمية' },
+    { slug: 'binance', title: 'Binance', description: 'خدمات مرتبطة بمنصة Binance والمحافظ المدعومة حسب الطلب.', image: 'binance', imageAlt: 'خدمات Binance الرقمية' },
+    { slug: 'mexc', title: 'MEXC', description: 'خدمات مرتبطة بمنصة MEXC حسب نوع العملية والتوفر.', image: 'mexc', imageAlt: 'خدمات MEXC الرقمية' },
+    { slug: 'visa-mastercard', title: 'VISA / Mastercard', description: 'تنفيذ مدفوعات مباشرة بالبطاقات للمواقع والخدمات المدعومة.', image: 'visa', imageAlt: 'خدمات الدفع ببطاقات VISA وMastercard' },
+    { slug: 'website-payment', title: 'الدفع للمواقع', description: 'مساعدة في سداد قيمة خدمات ومشتريات من مواقع مدعومة.', image: 'payment-methods', imageAlt: 'وسائل دفع إلكترونية للمواقع والخدمات' },
   ],
 
   'international-shopping': [
