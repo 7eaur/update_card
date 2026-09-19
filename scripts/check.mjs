@@ -1,23 +1,43 @@
 import { access, readFile, readdir } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { join, relative, resolve, sep } from 'node:path';
 
 const dist = resolve(process.cwd(), 'dist');
+const serviceRoutes = [
+  'games',
+  'social-entertainment',
+  'gift-cards',
+  'subscriptions',
+  'software-licenses',
+  'digital-payments',
+  'international-shopping',
+  'custom-request',
+];
+
 const required = [
-  'index.html', 'about/index.html', 'services/index.html', 'faq/index.html', 'contact/index.html', '404.html',
-  'assets/site.css', 'assets/site.js', 'assets/brand/logo-horizontal-320.webp', 'assets/brand/logo-icon-512.webp',
+  'index.html',
+  'about/index.html',
+  'services/index.html',
+  ...serviceRoutes.map((slug) => `services/${slug}/index.html`),
+  'faq/index.html',
+  'contact/index.html',
+  '404.html',
+  'assets/site.css',
+  'assets/site.js',
+  'assets/brand/logo-horizontal-320.webp',
+  'assets/brand/logo-icon-512.webp',
 ];
 
 for (const file of required) await access(join(dist, file));
 
 const htmlFiles = [];
-async function walk(dir) {
+async function walkHtml(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     const path = join(dir, entry.name);
-    if (entry.isDirectory()) await walk(path);
+    if (entry.isDirectory()) await walkHtml(path);
     else if (entry.name.endsWith('.html')) htmlFiles.push(path);
   }
 }
-await walk(dist);
+await walkHtml(dist);
 
 const localRefs = new Set();
 for (const file of htmlFiles) {
@@ -34,8 +54,34 @@ for (const file of htmlFiles) {
 for (const ref of localRefs) {
   if (ref === '/') continue;
   const candidate = ref.endsWith('/') ? join(dist, ref, 'index.html') : join(dist, ref);
-  try { await access(candidate); }
-  catch { throw new Error(`Broken local reference: ${ref} -> ${candidate}`); }
+  try {
+    await access(candidate);
+  } catch {
+    throw new Error(`Broken local reference: ${ref} -> ${candidate}`);
+  }
 }
 
-console.log(`Checked ${htmlFiles.length} HTML pages and ${localRefs.size} local references.`);
+const subserviceRoot = join(dist, 'assets', 'media', 'subservices');
+const subserviceAssets = [];
+async function walkSubserviceAssets(dir) {
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) await walkSubserviceAssets(path);
+    else subserviceAssets.push(path);
+  }
+}
+await walkSubserviceAssets(subserviceRoot);
+
+const unusedSubserviceAssets = subserviceAssets
+  .map((file) => '/' + relative(dist, file).split(sep).join('/'))
+  .filter((ref) => !localRefs.has(ref));
+
+if (unusedSubserviceAssets.length) {
+  throw new Error(
+    `Unused subservice media found in production assets:\n${unusedSubserviceAssets.join('\n')}`
+  );
+}
+
+console.log(
+  `Checked ${htmlFiles.length} HTML pages, ${localRefs.size} local references, and ${subserviceAssets.length} referenced subservice assets.`
+);
