@@ -105,7 +105,33 @@ jobs:
           path: qa/
           if-no-files-found: warn
 
+      - name: Enforce performance budgets
+        run: |
+          CSS_BYTES=$(wc -c < dist/assets/site.css)
+          JS_BYTES=$(wc -c < dist/assets/site.js)
+          HTML_BYTES=$(wc -c < dist/index.html)
+          MEDIA_BYTES=$(find dist/assets/media dist/assets/images -type f -printf '%s\n' | awk '{s+=$1} END {print s+0}')
+          LARGEST_MEDIA=$(find dist/assets/media dist/assets/images -type f -printf '%s %p\n' | sort -nr | head -1)
+
+          echo "CSS: $CSS_BYTES bytes"
+          echo "JS: $JS_BYTES bytes"
+          echo "Home HTML: $HTML_BYTES bytes"
+          echo "Content media total: $MEDIA_BYTES bytes"
+          echo "Largest content media: $LARGEST_MEDIA"
+
+          test "$CSS_BYTES" -le 55000
+          test "$JS_BYTES" -le 12000
+          test "$HTML_BYTES" -le 40000
+          test "$MEDIA_BYTES" -le 350000
+
+          if find dist/assets/media dist/assets/images -type f -size +50000c | grep -q .; then
+            echo "::error::A content image exceeds the 50 KB performance budget."
+            find dist/assets/media dist/assets/images -type f -size +50000c -printf '%s %p\n'
+            exit 1
+          fi
+
       - name: Report production asset sizes
         run: |
           wc -c dist/assets/site.css dist/assets/site.js dist/index.html
+          du -sh dist
           find dist -type f | wc -l
