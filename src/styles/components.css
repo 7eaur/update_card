@@ -120,6 +120,28 @@
 
 
 /* Rich subservice cards */
+.subservice-panel{
+  padding:12px;
+  background:var(--surface-soft);
+  border:1px solid var(--line);
+  border-radius:14px;
+}
+.subservice-heading{
+  max-width:42rem;
+  margin-bottom:12px;
+}
+.subservice-heading h2{
+  margin:0 0 5px;
+  color:var(--uc-brand-blue);
+  font-size:clamp(1.55rem,7vw,2rem);
+  line-height:1.25;
+}
+.subservice-heading>p:last-child{
+  margin:0;
+  color:var(--text-soft);
+  font-size:.78rem;
+  line-height:1.7;
+}
 .subservice-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -175,6 +197,17 @@
   -webkit-box-orient:vertical;
   -webkit-line-clamp:3;
 }
+@media(max-width:680px){
+  .subservice-grid .subservice-card:first-child{
+    grid-column:1/-1;
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  }
+  .subservice-grid .subservice-card:first-child .subservice-card__visual{aspect-ratio:auto;min-height:128px}
+  .subservice-grid .subservice-card:first-child .subservice-card__body{justify-content:center;padding:12px}
+  .subservice-grid .subservice-card:first-child h3{font-size:.9rem}
+  .subservice-grid .subservice-card:first-child p{font-size:.68rem;-webkit-line-clamp:3}
+}
 @media(hover:hover) and (pointer:fine){
   .subservice-card:hover{
     transform:translateY(-2px);
@@ -184,12 +217,19 @@
   .subservice-card:hover .subservice-card__image{transform:scale(1.018)}
 }
 @media(min-width:681px){
+  .subservice-panel{padding:20px}
+  .subservice-heading{margin-bottom:18px}
+  .subservice-heading h2{font-size:2rem}
+  .subservice-heading>p:last-child{font-size:.88rem}
   .subservice-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
   .subservice-card__body{padding:12px 12px 14px}
   .subservice-card h3{font-size:.9rem}
   .subservice-card p{font-size:.72rem}
 }
 @media(min-width:1001px){
+  .subservice-panel{padding:26px}
+  .subservice-heading{margin-bottom:20px}
+  .subservice-heading h2{font-size:2.35rem}
   .subservice-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
   .subservice-card{border-radius:14px}
   .subservice-card h3{font-size:1rem}
