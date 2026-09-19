@@ -23,6 +23,26 @@ document.querySelectorAll('[data-current-year]').forEach((node) => {
   node.textContent = new Date().getFullYear();
 });
 
+const backToTopButton = document.querySelector('[data-back-to-top]');
+if (backToTopButton) {
+  const updateBackToTopVisibility = () => {
+    const isVisible = window.scrollY > 420;
+    backToTopButton.classList.toggle('is-visible', isVisible);
+    backToTopButton.setAttribute('aria-hidden', String(!isVisible));
+    backToTopButton.tabIndex = isVisible ? 0 : -1;
+  };
+
+  backToTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
+  });
+
+  window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
+  updateBackToTopVisibility();
+}
+
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const network = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 const constrainedConnection =
