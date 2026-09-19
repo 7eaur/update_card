@@ -38,8 +38,8 @@ ${hasRichCatalog ? `
   <div class="container subservice-panel">
     <div class="subservice-heading">
       <p class="eyebrow">ماذا يشمل هذا المجال؟</p>
-      <h2>اختر البطاقة التي تناسبك</h2>
-      <p>تعرف على نوع كل بطاقة والمناطق المدعومة قبل التواصل لتأكيد القيمة والتوفر.</p>
+      <h2>اختر الخدمة التي تناسبك</h2>
+      <p>كل بطاقة توضح نوع الخدمة بشكل مختصر، ويمكنك التواصل معنا لتأكيد التوفر والتفاصيل.</p>
     </div>
     <div class="subservice-grid">${catalog.map((item) => renderSubserviceCard(item, service.slug)).join('')}</div>
   </div>

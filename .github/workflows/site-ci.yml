@@ -65,6 +65,7 @@ jobs:
             "services|services/"
             "games|services/games/"
             "gift-cards|services/gift-cards/"
+            "social-entertainment|services/social-entertainment/"
             "faq|faq/"
             "contact|contact/"
           )
@@ -72,9 +73,9 @@ jobs:
           for entry in "${routes[@]}"; do
             name="${entry%%|*}"
             path="${entry#*|}"
-            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars               --window-size=390,6000               --screenshot="qa/mobile/${name}.png"               "http://127.0.0.1:4173/${path}"
+            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --virtual-time-budget=1500               --window-size=390,6000               --screenshot="qa/mobile/${name}.png"               "http://127.0.0.1:4173/${path}"
 
-            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars               --window-size=1440,5000               --screenshot="qa/desktop/${name}.png"               "http://127.0.0.1:4173/${path}"
+            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --virtual-time-budget=1500               --window-size=1440,5000               --screenshot="qa/desktop/${name}.png"               "http://127.0.0.1:4173/${path}"
           done
 
           python3 - <<'PY'
@@ -111,19 +112,22 @@ jobs:
           CSS_BYTES=$(wc -c < dist/assets/site.css)
           JS_BYTES=$(wc -c < dist/assets/site.js)
           HTML_BYTES=$(wc -c < dist/index.html)
-          MEDIA_BYTES=$(find dist/assets/media dist/assets/images -type f -printf '%s\n' | awk '{s+=$1} END {print s+0}')
+          CORE_MEDIA_BYTES=$(find dist/assets/media dist/assets/images -type f ! -path '*/subservices/*' -printf '%s\n' | awk '{s+=$1} END {print s+0}')
+          SUBSERVICE_MEDIA_BYTES=$(find dist/assets/media/subservices -type f -printf '%s\n' | awk '{s+=$1} END {print s+0}')
           LARGEST_MEDIA=$(find dist/assets/media dist/assets/images -type f -printf '%s %p\n' | sort -nr | head -1)
 
           echo "CSS: $CSS_BYTES bytes"
           echo "JS: $JS_BYTES bytes"
           echo "Home HTML: $HTML_BYTES bytes"
-          echo "Content media total: $MEDIA_BYTES bytes"
+          echo "Core media total: $CORE_MEDIA_BYTES bytes"
+          echo "Lazy subservice media total: $SUBSERVICE_MEDIA_BYTES bytes"
           echo "Largest content media: $LARGEST_MEDIA"
 
           test "$CSS_BYTES" -le 55000
           test "$JS_BYTES" -le 12000
           test "$HTML_BYTES" -le 40000
-          test "$MEDIA_BYTES" -le 350000
+          test "$CORE_MEDIA_BYTES" -le 300000
+          test "$SUBSERVICE_MEDIA_BYTES" -le 600000
 
           if find dist/assets/media dist/assets/images -type f -size +50000c | grep -q .; then
             echo "::error::A content image exceeds the 50 KB performance budget."
