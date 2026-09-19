@@ -73,9 +73,9 @@ jobs:
           for entry in "${routes[@]}"; do
             name="${entry%%|*}"
             path="${entry#*|}"
-            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars               --window-size=390,6000               --screenshot="qa/mobile/${name}.png"               "http://127.0.0.1:4173/${path}"
+            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce               --window-size=390,6000               --screenshot="qa/mobile/${name}.png"               "http://127.0.0.1:4173/${path}"
 
-            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars               --window-size=1440,5000               --screenshot="qa/desktop/${name}.png"               "http://127.0.0.1:4173/${path}"
+            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce               --window-size=1440,5000               --screenshot="qa/desktop/${name}.png"               "http://127.0.0.1:4173/${path}"
           done
 
           python3 - <<'PY'
