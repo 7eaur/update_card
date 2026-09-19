@@ -44,10 +44,42 @@ jobs:
       - name: Verify routes and local references
         run: npm run check
 
+      - name: Verify image integrity
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+
+          root = Path("dist/assets/media/subservices")
+          images = sorted(path for path in root.rglob("*.avif") if path.is_file())
+
+          if not images:
+              raise SystemExit("No subservice AVIF images found to verify.")
+
+          failures = []
+          for path in images:
+              try:
+                  with Image.open(path) as image:
+                      image.load()
+                      width, height = image.size
+                      if width <= 0 or height <= 0:
+                          raise ValueError(f"invalid dimensions {width}x{height}")
+              except Exception as exc:
+                  failures.append(f"{path}: {exc}")
+
+          if failures:
+              print("::error::Corrupt or undecodable subservice AVIF images detected.")
+              for failure in failures:
+                  print(failure)
+              raise SystemExit(1)
+
+          print(f"Verified {len(images)} subservice AVIF images are decodable.")
+          PY
+
       - name: Capture visual QA screenshots
         run: |
-          mkdir -p qa/mobile qa/desktop
-          python3 -m pip install --quiet pillow
+          mkdir -p qa/mobile-360 qa/mobile-390 qa/desktop
           python3 -m http.server 4173 --directory dist >/tmp/update-card-server.log 2>&1 &
           SERVER_PID=$!
           trap 'kill $SERVER_PID' EXIT
@@ -66,6 +98,11 @@ jobs:
             "games|services/games/"
             "gift-cards|services/gift-cards/"
             "social-entertainment|services/social-entertainment/"
+            "subscriptions|services/subscriptions/"
+            "software-licenses|services/software-licenses/"
+            "digital-payments|services/digital-payments/"
+            "international-shopping|services/international-shopping/"
+            "custom-request|services/custom-request/"
             "faq|faq/"
             "contact|contact/"
           )
@@ -73,7 +110,10 @@ jobs:
           for entry in "${routes[@]}"; do
             name="${entry%%|*}"
             path="${entry#*|}"
-            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --virtual-time-budget=1500               --window-size=390,6000               --screenshot="qa/mobile/${name}.png"               "http://127.0.0.1:4173/${path}"
+
+            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --virtual-time-budget=1500               --window-size=360,6000               --screenshot="qa/mobile-360/${name}.png"               "http://127.0.0.1:4173/${path}"
+
+            "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --virtual-time-budget=1500               --window-size=390,6000               --screenshot="qa/mobile-390/${name}.png"               "http://127.0.0.1:4173/${path}"
 
             "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --virtual-time-budget=1500               --window-size=1440,5000               --screenshot="qa/desktop/${name}.png"               "http://127.0.0.1:4173/${path}"
           done
@@ -84,8 +124,6 @@ jobs:
 
           def crop_trailing_canvas(path: Path):
               image = Image.open(path).convert("RGB")
-              # CI uses an intentionally tall viewport to capture the whole page.
-              # Trim only the uniform trailing canvas below the document/footer.
               background = Image.new("RGB", image.size, image.getpixel((0, image.height - 1)))
               diff = ImageChops.difference(image, background)
               bbox = diff.getbbox()
@@ -95,7 +133,7 @@ jobs:
               if bottom < image.height - 40:
                   image.crop((0, 0, image.width, bottom)).save(path)
 
-          for folder in (Path("qa/mobile"), Path("qa/desktop")):
+          for folder in (Path("qa/mobile-360"), Path("qa/mobile-390"), Path("qa/desktop")):
               for screenshot in folder.glob("*.png"):
                   crop_trailing_canvas(screenshot)
           PY
