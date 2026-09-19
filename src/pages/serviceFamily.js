@@ -33,14 +33,23 @@ export const renderServiceFamilyPage = (service) => {
   </div>
 </section>
 
+${hasRichCatalog ? `
+<section class="content-section">
+  <div class="container subservice-panel">
+    <div class="subservice-heading">
+      <p class="eyebrow">ماذا يشمل هذا المجال؟</p>
+      <h2>اختر البطاقة التي تناسبك</h2>
+      <p>تعرف على نوع كل بطاقة والمناطق المدعومة قبل التواصل لتأكيد القيمة والتوفر.</p>
+    </div>
+    <div class="subservice-grid">${catalog.map((item) => renderSubserviceCard(item, service.slug)).join('')}</div>
+  </div>
+</section>` : `
 <section class="content-section">
   <div class="container content-panel content-grid">
-    <div><p class="eyebrow">ماذا يشمل هذا المجال؟</p><h2>${hasRichCatalog ? 'اختر البطاقة التي تناسبك' : 'أمثلة من الخدمات والمنصات'}</h2><p>${hasRichCatalog ? 'تعرف على نوع كل بطاقة والمناطق المدعومة قبل التواصل لتأكيد القيمة والتوفر.' : 'القائمة التالية توضح نطاق الفئة الحالي، والتوفر الفعلي يُراجع عند الاستفسار.'}</p></div>
-    ${hasRichCatalog
-      ? `<div class="subservice-grid">${catalog.map((item) => renderSubserviceCard(item, service.slug)).join('')}</div>`
-      : `<div class="example-grid">${service.examples.map((example) => `<span>${example}</span>`).join('')}</div>`}
+    <div><p class="eyebrow">ماذا يشمل هذا المجال؟</p><h2>أمثلة من الخدمات والمنصات</h2><p>القائمة التالية توضح نطاق الفئة الحالي، والتوفر الفعلي يُراجع عند الاستفسار.</p></div>
+    <div class="example-grid">${service.examples.map((example) => `<span>${example}</span>`).join('')}</div>
   </div>
-</section>
+</section>`}
 
 <section class="content-section">
   <div class="container service-process">
