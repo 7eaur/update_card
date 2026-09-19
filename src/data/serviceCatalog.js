@@ -49,21 +49,22 @@ export const serviceCatalog = {
   ],
 
   'software-licenses': [
-    { slug: 'windows-10', title: 'Windows 10', description: 'تراخيص وتفعيل Windows 10 حسب الإصدار ونوع الجهاز.' },
-    { slug: 'windows-11', title: 'Windows 11', description: 'تراخيص وتفعيل Windows 11 حسب الإصدار المطلوب.' },
-    { slug: 'microsoft-office', title: 'Microsoft Office', description: 'تراخيص Office حسب الإصدار والخطة المتاحة.' },
-    { slug: 'adobe', title: 'خدمات Adobe', description: 'تراخيص وخدمات Adobe للمنتجات المدعومة حسب التوفر.' },
-    { slug: 'kaspersky', title: 'Kaspersky', description: 'تراخيص حماية Kaspersky حسب المنتج ومدة الترخيص.' },
-    { slug: 'software-codes', title: 'أكواد البرامج والألعاب', description: 'أكواد وتفعيلات رقمية لبرامج وألعاب مدعومة حسب الطلب.' },
+    { slug: 'windows-10', title: 'Windows 10', description: 'تراخيص وتفعيل Windows 10 حسب الإصدار ونوع الجهاز.', image: 'windows-10', imageAlt: 'ترخيص ويندوز 10' },
+    { slug: 'windows-11', title: 'Windows 11', description: 'تراخيص وتفعيل Windows 11 حسب الإصدار المطلوب.', image: 'windows-11', imageAlt: 'ترخيص ويندوز 11' },
+    { slug: 'microsoft-office', title: 'Microsoft Office', description: 'تراخيص Office حسب الإصدار والخطة المتاحة.', image: 'microsoft-office', imageAlt: 'تراخيص مايكروسوفت أوفيس' },
+    { slug: 'adobe', title: 'خدمات Adobe', description: 'تراخيص وخدمات Adobe للمنتجات المدعومة حسب التوفر.', image: 'adobe', imageAlt: 'تراخيص وخدمات أدوبي' },
+    { slug: 'kaspersky', title: 'Kaspersky', description: 'تراخيص حماية Kaspersky حسب المنتج ومدة الترخيص.', image: 'kaspersky', imageAlt: 'تراخيص كاسبرسكي' },
+    { slug: 'activation-key', title: 'أكواد البرامج والألعاب', description: 'أكواد وتفعيلات رقمية لبرامج وألعاب مدعومة حسب الطلب.', image: 'activation-key', imageAlt: 'أكواد تفعيل البرامج والألعاب' },
   ],
 
   'digital-payments': [
-    { slug: 'usdt', title: 'تيثر USDT', description: 'خدمات USDT عبر الشبكات والمحافظ المدعومة حسب التوفر.' },
-    { slug: 'paypal', title: 'PayPal', description: 'خدمات دفع وتحويل عبر PayPal حسب نوع العملية والتوفر.' },
-    { slug: 'binance', title: 'Binance', description: 'خدمات مرتبطة بمنصة Binance والمحافظ المدعومة حسب الطلب.' },
-    { slug: 'mexc', title: 'MEXC', description: 'خدمات مرتبطة بمنصة MEXC حسب نوع العملية والتوفر.' },
-    { slug: 'visa-mastercard', title: 'VISA / Mastercard', description: 'تنفيذ مدفوعات مباشرة بالبطاقات للمواقع والخدمات المدعومة.' },
-    { slug: 'website-payment', title: 'الدفع للمواقع', description: 'مساعدة في سداد قيمة خدمات ومشتريات من مواقع مدعومة.' },
+    { slug: 'usdt', title: 'تيثر USDT', description: 'خدمات USDT عبر الشبكات والمحافظ المدعومة حسب التوفر.', image: 'usdt', imageAlt: 'خدمات تيثر USDT' },
+    { slug: 'paypal', title: 'PayPal', description: 'خدمات دفع وتحويل عبر PayPal حسب نوع العملية والتوفر.', image: 'paypal', imageAlt: 'خدمات باي بال' },
+    { slug: 'binance', title: 'Binance', description: 'خدمات مرتبطة بمنصة Binance والمحافظ المدعومة حسب الطلب.', image: 'binance', imageAlt: 'خدمات باينانس' },
+    { slug: 'mexc', title: 'MEXC', description: 'خدمات مرتبطة بمنصة MEXC حسب نوع العملية والتوفر.', image: 'mexc', imageAlt: 'خدمات MEXC' },
+    { slug: 'visa', title: 'VISA', description: 'تنفيذ مدفوعات بالبطاقات للمواقع والخدمات المدعومة.', image: 'visa', imageAlt: 'خدمات فيزا' },
+    { slug: 'mastercard', title: 'Mastercard', description: 'تنفيذ مدفوعات Mastercard للمواقع والخدمات المدعومة.', image: 'mastercard', imageAlt: 'خدمات ماستركارد' },
+    { slug: 'payment-methods', title: 'وسائل دفع أخرى', description: 'خيارات دفع رقمية إضافية حسب الموقع والخدمة والتوفر.', image: 'payment-methods', imageAlt: 'وسائل دفع إلكترونية متنوعة' },
   ],
 
   'international-shopping': [
@@ -83,10 +84,12 @@ export const serviceCatalog = {
   ],
 
   'custom-request': [
-    { slug: 'unlisted-digital', title: 'خدمة رقمية غير مدرجة', description: 'أرسل اسم الخدمة أو رابطها لنراجع إمكانية توفيرها.' },
-    { slug: 'custom-subscription', title: 'اشتراك أو تفعيل خاص', description: 'طلبات اشتراك أو تفعيل غير موجودة ضمن القوائم الحالية.' },
-    { slug: 'custom-shopping', title: 'شراء من موقع آخر', description: 'أرسل رابط المنتج أو الموقع لنراجع الشراء والتوصيل.' },
-    { slug: 'custom-payment', title: 'طلب دفع خاص', description: 'طلبات سداد أو دفع لمواقع وخدمات غير مدرجة حاليًا.' },
+    { slug: 'service-request', title: 'خدمة رقمية غير مدرجة', description: 'أرسل اسم الخدمة أو رابطها لنراجع إمكانية توفيرها.', image: 'service-request', imageAlt: 'طلب خدمة رقمية مخصصة' },
+    { slug: 'wallet-topup', title: 'شحن المحافظ والأرصدة', description: 'شحن محافظ وأرصدة رقمية حسب الخدمة والتوفر.', image: 'wallet-topup', imageAlt: 'شحن المحافظ والأرصدة' },
+    { slug: 'ecommerce-orders', title: 'شراء من موقع آخر', description: 'أرسل رابط المنتج أو الموقع لنراجع الشراء والتوصيل.', image: 'ecommerce-orders', imageAlt: 'الشراء من المواقع والمتاجر' },
+    { slug: 'mixed-subscriptions', title: 'اشتراك أو تفعيل خاص', description: 'طلبات اشتراك أو تفعيل غير موجودة ضمن القوائم الحالية.', image: 'mixed-subscriptions', imageAlt: 'اشتراكات وتفعيلات رقمية' },
+    { slug: 'gift-card-bundle', title: 'بطاقات ومنتجات رقمية', description: 'طلبات بطاقات أو منتجات رقمية غير مدرجة ضمن الأقسام الحالية.', image: 'gift-card-bundle', imageAlt: 'بطاقات ومنتجات رقمية متنوعة' },
+    { slug: 'technical-setup', title: 'إعدادات وخدمات تقنية', description: 'طلبات إعداد أو تهيئة تقنية حسب احتياجك ونطاق الخدمة.', image: 'technical-setup', imageAlt: 'إعدادات وخدمات تقنية' },
   ],
 };
 
