@@ -45,6 +45,11 @@ for (const file of htmlFiles) {
   if (!html.includes('<html lang="ar" dir="rtl">')) throw new Error(`Missing Arabic RTL root: ${file}`);
   if (!html.includes('<main id="main-content">')) throw new Error(`Missing main landmark: ${file}`);
   if ((html.match(/<h1\b/g) || []).length !== 1) throw new Error(`Expected exactly one H1: ${file}`);
+  if (!html.includes('/assets/site.css?v=')) throw new Error(`Missing versioned stylesheet reference: ${file}`);
+  if (!html.includes('/assets/site.js?v=')) throw new Error(`Missing versioned script reference: ${file}`);
+  for (const match of html.matchAll(/src="(\/assets\/media\/subservices\/[^\"]+)"/g)) {
+    if (!match[1].includes('?v=')) throw new Error(`Unversioned subservice media reference: ${match[1]} in ${file}`);
+  }
   for (const match of html.matchAll(/(?:href|src)="(\/[^"]+)"/g)) {
     const ref = match[1].split('#')[0].split('?')[0];
     if (ref) localRefs.add(ref);
