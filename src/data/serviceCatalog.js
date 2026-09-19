@@ -83,10 +83,10 @@ export const serviceCatalog = {
   ],
 
   'custom-request': [
-    { slug: 'unlisted-digital', title: 'خدمة رقمية غير مدرجة', description: 'أرسل اسم الخدمة أو رابطها لنراجع إمكانية توفيرها.' },
-    { slug: 'custom-subscription', title: 'اشتراك أو تفعيل خاص', description: 'طلبات اشتراك أو تفعيل غير موجودة ضمن القوائم الحالية.' },
-    { slug: 'custom-shopping', title: 'شراء من موقع آخر', description: 'أرسل رابط المنتج أو الموقع لنراجع الشراء والتوصيل.' },
-    { slug: 'custom-payment', title: 'طلب دفع خاص', description: 'طلبات سداد أو دفع لمواقع وخدمات غير مدرجة حاليًا.' },
+    { slug: 'unlisted-digital', title: 'خدمة رقمية غير مدرجة', description: 'أرسل اسم الخدمة أو رابطها لنراجع إمكانية توفيرها.', image: 'service-request', imageAlt: 'طلب خدمة رقمية حسب الطلب' },
+    { slug: 'custom-subscription', title: 'اشتراك أو تفعيل خاص', description: 'طلبات اشتراك أو تفعيل غير موجودة ضمن القوائم الحالية.', image: 'mixed-subscriptions', imageAlt: 'اشتراكات وتفعيلات رقمية متنوعة' },
+    { slug: 'custom-shopping', title: 'شراء من موقع آخر', description: 'أرسل رابط المنتج أو الموقع لنراجع الشراء والتوصيل.', image: 'ecommerce-orders', imageAlt: 'خدمة شراء من المواقع والمتاجر الإلكترونية' },
+    { slug: 'custom-payment', title: 'طلب دفع خاص', description: 'طلبات سداد أو دفع لمواقع وخدمات غير مدرجة حاليًا.', image: 'wallet-topup', imageAlt: 'طلبات الدفع وشحن المحافظ الرقمية' },
   ],
 };
 
