@@ -9,7 +9,9 @@ export const renderResponsiveImage = ({
   className = '',
   variant = 'service',
   loading = 'lazy',
+  fetchPriority = 'auto',
 }) => {
   const asset = visualVariants[variant] ?? visualVariants.service;
-  return `<img class="${className}" src="/assets/media/${asset.folder}/${name}.${asset.ext}" width="${asset.width}" height="${asset.height}" alt="${alt}" loading="${loading}" decoding="async">`;
+  const priority = fetchPriority !== 'auto' ? ` fetchpriority="${fetchPriority}"` : '';
+  return `<img class="${className}" src="/assets/media/${asset.folder}/${name}.${asset.ext}" width="${asset.width}" height="${asset.height}" alt="${alt}" loading="${loading}"${priority} decoding="async">`;
 };
