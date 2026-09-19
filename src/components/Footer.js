@@ -30,9 +30,8 @@ export const renderFooter = () => `
       <h2 id="footer-brand-title" class="sr-only">${site.brandNameAr}</h2>
       <p>أكثر من مجرد خدمات رقمية. نقدم لك حلولاً رقمية موثوقة منذ عام ${site.since} لتكون دائمًا أقرب إلى احتياجاتك.</p>
     </section>
-  </div>
-  <div class="footer-bottom">
-    <div class="container footer-bottom__inner">
+
+    <div class="footer-meta">
       <p>جميع الحقوق محفوظة © <span data-current-year></span> UPDATE CARD</p>
       <p class="footer-credit">تم التطوير بواسطة <a href="${site.developerUrl}" target="_blank" rel="noopener noreferrer">${site.developerNameAr}</a></p>
     </div>
