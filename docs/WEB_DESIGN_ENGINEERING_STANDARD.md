@@ -1,4 +1,6 @@
-# Web Design & Engineering Standard v1.1
+# Web Design & Engineering Standard
+
+> **Scope:** General long-lived engineering/design baseline. Project-specific live status, deployment, service/image rules, and release workflow are authoritative in `docs/PROJECT_SOURCE_OF_TRUTH.md`. v1.1
 
 **Status:** APPROVED BASELINE  
 **Scope:** UX, UI, information architecture, responsive design, accessibility, frontend architecture, code quality, performance, media optimization, animation, SEO, security basics, testing, and release quality.  
