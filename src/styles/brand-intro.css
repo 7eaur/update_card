@@ -1,0 +1,82 @@
+/* UPDATE CARD first-session logo intro
+ * Signature Reveal #01 approved 2026-10-09.
+ * Original branded raster, not an invented vector/path redraw.
+ * Pure CSS; no dependency, layout shift or blocking pointer events.
+ */
+.brand-intro{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:9998;
+  padding:20px;
+  background:#fff;
+  pointer-events:none;
+  place-items:center;
+  opacity:1;
+}
+.brand-intro-active .brand-intro{
+  display:grid;
+  animation:uc-intro-out .28s ease 1.30s both;
+}
+.brand-intro__mark{
+  position:relative;
+  width:min(78vw,390px);
+  aspect-ratio:320/137;
+  contain:layout paint;
+}
+.brand-intro__layer{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  opacity:0;
+}
+.brand-intro-active .brand-intro__layer--symbol{
+  animation:uc-intro-symbol .74s cubic-bezier(.22,.7,.2,1) both;
+}
+.brand-intro-active .brand-intro__layer--wordmark{
+  animation:uc-intro-wordmark .68s cubic-bezier(.22,.7,.2,1) .46s both;
+}
+.brand-intro-active .brand-intro__layer--finished{
+  animation:uc-intro-final .22s ease-out 1.10s both;
+}
+.brand-intro__line{
+  position:absolute;
+  bottom:-7px;
+  left:19%;
+  right:19%;
+  height:2px;
+  background:#950331;
+  opacity:0;
+  transform:scaleX(0);
+  transform-origin:right;
+}
+.brand-intro-active .brand-intro__line{
+  animation:uc-intro-line .8s cubic-bezier(.22,.7,.2,1) .36s both;
+}
+@keyframes uc-intro-symbol{
+  0%{opacity:1;clip-path:inset(0 0 0 100%)}
+  100%{opacity:1;clip-path:inset(0 0 0 51%)}
+}
+@keyframes uc-intro-wordmark{
+  0%{opacity:1;clip-path:inset(0 100% 0 0)}
+  100%{opacity:1;clip-path:inset(0 49% 0 0)}
+}
+@keyframes uc-intro-final{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes uc-intro-line{
+  0%{opacity:1;transform:scaleX(0)}
+  70%{opacity:1;transform:scaleX(1)}
+  100%{opacity:0;transform:scaleX(1)}
+}
+@keyframes uc-intro-out{
+  from{opacity:1;visibility:visible}
+  to{opacity:0;visibility:hidden}
+}
+@media(prefers-reduced-motion:reduce){
+  .brand-intro-active .brand-intro{display:none!important;animation:none!important}
+}

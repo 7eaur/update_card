@@ -120,3 +120,37 @@ if (!prefersReducedMotion && !constrainedConnection && 'IntersectionObserver' in
     revealItems.forEach((item) => observer.observe(item));
   }
 }
+
+/* Session-only brand splash. CSS independently hides it if the script is delayed. */
+const brandIntro = document.querySelector('[data-brand-intro]');
+if (brandIntro && document.documentElement.classList.contains('brand-intro-active')) {
+  const interactionEvents = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
+  let removed = false;
+  let fallback;
+  const stopIntro = () => {
+    if (removed) return;
+    removed = true;
+    window.clearTimeout(fallback);
+    brandIntro.removeEventListener('animationend', onIntroAnimationEnd);
+    interactionEvents.forEach((eventName) => {
+      window.removeEventListener(eventName, stopIntro, true);
+    });
+    document.documentElement.classList.remove('brand-intro-active');
+    brandIntro.remove();
+  };
+
+  const onIntroAnimationEnd = (event) => {
+    if (event.target === brandIntro && event.animationName === 'uc-intro-out') {
+      stopIntro();
+    }
+  };
+  // Child image animations bubble; only the outer exit animation completes the intro.
+  brandIntro.addEventListener('animationend', onIntroAnimationEnd);
+
+  interactionEvents.forEach((eventName) => {
+    window.addEventListener(eventName, stopIntro, { capture: true, passive: true });
+  });
+
+  // Never leave a covering layer in the DOM if animation events are interrupted.
+  fallback = window.setTimeout(stopIntro, 2000);
+}
