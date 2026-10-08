@@ -224,6 +224,13 @@ for (const page of pages) {
   }));
 }
 
+// Independent, noindex brand-motion preview. Not part of the public sitemap or global bundle.
+await mkdir(resolve(dist, 'logo-motion-preview'), { recursive: true });
+await cp(
+  resolve(root, 'prototypes/logo-motion-preview.html'),
+  resolve(dist, 'logo-motion-preview/index.html'),
+);
+
 const notFound = renderLayout({
   title: 'الصفحة غير موجودة',
   description: 'الصفحة التي تبحث عنها غير موجودة.',
