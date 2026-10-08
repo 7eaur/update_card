@@ -1,10 +1,11 @@
 import { icon } from '../components/icons.js';
 import { services } from '../data/services.js';
-import { site } from '../config/site.js';
+import { createWhatsappHref } from '../config/site.js';
 import { renderContactCTA } from '../components/ContactCTA.js';
 import { renderResponsiveImage } from '../components/ResponsiveImage.js';
 import { renderSubserviceCard } from '../components/SubserviceCard.js';
 import { getServiceCatalog } from '../data/serviceCatalog.js';
+import { getServiceInquiry } from '../data/serviceInquiries.js';
 
 const specialNotes = {
   'gift-cards': 'منطقة البطاقة يجب أن تتوافق مع منطقة الحساب أو المتجر المستخدم. يتم تأكيد المنطقة والفئة قبل التنفيذ.',
@@ -18,6 +19,9 @@ const specialNotes = {
 export const renderServiceFamilyPage = (service) => {
   const catalog = getServiceCatalog(service.slug);
   const hasRichCatalog = catalog.length > 0;
+  const inquiry = getServiceInquiry(service.slug);
+  const familyMessage = `مرحبًا، أريد الاستفسار عن خدمات «${service.title}». أرجو توضيح الخيارات والتوفر.`;
+  const otherServiceMessage = `مرحبًا، لم أجد طلبي ضمن «${service.title}». أريد التأكد من إمكانية توفيره، وهذه التفاصيل:`;
 
   return `
 <section class="service-hero service-hero--${service.tone}">
@@ -27,7 +31,7 @@ export const renderServiceFamilyPage = (service) => {
       <p class="service-hero__label">${service.kicker}</p>
       <h1>${service.title}</h1>
       <p class="service-hero__intro">${service.intro}</p>
-      <a class="button button--whatsapp service-hero__cta" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} استفسر عبر واتساب</a>
+      <a class="button button--whatsapp service-hero__cta" href="${createWhatsappHref(familyMessage)}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} استفسر عبر واتساب</a>
     </div>
     <div class="service-hero__visual">${renderResponsiveImage({ name: service.image, alt: service.imageAlt, className: 'service-hero__image', variant: 'service', loading: 'eager', fetchPriority: 'high' })}</div>
   </div>
@@ -39,9 +43,17 @@ ${hasRichCatalog ? `
     <div class="subservice-heading">
       <p class="eyebrow">ماذا يشمل هذا المجال؟</p>
       <h2>اختر الخدمة التي تناسبك</h2>
-      <p>كل بطاقة توضح نوع الخدمة بشكل مختصر، ويمكنك التواصل معنا لتأكيد التوفر والتفاصيل.</p>
+      <p>اختر الخدمة واضغط على بطاقتها للاستفسار عنها مباشرة عبر واتساب. التوفر والتفاصيل تُؤكد عند التواصل.</p>
     </div>
-    <div class="subservice-grid">${catalog.map((item) => renderSubserviceCard(item, service.slug)).join('')}</div>
+    <div class="subservice-grid">${catalog.map((item) => renderSubserviceCard(item, service.slug, service.title)).join('')}
+      <aside class="subservice-inquiry" aria-label="طلب خدمة أخرى ضمن ${service.title}">
+        <div class="subservice-inquiry__content">
+          <p class="eyebrow">لم تجد طلبك؟</p>
+          <h3>${inquiry.title}</h3>
+          <p>${inquiry.text}</p>
+        </div>
+        <a class="button button--whatsapp subservice-inquiry__button" href="${createWhatsappHref(otherServiceMessage)}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} ${inquiry.action}</a>
+      </aside></div>
   </div>
 </section>` : `
 <section class="content-section">
@@ -68,5 +80,5 @@ ${specialNotes[service.slug] ? `<section class="notice-section content-section">
   </div>
 </section>
 
-<div class="container">${renderContactCTA({ title: `عندك استفسار عن ${service.title}؟` })}</div>`;
+<div class="container">${renderContactCTA({ title: `عندك استفسار عن ${service.title}؟`, whatsappMessage: familyMessage })}</div>`;
 };
