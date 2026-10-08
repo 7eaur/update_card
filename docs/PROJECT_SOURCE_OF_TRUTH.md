@@ -1,0 +1,364 @@
+# UPDATE CARD — Project Source of Truth
+
+**Status:** ACTIVE / AUTHORITATIVE  
+**Last consolidated:** 2026-10-08  
+**Repository:** `7eaur/update_card`  
+**Production branch:** `main`  
+**Production domain:** https://updatecard.net  
+**WWW:** https://www.updatecard.net → 308 redirect to `https://updatecard.net`
+
+> هذا الملف هو المرجع التشغيلي الوحيد لحالة مشروع UPDATE CARD. عند تعارض أي ملاحظة قديمة أو فرع تاريخي أو PR قديم مع هذا الملف والكود الحي في `main`، تكون الأولوية للكود الحي في `main` ثم لهذا الملف.
+
+---
+
+## 1. تعريف المشروع
+
+UPDATE CARD موقع تعريفي متعدد الصفحات لخدمات رقمية. الموقع ليس متجر Checkout ولا يحتوي على سلة شراء أو دفع داخلي.
+
+الهدف الأساسي:
+- تعريف الزائر بالخدمات.
+- توجيه الزائر إلى الخدمة المناسبة.
+- تحويل التواصل إلى واتساب بصورة مباشرة وواضحة.
+- دعم التجزئة والجملة دون اختراع أسعار أو مزايا غير معتمدة.
+
+التقنية:
+- Node.js 24 build.
+- Static multi-page site.
+- لا Runtime framework.
+- HTML/CSS/JS خفيف.
+- Vercel للنشر.
+- `dist/` هو مخرج البناء.
+
+---
+
+## 2. مصادر الحقيقة في الكود
+
+بالترتيب:
+
+1. `main`
+2. `src/data/services.js`
+3. `src/data/serviceCatalog.js`
+4. `src/components/SubserviceCard.js`
+5. `src/components/ResponsiveImage.js`
+6. `src/config/site.js`
+7. CSS الفعلي داخل `src/styles/`
+8. `scripts/build.mjs`
+9. `scripts/check.mjs`
+10. `.github/workflows/site-ci.yml`
+11. هذا الملف
+12. `docs/WEB_DESIGN_ENGINEERING_STANDARD.md` كمعيار هندسي عام دائم
+
+لا يُعاد بناء قرار من وثيقة تاريخية إذا كان الكود الحي أحدث.
+
+---
+
+## 3. النشر والدومين
+
+الإنتاج يُنشر من `main` على مشروع Vercel الخاص بـ UPDATE CARD.
+
+الوضع المعتمد:
+- `updatecard.net`: الدومين الأساسي، verified ويخدم Production.
+- `www.updatecard.net`: verified ويحوّل 308 إلى `updatecard.net`.
+- الـcanonical داخل الصفحات هو `https://updatecard.net`.
+- sitemap / robots / Open Graph / Organization schema يجب أن تستخدم الدومين الأساسي نفسه.
+
+لا يُعتمد رابط `.vercel.app` كرابط العلامة الرسمي بعد ربط الدومين.
+
+---
+
+## 4. بنية المشروع
+
+```text
+src/
+  assets/
+    media/services/                 صور الأقسام الرئيسية
+    media/subservices/<service>/    صور الخدمات الفرعية المخصصة
+    images/home/                    صور الهوم والعناصر الداعمة
+  client/
+  components/
+  config/
+  data/
+  lib/
+  pages/
+  styles/
+  templates/
+
+scripts/
+brand/
+docs/
+.github/workflows/
+```
+
+---
+
+## 5. الصفحات المنشورة
+
+- `/`
+- `/about/`
+- `/services/`
+- `/services/games/`
+- `/services/social-entertainment/`
+- `/services/gift-cards/`
+- `/services/subscriptions/`
+- `/services/software-licenses/`
+- `/services/digital-payments/`
+- `/services/international-shopping/`
+- `/services/custom-request/`
+- `/faq/`
+- `/contact/`
+- `/404.html`
+
+---
+
+## 6. عائلات الخدمات وحالة الصور
+
+إجمالي الخدمات الفرعية الحالية: **66**.
+
+التغطية المخصصة الحالية:
+- الألعاب: **12/12**
+- الاجتماعي والترفيه: **8/8**
+- البطاقات الرقمية: **7/7**
+- الاشتراكات: **10/10**
+- البرامج والتراخيص: **6/6**
+- الدفع الإلكتروني: **6/6**
+- خدمة حسب الطلب: **4/4**
+- الشراء من المواقع العالمية: **0/13** حاليًا
+
+إجمالي الصور الفرعية المخصصة الحالية: **53**.
+
+### الشراء من المواقع العالمية — العناصر الحالية
+
+- `amazon-global` — أمازون
+- `ebay` — eBay
+- `best-buy` — Best Buy
+- `walmart-shopping` — Walmart
+- `samsung` — Samsung
+- `apple-store` — Apple
+- `razer-store` — Razer
+- `computer-stores` — متاجر الكمبيوتر
+- `shein` — SHEIN
+- `noon` — نون
+- `jarir` — مكتبة جرير
+- `samma3a` — سماعة
+- `gcc-stores` — متاجر العطور والإكسسوارات
+
+عدم وجود صورة مخصصة ليس Broken State؛ البطاقة تستخدم صورة القسم الرئيسية كـ fallback إلى أن تُعتمد صورة مخصصة.
+
+---
+
+## 7. عقد الصور — إلزامي
+
+### المسارات
+
+صور الأقسام:
+`src/assets/media/services/<service-slug>.avif`
+
+صور الخدمات الفرعية:
+`src/assets/media/subservices/<service-slug>/<image>.avif`
+
+الربط:
+`src/data/serviceCatalog.js`
+
+`SubserviceCard.js` يبني المسار من:
+`service slug + item.image`
+
+### قواعد الإدخال
+
+عند وصول صور جديدة:
+1. استقبل الدفعة كاملة.
+2. افحص كل صورة بصريًا.
+3. لا تعتمد على اسم الملف وحده.
+4. طابق الصورة مع عنصر موجود فعليًا في `serviceCatalog.js`.
+5. إذا لم تكن المطابقة مؤكدة: `UNMATCHED / NEEDS REVIEW`.
+6. لا تخترع خدمة أو slug.
+7. لا تغيّر الخدمات المكتملة دون سبب.
+
+### قواعد المعالجة
+
+- لا تستخدم AI enhancement أو إعادة رسم عندما يطلب صاحب المشروع استخدام الأصل.
+- استخدم الصورة الأصلية المرسلة.
+- مسموح بتقليل الأبعاد والضغط والتحويل إلى AVIF.
+- لا تقص شعارًا أو عنصرًا مهمًا.
+- لا ترفع PNG/JPEG ثقيلًا إلى Production دون حاجة.
+- الاسم النهائي يطابق slug أو اسمًا وصفيًا ثابتًا.
+- الصورة الإنتاجية الواحدة يجب ألا تتجاوز **50 KB**.
+- الجودة البصرية مقدمة على محاولة الوصول إلى رقم صغير تعسفي.
+- لا يوجد Budget إجمالي لكل صور المشروع لأن الصور الفرعية Lazy وتُستهلك بحسب صفحة العائلة؛ المراقبة تكون لكل صورة ولكل عائلة خدمة.
+- الحد التشغيلي لكل مجلد عائلة فرعية في CI: **600 KB**.
+
+### أبعاد وعرض البطاقات
+
+الصور المخصصة الحالية مربعة وتُعرض بعقد intrinsic تقريبي **512×512**.
+لا يُسمح بإعادة قاعدة 4:3 القديمة للخدمات الفرعية المخصصة دون قرار جديد.
+
+---
+
+## 8. قواعد بطاقات الهاتف
+
+هذه القواعد معتمدة ولا تُكسر:
+
+- **بطاقتان في الصف على الهاتف**.
+- لا تتحول البطاقات إلى عمود واحد تلقائيًا.
+- الصورة يجب أن تبقى واضحة وغير مشوهة.
+- لا تمدد الصورة بنسبة خاطئة.
+- عنوان البطاقة واضح ومختصر.
+- الوصف المختصر يظهر بشكل أنيق وهادف، بحد أقصى سطرين على الهاتف.
+- لا تُستخدم heights ثابتة تكسر المحتوى الحقيقي.
+- Visual QA إلزامي على 360px و390px.
+
+---
+
+## 9. الهيدر والفوتر والتنقل
+
+الوضع المعتمد:
+- زر واتساب في الهيدر Compact وليس زرًا ضخمًا.
+- القائمة Mobile responsive.
+- حقوق UPDATE CARD واسم المطور موجودان داخل الفوتر نفسه.
+- Credit المطور: **وصل تك**.
+- زر عائم للعودة للأعلى يظهر بعد التمرير.
+- زر العودة للأعلى يدعم `prefers-reduced-motion`.
+- بيانات التواصل تأتي من `src/config/site.js`.
+
+---
+
+## 10. قواعد المحتوى
+
+المسموح:
+- منذ 2018.
+- خدمات رقمية.
+- التجزئة والجملة.
+- حسب التوفر.
+- منصات ومواقع مدعومة.
+- وضوح وسرعة وموثوقية بصياغة غير مبالغ فيها.
+
+ممنوع نشر ادعاءات غير مثبتة مثل:
+- الأفضل.
+- الأولى.
+- الأسرع.
+- 100% آمن.
+- جميع المواقع.
+- جميع الألعاب.
+- أرقام عملاء أو تقييمات غير موثقة.
+
+لا توحي بأن UPDATE CARD شريك رسمي لعلامة تجارية خارجية إلا إذا كانت العلاقة موثقة فعلًا.
+
+---
+
+## 11. معيار التصميم والهندسة
+
+المعيار العام الدائم محفوظ في:
+`docs/WEB_DESIGN_ENGINEERING_STANDARD.md`
+
+القواعد غير القابلة للكسر للمشروع:
+- Mobile-first.
+- RTL عربي صحيح.
+- Semantic HTML.
+- One H1 per page.
+- لا Horizontal overflow.
+- لا نص مقصوص.
+- لا صور مكسورة.
+- لا أصول orphan في Production.
+- لا مسار image بدون ملف فعلي.
+- لا dependencies ثقيلة بلا مبرر.
+- JavaScript يبقى محدودًا.
+- Motion خفيف وهادف.
+- احترام reduced motion.
+- الأداء جزء من Definition of Done.
+- لا يتم اعتماد صفحة بناءً على Screenshot فقط.
+
+---
+
+## 12. QA وCI
+
+قبل الدمج:
+1. `npm run build`
+2. `npm run check`
+3. فحص جميع local references.
+4. فحص RTL وmain landmark وH1.
+5. Decode لكل AVIF الخاصة بالخدمات الفرعية.
+6. فحص orphan subservice assets.
+7. فحص أن كل صورة content ≤ 50 KB.
+8. فحص Budget لكل service-family directory ≤ 600 KB.
+9. Visual QA:
+   - 360px
+   - 390px
+   - 1440px
+10. مراجعة الصفحة المتأثرة بصريًا.
+11. إصلاح Root Cause لا workaround.
+12. لا Merge قبل نجاح exact-head CI.
+
+بعد الدمج:
+1. تحقق من CI على `main`.
+2. تحقق من Production.
+3. تحقق من `https://updatecard.net`.
+4. تحقق من الصفحة المتأثرة.
+5. تأكد أن `www` ما زال Redirect 308 إلى apex.
+
+---
+
+## 13. سياسة Git
+
+- `main` هو الفرع الرسمي الوحيد الدائم.
+- أي فرع عمل جديد يجب أن يكون قصير العمر ومخصصًا لمهمة واحدة.
+- لا يُستأنف العمل من فرع تاريخي قديم.
+- لا يُدمج PR قديم إذا تجاوزه `main`.
+- المسار الطبيعي:
+  `main → short-lived branch → PR → exact-head CI green → merge → verify main → close/delete branch`
+- PRs القديمة المغلقة هي سجل تاريخي فقط.
+- لا يُستخدم Force Push على `main`.
+- عند توفر صلاحية الإدارة، يفضل Branch Protection على `main` مع CI required.
+
+---
+
+## 14. الحالة الحالية وما بقي
+
+### مكتمل
+
+- الهيكل العام للموقع.
+- الصفحات الأساسية.
+- نظام الخدمات.
+- استجابة الهاتف والديسكتوب.
+- بطاقات الخدمات 2-per-row على الهاتف.
+- النص المختصر للبطاقات.
+- صور جميع الفئات ما عدا الشراء العالمي.
+- إصلاح جودة صور الألعاب.
+- Footer / developer credit.
+- WhatsApp header CTA.
+- Back-to-top.
+- Production على Vercel.
+- ربط `updatecard.net`.
+- Redirect `www` → apex.
+
+### المتبقي لاحقًا
+
+المهمة الوحيدة المتعمدة المفتوحة في المحتوى البصري:
+- إضافة الصور المخصصة لـ **13 عنصرًا** في `international-shopping`.
+
+عند تنفيذها:
+- لا تُرفع الصور دفعة واحدة بدون Inventory.
+- لا تُربط صورة بالتخمين.
+- بعد كل دفعة: Build + Check + CI + Visual QA.
+- بعد اكتمال 13/13: Full final visual QA لكل صفحات الخدمة.
+
+---
+
+## 15. Definition of Done النهائي
+
+يُعتبر المشروع مغلقًا كنسخة مستقرة عندما:
+- 66/66 من الخدمات في الحالة المعتمدة.
+- لا Broken paths.
+- لا orphan production assets.
+- كل الصور ضمن Budget.
+- 360/390/1440 سليمة.
+- exact-head CI أخضر.
+- `main` هو Source of Truth.
+- Production يطابق `main`.
+- `updatecard.net` يعمل عبر HTTPS.
+- `www` يحول 308 إلى apex.
+- التوثيق الحالي يطابق التنفيذ الفعلي.
+
+---
+
+## 16. ملاحظة التوحيد
+
+في 2026-10-08 تم توحيد توثيقات الحالة القديمة في هذا الملف لتقليل التعارض والازدواجية. تاريخ المشروع محفوظ في Git، لكن لا تُستخدم الوثائق التاريخية المحذوفة كمرجع تشغيلي بعد الآن.
