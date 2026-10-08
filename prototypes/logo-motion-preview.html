@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#071c4d">
+  <meta name="robots" content="noindex,nofollow">
+  <title>معاينة حركة شعار أبديت كارد | UPDATE CARD</title>
+  <meta name="description" content="معاينة تجريبية مستقلة لثلاث حركات خفيفة لشعار أبديت كارد الأصلي قبل اعتماد شاشة التحميل.">
+  <link rel="canonical" href="https://updatecard.net/logo-motion-preview/">
+  <meta property="og:image" content="https://updatecard.net/assets/social/update-card-share.png">
+  <meta name="twitter:image" content="https://updatecard.net/assets/social/update-card-share.png">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"UPDATE CARD logo motion prototype","inLanguage":"ar","url":"https://updatecard.net/logo-motion-preview/"}</script>
+  <style>
+    :root{--ink:#071c4d;--muted:#5e6d89;--accent:#950331;--blue:#031877;--border:#e1e6ee;--soft:#f6f8fc;--ease:cubic-bezier(.22,.7,.2,1)}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}body{margin:0;background:var(--soft);color:var(--ink);font:400 16px/1.8 Cairo,Tahoma,Arial,sans-serif}
+    button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+    .shell{width:min(1100px,calc(100% - 34px));margin-inline:auto}
+    .masthead{padding:22px 0;border-bottom:1px solid var(--border);background:white}
+    .masthead__inner{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+    .tiny-label{font-size:12px;letter-spacing:.13em;color:var(--muted);font-weight:800}
+    .masthead__brand{font-size:17px;direction:ltr;font-weight:800;letter-spacing:.06em}
+    .badge{font-size:12px;font-weight:700;color:#764424;background:#fff4e7;border:1px solid #f4ddbd;padding:5px 11px;border-radius:999px}
+    .intro{padding:clamp(42px,6vw,75px) 0 25px;text-align:center}
+    h1{font-size:clamp(29px,4vw,47px);margin:5px auto 12px;line-height:1.35}
+    .lead{color:var(--muted);font-size:clamp(14px,2vw,17px);max-width:630px;margin:0 auto}
+    .picks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:26px 0 38px}
+    .pick{background:white;border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 8px 25px rgba(7,28,77,.035)}
+    .pick--featured{border-color:#bdadca;box-shadow:0 11px 30px rgba(43,5,125,.08)}
+    .pick__top{display:flex;justify-content:space-between;align-items:center;gap:7px;padding:16px 18px;border-bottom:1px solid var(--border)}
+    .pick__ordinal{direction:ltr;letter-spacing:.1em;font-size:12px;color:var(--muted);font-weight:800}
+    .pick__recommend{font-size:11px;color:var(--blue);border:1px solid #c7d5ed;border-radius:999px;padding:2px 9px}
+    .stage{min-height:208px;display:grid;place-items:center;background:#fff;position:relative;padding:16px}
+    .stage--modal{min-height:0;padding:0}
+    .mark{width:min(100%,320px);aspect-ratio:320/137;position:relative;contain:layout paint}
+    .mark img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
+    .mark__a,.mark__b,.mark__final{opacity:0}
+    .mark__final{opacity:1}
+    .stage.is-playing .mark__final{opacity:0}
+    .stage[data-mode=trace].is-playing .mark__a{animation:trace-right .84s var(--ease) both}
+    .stage[data-mode=trace].is-playing .mark__b{animation:trace-left .77s var(--ease) .58s both}
+    .stage[data-mode=trace].is-playing .mark__final{animation:finish .23s ease-out 1.27s both}
+    .stage[data-mode=segments].is-playing .mark__a{animation:reveal-from-top .85s var(--ease) both}
+    .stage[data-mode=segments].is-playing .mark__b{animation:reveal-from-bottom .85s var(--ease) .19s both}
+    .stage[data-mode=segments].is-playing .mark__final{animation:finish .22s ease-out 1.17s both}
+    .stage[data-mode=calm].is-playing .mark__a{animation:open-center 1s var(--ease) both}
+    .stage[data-mode=calm].is-playing .mark__final{animation:finish .2s ease-out 1.02s both}
+    .mark__rule{position:absolute;inset:auto 19% -6px 19%;height:2px;background:var(--accent);transform-origin:right;opacity:0}
+    .stage[data-mode=trace].is-playing .mark__rule{animation:rule-draw .85s var(--ease) .43s both,rule-out .28s ease 1.32s forwards}
+    .stage[data-mode=segments].is-playing .mark__rule{animation:rule-draw .9s var(--ease) .2s both,rule-out .28s ease 1.25s forwards}
+    @keyframes trace-right{0%{clip-path:inset(0 0 0 100%);opacity:1}100%{clip-path:inset(0 0 0 51%);opacity:1}}
+    @keyframes trace-left{0%{clip-path:inset(0 100% 0 0);opacity:1}100%{clip-path:inset(0 49% 0 0);opacity:1}}
+    @keyframes reveal-from-top{0%{clip-path:inset(100% 0 0 0);opacity:1}100%{clip-path:inset(0 0 0 0);opacity:1}}
+    @keyframes reveal-from-bottom{0%{clip-path:inset(0 0 100% 0);opacity:.5}100%{clip-path:inset(0 0 0 0);opacity:1}}
+    @keyframes open-center{0%{clip-path:inset(0 50% 0 50%);opacity:.7;transform:scale(.985)}100%{clip-path:inset(0 0 0 0);opacity:1;transform:scale(1)}}
+    @keyframes finish{from{opacity:0}to{opacity:1}}
+    @keyframes rule-draw{0%{transform:scaleX(0);opacity:1}100%{transform:scaleX(1);opacity:1}}
+    @keyframes rule-out{to{opacity:0}}
+    .pick__info{padding:4px 18px 19px}
+    .pick h2{font-size:19px;line-height:1.45;margin:13px 0 5px}
+    .pick p{font-size:13px;color:var(--muted);line-height:1.8;margin:0;min-height:68px}
+    .pick__actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .btn{border:1px solid var(--border);background:#fff;color:var(--ink);border-radius:10px;padding:9px 13px;font-size:13px;font-weight:700;transition:border-color .16s ease,background .16s ease}
+    .btn:hover{border-color:#bdc8d8;background:#fafbfe}
+    .btn--solid{background:var(--ink);color:white;border-color:var(--ink)}
+    .btn--solid:hover{background:#142956;border-color:#142956}
+    .notice{background:white;border-inline-start:3px solid var(--accent);padding:19px 22px;border-radius:12px;border:1px solid var(--border);border-inline-start-width:3px;margin-bottom:34px}
+    .notice h2{font-size:16px;margin:0 0 6px}
+    .notice p{font-size:13px;line-height:1.95;color:var(--muted);margin:0}
+    .foot{font-size:12px;text-align:center;color:var(--muted);padding:0 15px 28px}
+    .demo[hidden]{display:none!important}
+    .demo{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px;background:white;opacity:1;transition:opacity .32s ease}
+    .demo.is-exiting{opacity:0;pointer-events:none}
+    .demo__inner{width:min(100%,550px);text-align:center}
+    .demo .mark{width:min(78vw,430px);margin-inline:auto}
+    .demo__note{font-size:13px;color:var(--muted);margin:33px auto 8px}
+    .demo__close{margin-top:15px;background:transparent;border:1px solid var(--border);padding:7px 18px;border-radius:10px;font-size:13px}
+    @media(max-width:930px){.picks{grid-template-columns:1fr;max-width:540px;margin-inline:auto}.pick p{min-height:0}.stage{min-height:195px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.mark__a,.mark__b,.mark__rule{display:none!important}.mark__final,.stage.is-playing .mark__final{opacity:1!important}}
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="shell masthead__inner">
+      <div><div class="tiny-label">LOGO MOTION STUDIO</div><div class="masthead__brand">UPDATE CARD</div></div>
+      <span class="badge">معاينة مستقلة · لم تُفعّل بالموقع</span>
+    </div>
+  </header>
+  <main id="main-content">
+    <section class="intro shell">
+      <div class="tiny-label">VISUAL MOTION EXPLORATION / 01</div>
+      <h1>كيف يظهر شعار أبديت كارد؟</h1>
+      <p class="lead">ثلاث حركات هادئة مبنية على ملفات الشعار الأصلية بالمستودع، للمقارنة قبل اعتماد شاشة التحميل.</p>
+    </section>
+    <section class="shell picks" aria-label="نماذج حركة الشعار">
+      <article class="pick pick--featured">
+        <div class="pick__top"><span class="pick__ordinal">01 / SIGNATURE</span><span class="pick__recommend">الترشيح الأول</span></div>
+        <div class="stage" data-mode="trace">
+          <div class="mark" aria-label="شعار UPDATE CARD">
+            <img class="mark__a" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" decoding="async">
+            <img class="mark__b" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" decoding="async">
+            <img class="mark__final" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" decoding="async">
+            <span class="mark__rule" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="pick__info">
+          <h2>الرسم المتتابع</h2>
+          <p>تظهر العلامة من جهة الرمز أولًا، ثم يكشف المسار الثاني اسم العلامة، وتثبت الألوان الأصلية دون تغيير.</p>
+          <div class="pick__actions">
+            <button type="button" class="btn btn--solid" data-fullscreen="trace">جرّب كشاشة تحميل</button>
+            <button type="button" class="btn" data-replay="trace">أعد الحركة</button>
+          </div>
+        </div>
+      </article>
+      <article class="pick">
+        <div class="pick__top"><span class="pick__ordinal">02 / LAYERS</span></div>
+        <div class="stage" data-mode="segments">
+          <div class="mark" aria-label="شعار UPDATE CARD">
+            <img class="mark__a" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" loading="lazy" decoding="async">
+            <img class="mark__b" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" loading="lazy" decoding="async">
+            <img class="mark__final" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" loading="lazy" decoding="async">
+            <span class="mark__rule" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="pick__info">
+          <h2>كشف الطبقات</h2>
+          <p>تظهر أجزاء العلامة على محورين متتابعين، مع تلميح خطي بسيط ثم استقرار الشعار.</p>
+          <div class="pick__actions">
+            <button type="button" class="btn btn--solid" data-fullscreen="segments">جرّب كشاشة تحميل</button>
+            <button type="button" class="btn" data-replay="segments">أعد الحركة</button>
+          </div>
+        </div>
+      </article>
+      <article class="pick">
+        <div class="pick__top"><span class="pick__ordinal">03 / MINIMAL</span></div>
+        <div class="stage" data-mode="calm">
+          <div class="mark" aria-label="شعار UPDATE CARD">
+            <img class="mark__a" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" loading="lazy" decoding="async">
+            <img class="mark__final" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div class="pick__info">
+          <h2>الظهور المتوازن</h2>
+          <p>ينكشف الشعار تدريجيًا من المنتصف إلى الأطراف، دون زخرفة أو إضافة عناصر بصرية.</p>
+          <div class="pick__actions">
+            <button type="button" class="btn btn--solid" data-fullscreen="calm">جرّب كشاشة تحميل</button>
+            <button type="button" class="btn" data-replay="calm">أعد الحركة</button>
+          </div>
+        </div>
+      </article>
+    </section>
+    <aside class="shell notice" aria-label="ملاحظات التنفيذ">
+      <h2>ملاحظة فنية عن دقة الرسم</h2>
+      <p>الشعار المعتمد في المستودع أصله صورة نقطية، وليس له ملف SVG بمسارات هندسية أصلية. هذه نماذج كشف متدرّج (Reveal) تحفظ الشعار دون إعادة رسمه. لتنفيذ رسم حرفي لمسارات الرمز (True Path Drawing) نحتاج ملف SVG متجهيًا معتمدًا أو إعادة بناء هندسية تُراجع مقابل المرجع قبل استخدامها. صفحة المعاينة غير مفهرسة، ولا تفرض أي انتظار على زوار الموقع.</p>
+    </aside>
+  </main>
+  <footer class="foot">UPDATE CARD — Independent motion preview · لم تُفعّل الحركة على صفحات الإنتاج</footer>
+  <div class="demo" role="dialog" aria-modal="true" aria-label="محاكاة شاشة التحميل" hidden data-demo>
+    <div class="demo__inner">
+      <div class="stage stage--modal" data-mode="trace" data-demo-stage>
+        <div class="mark" role="img" aria-label="شعار أبديت كارد">
+          <img class="mark__a" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="">
+          <img class="mark__b" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="">
+          <img class="mark__final" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="">
+          <span class="mark__rule" aria-hidden="true"></span>
+        </div>
+      </div>
+      <p class="demo__note">معاينة انتقال تجريبي، وليست شاشة تحميل فعلية</p>
+      <button class="demo__close" type="button" data-dismiss>تجاوز المعاينة</button>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const durations = { trace: 1500, segments: 1400, calm: 1200 };
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const demo = document.querySelector('[data-demo]');
+      const modalStage = document.querySelector('[data-demo-stage]');
+      const dismiss = document.querySelector('[data-dismiss]');
+      let timer = null;
+      let exitTimer = null;
+      let trigger = null;
+      const restart = (node) => {
+        if (!node || reduced) return;
+        node.classList.remove('is-playing');
+        void node.offsetWidth;
+        node.classList.add('is-playing');
+      };
+      const closeDemo = () => {
+        window.clearTimeout(timer);
+        window.clearTimeout(exitTimer);
+        if (demo.hidden) return;
+        demo.classList.add('is-exiting');
+        exitTimer = window.setTimeout(() => {
+          demo.hidden = true;
+          demo.classList.remove('is-exiting');
+          modalStage.classList.remove('is-playing');
+          if (trigger && document.contains(trigger)) trigger.focus({ preventScroll: true });
+        }, reduced ? 0 : 320);
+      };
+      document.querySelectorAll('[data-replay]').forEach((button) => {
+        button.addEventListener('click', () => restart(document.querySelector('.stage[data-mode="' + button.dataset.replay + '"]')));
+      });
+      document.querySelectorAll('[data-fullscreen]').forEach((button) => {
+        button.addEventListener('click', () => {
+          window.clearTimeout(timer);
+          window.clearTimeout(exitTimer);
+          trigger = button;
+          modalStage.dataset.mode = button.dataset.fullscreen;
+          demo.hidden = false;
+          demo.classList.remove('is-exiting');
+          restart(modalStage);
+          dismiss.focus({ preventScroll: true });
+          timer = window.setTimeout(closeDemo, (reduced ? 500 : durations[button.dataset.fullscreen] + 450));
+        });
+      });
+      dismiss.addEventListener('click', closeDemo);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !demo.hidden) closeDemo();
+        if (event.key === 'Tab' && !demo.hidden) {
+          event.preventDefault();
+          dismiss.focus();
+        }
+      });
+      if (!reduced) restart(document.querySelector('.stage[data-mode="trace"]'));
+    })();
+  </script>
+</body>
+</html>
