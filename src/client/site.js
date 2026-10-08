@@ -131,6 +131,7 @@ if (brandIntro && document.documentElement.classList.contains('brand-intro-activ
     if (removed) return;
     removed = true;
     window.clearTimeout(fallback);
+    brandIntro.removeEventListener('animationend', onIntroAnimationEnd);
     interactionEvents.forEach((eventName) => {
       window.removeEventListener(eventName, stopIntro, true);
     });
@@ -138,11 +139,13 @@ if (brandIntro && document.documentElement.classList.contains('brand-intro-activ
     brandIntro.remove();
   };
 
-  brandIntro.addEventListener('animationend', (event) => {
+  const onIntroAnimationEnd = (event) => {
     if (event.target === brandIntro && event.animationName === 'uc-intro-out') {
       stopIntro();
     }
-  }, { once: true });
+  };
+  // Child image animations bubble; only the outer exit animation completes the intro.
+  brandIntro.addEventListener('animationend', onIntroAnimationEnd);
 
   interactionEvents.forEach((eventName) => {
     window.addEventListener(eventName, stopIntro, { capture: true, passive: true });
