@@ -7,9 +7,9 @@ export const renderHomePage = () => `
 <section class="home-hero">
   <div class="container home-hero__shell" data-reveal="hero">
     <div class="home-hero__copy">
-      <p class="hero-kicker">UPDATE CARD · منذ ${site.since}</p>
-      <h1>نقرّب لك عالم<br><span>الخدمات الرقمية</span></h1>
-      <p>شحن الألعاب، البطاقات الرقمية، الاشتراكات، الدفع الإلكتروني والشراء من المواقع العالمية — بخدمة واضحة ومباشرة.</p>
+      <p class="hero-kicker">أبديت كارد · UPDATE CARD · منذ ${site.since}</p>
+      <h1>أبديت كارد<br><span>خدمات شحن ورقمية في اليمن</span></h1>
+      <p>أبديت كارد (UpdateCard) لخدمات الشحن الرقمي في اليمن: شحن الألعاب، البطاقات الرقمية، الاشتراكات، الدفع الإلكتروني والشراء من المواقع العالمية للأفراد والجملة حسب التوفر.</p>
     </div>
 
     <div class="home-hero__visual" aria-hidden="true">
@@ -34,7 +34,7 @@ export const renderHomePage = () => `
     <div class="home-about__content">
       <p class="section-kicker">من نحن</p>
       <h2>منذ عام <span>${site.since}</span></h2>
-      <p>نحن في أبديت كارد نتخصص في تقديم أفضل الخدمات الرقمية والحلول المبتكرة لعملائنا في مختلف أنحاء العالم. نعمل على توفير تجربة سهلة وآمنة تشمل الأفراد وكذلك عملاء الجملة والتوزيع.</p>
+      <p>نحن في أبديت كارد نقدم خدمات رقمية وخدمات شحن إلكتروني لعملائنا في اليمن، مع خيارات للأفراد وعملاء الجملة والتوزيع وآلية طلب واضحة حسب توفر كل خدمة.</p>
       <a class="button button--primary button--small" href="/about/">تعرف علينا أكثر ${icon('arrow')}</a>
     </div>
     <div class="home-about__visual" aria-hidden="true">
