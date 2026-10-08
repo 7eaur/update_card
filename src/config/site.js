@@ -3,6 +3,7 @@ const runtimeAssetVersion = (process.env.VERCEL_GIT_COMMIT_SHA || process.env.GI
 export const site = {
   brandName: 'UPDATE CARD',
   brandNameAr: 'أبديت كارد',
+  brandAliases: ['أبديت كارد', 'UPDATE CARD', 'UpdateCard', 'Update Card'],
   since: 2018,
   siteUrl: 'https://updatecard.net',
   domainDisplay: 'updatecard.net',
@@ -23,7 +24,7 @@ export const site = {
   socialImageAlt: 'شعار أبديت كارد للخدمات الرقمية في اليمن',
   assetVersion: runtimeAssetVersion,
   description:
-    'أبديت كارد جهة متخصصة في الخدمات الرقمية وحلول الشحن والدفع والشراء الإلكتروني منذ عام 2018، وتخدم عملاء التجزئة والجملة عبر مجموعة واسعة من الخدمات والمنصات المدعومة.',
+    'أبديت كارد (UPDATE CARD) لخدمات الشحن الرقمي والخدمات الرقمية في اليمن منذ عام 2018، وتشمل شحن الألعاب والبطاقات والاشتراكات والدفع والشراء الإلكتروني للأفراد والجملة حسب التوفر.',
 };
 
 export const primaryNav = [
