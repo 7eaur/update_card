@@ -34,3 +34,6 @@ export const primaryNav = [
   { label: 'الأسئلة الشائعة', href: '/faq/' },
   { label: 'تواصل معنا', href: '/contact/' },
 ];
+
+export const createWhatsappHref = (message) =>
+  message ? `${site.whatsappHref}?text=${encodeURIComponent(message)}` : site.whatsappHref;

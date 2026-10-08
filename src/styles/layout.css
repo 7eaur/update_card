@@ -47,3 +47,6 @@
   .split-panel{align-items:center;flex-direction:row;justify-content:space-between;gap:32px;padding:clamp(1.8rem,4vw,2.8rem)}.split-panel h2{font-size:clamp(1.8rem,2.7vw,2.6rem)}
   .footer-grid{grid-template-columns:1fr .8fr 1fr 1.35fr;gap:42px;padding-block:44px 22px}.footer-brand{grid-column:auto;order:0}.footer-contact{grid-column:auto;display:flex;flex-direction:column;gap:8px}.footer-contact h2{margin-bottom:14px}.footer-contact>a{font-size:.88rem}.footer-brand img{width:190px;margin-bottom:14px}.footer-meta{flex-direction:row;align-items:center;justify-content:space-between;gap:20px;padding-top:16px}
 }
+
+/* Keep the sticky mobile header light during scrolling. */
+@media(max-width:900px){.site-header{background:#fff;backdrop-filter:none}}

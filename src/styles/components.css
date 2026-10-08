@@ -254,3 +254,62 @@
   .subservice-card h3{font-size:.79rem;line-height:1.28}
   .subservice-card p{font-size:.6rem;line-height:1.42}
 }
+
+
+/* Direct service inquiries and the full-width category follow-up */
+.subservice-card:focus-visible{
+  outline:3px solid var(--uc-brand-blue);
+  outline-offset:3px;
+}
+.subservice-card__action{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  margin-top:auto;
+  padding-top:9px;
+  color:var(--uc-brand-blue);
+  font-size:.67rem;
+  font-weight:800;
+  line-height:1.4;
+}
+.subservice-card__action .icon{width:1em;height:1em}
+.subservice-inquiry{
+  grid-column:1/-1;
+  display:grid;
+  gap:12px;
+  align-items:center;
+  padding:18px;
+  border:1px solid #c9d9ef;
+  border-radius:14px;
+  background:#edf4fd;
+}
+.subservice-inquiry .eyebrow{
+  margin:0 0 4px;
+  color:var(--uc-brand-blue);
+  font-size:.72rem;
+  font-weight:800;
+}
+.subservice-inquiry h3{
+  margin:0 0 5px;
+  color:var(--uc-brand-blue);
+  font-size:clamp(1.12rem,4vw,1.4rem);
+}
+.subservice-inquiry p:last-child{
+  max-width:46rem;
+  margin:0;
+  color:var(--text-soft);
+  font-size:.79rem;
+  line-height:1.7;
+}
+.subservice-inquiry__button{
+  justify-self:start;
+  width:auto;
+  min-height:42px;
+  padding:.55rem .85rem;
+  white-space:nowrap;
+  font-size:.75rem;
+}
+@media(min-width:681px){
+  .subservice-inquiry{grid-template-columns:minmax(0,1fr) auto;padding:20px 24px}
+  .subservice-card__action{font-size:.73rem}
+}

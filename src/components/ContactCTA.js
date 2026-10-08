@@ -1,10 +1,11 @@
-import { site } from '../config/site.js';
+import { createWhatsappHref, site } from '../config/site.js';
 import { icon } from './icons.js';
 
 export const renderContactCTA = ({
   eyebrow = 'جاهز نساعدك',
   title = 'عندك خدمة في بالك؟',
   text = 'تواصل معنا مباشرة عبر واتساب، وأرسل لنا تفاصيل طلبك.',
+  whatsappMessage,
 } = {}) => `
 <section class="contact-cta">
   <img class="contact-cta__backdrop" src="/assets/images/home/cta-banner.webp" alt="" width="1220" height="407" loading="lazy" decoding="async" aria-hidden="true">
@@ -14,7 +15,7 @@ export const renderContactCTA = ({
     <p>${text}</p>
   </div>
   <div class="contact-cta__actions">
-    <a class="button button--light" href="${site.whatsappHref}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} تواصل عبر واتساب</a>
+    <a class="button button--light" href="${createWhatsappHref(whatsappMessage)}" target="_blank" rel="noopener noreferrer">${icon('whatsapp')} تواصل عبر واتساب</a>
     <a class="text-link text-link--light" href="${site.phoneHref}">${icon('phone')} اتصل بنا</a>
   </div>
 </section>`;
