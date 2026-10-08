@@ -174,3 +174,26 @@ Monthly:
 - technical SEO regressions are blocked by CI,
 - performance remains within budget,
 - search traffic produces legitimate service inquiries.
+
+
+## 12. Homepage brand-intent targets
+
+The homepage is intentionally optimized around the real brand and core service intent, not hidden keyword stuffing.
+
+Primary brand/search variants:
+- أبديت كارد
+- ابديت كارد
+- UPDATE CARD
+- UpdateCard
+- Update Card
+
+Primary homepage service intent:
+- أبديت كارد خدمات شحن في اليمن
+- أبديت كارد خدمات رقمية في اليمن
+- خدمات شحن ورقمية في اليمن
+
+Implementation:
+- Brand + service intent appears naturally in the homepage title, H1, hero copy and Organization/WebSite structured data.
+- Compact English form `UpdateCard` is included as an alternate brand name.
+- Deliberate misspellings such as `Ubdatecard` are not inserted into visible copy or hidden metadata; Google can handle common spelling mistakes, while intentional typo stuffing would reduce quality.
+- Ranking is not guaranteed by metadata alone; indexing, search demand, engagement, authority and time remain relevant.
