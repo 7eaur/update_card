@@ -26,6 +26,7 @@ const required = [
   'assets/site.css',
   'assets/site.js',
   'assets/brand/logo-horizontal-320.webp',
+  'assets/brand/logo-horizontal-640.webp',
   'assets/brand/logo-icon-512.webp',
   'assets/social/update-card-share.png',
   'sitemap.xml',
@@ -49,6 +50,10 @@ for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   if (!html.includes('<html lang="ar" dir="rtl">')) throw new Error(`Missing Arabic RTL root: ${file}`);
   if (!html.includes('<main id="main-content">')) throw new Error(`Missing main landmark: ${file}`);
+  // Approved brand intro must be present without becoming page content or a second H1.
+  if (!html.includes('data-brand-intro aria-hidden="true"')) throw new Error(`Missing accessible brand intro: ${file}`);
+  if (!html.includes("sessionStorage.getItem('update-card-intro-v1')")) throw new Error(`Intro session guard missing: ${file}`);
+  if (!html.includes('src="/assets/brand/logo-horizontal-640.webp"')) throw new Error(`Intro source asset missing: ${file}`);
   if ((html.match(/<h1\b/g) || []).length !== 1) throw new Error(`Expected exactly one H1: ${file}`);
   if (!html.includes('<meta name="description"')) throw new Error(`Missing meta description: ${file}`);
   if (!html.includes('<link rel="canonical" href="https://updatecard.net/')) throw new Error(`Missing canonical on primary domain: ${file}`);
@@ -131,3 +136,15 @@ if (unusedSubserviceAssets.length) {
 console.log(
   `Checked ${htmlFiles.length} HTML pages, ${localRefs.size} local references, ${subserviceAssets.length} referenced subservice assets, and ${services.length} service inquiry flows.`
 );
+
+const siteCss = await readFile(join(dist, 'assets', 'site.css'), 'utf8');
+const siteJs = await readFile(join(dist, 'assets', 'site.js'), 'utf8');
+if (!siteCss.includes('uc-intro-symbol') || !siteCss.includes('uc-intro-out')) {
+  throw new Error('Approved brand intro animation is missing from the stylesheet');
+}
+if (!siteCss.includes('@media(prefers-reduced-motion:reduce)')) {
+  throw new Error('Brand intro reduced-motion fallback missing');
+}
+if (!siteJs.includes("event.animationName === 'uc-intro-out'") || !siteJs.includes('brandIntro.remove()')) {
+  throw new Error('Brand intro cleanup/interaction handling missing');
+}
