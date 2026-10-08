@@ -52,6 +52,7 @@ for (const file of htmlFiles) {
   if (!html.includes('<main id="main-content">')) throw new Error(`Missing main landmark: ${file}`);
   // Approved brand intro must be present without becoming page content or a second H1.
   if (!html.includes('data-brand-intro aria-hidden="true"')) throw new Error(`Missing accessible brand intro: ${file}`);
+  if (!html.includes('data-navigation-status role="status" aria-live="polite"')) throw new Error(`Missing delayed-navigation accessibility feedback: ${file}`);
   if (!html.includes("sessionStorage.getItem('update-card-intro-v1')")) throw new Error(`Intro session guard missing: ${file}`);
   if (!html.includes('src="/assets/brand/logo-horizontal-640.webp"')) throw new Error(`Intro source asset missing: ${file}`);
   if ((html.match(/<h1\b/g) || []).length !== 1) throw new Error(`Expected exactly one H1: ${file}`);
@@ -145,6 +146,19 @@ if (!siteCss.includes('uc-intro-symbol') || !siteCss.includes('uc-intro-out')) {
 if (!siteCss.includes('@media(prefers-reduced-motion:reduce)')) {
   throw new Error('Brand intro reduced-motion fallback missing');
 }
-if (!siteJs.includes("event.animationName === 'uc-intro-out'") || !siteJs.includes('brandIntro.remove()')) {
-  throw new Error('Brand intro cleanup/interaction handling missing');
+if (!siteJs.includes("event.animationName === 'uc-intro-out'") ||
+    !siteJs.includes('brandIntro.remove()') ||
+    !siteJs.includes('logo.decode()') ||
+    !siteJs.includes('650')) {
+  throw new Error('Adaptive decoded-logo intro or cleanup missing');
+}
+if (!siteJs.includes('const DELAY_MS = 350') ||
+    !siteJs.includes('new URL(link.href, location.href)') ||
+    !siteJs.includes("window.addEventListener('pagehide', resetStatus)") ||
+    !siteJs.includes("link.hasAttribute('download')")) {
+  throw new Error('Native navigation status safety guards missing');
+}
+if (!siteCss.includes('.navigation-status.is-visible') ||
+    !siteCss.includes('@keyframes uc-status-spin')) {
+  throw new Error('Nonblocking navigation loading feedback CSS missing');
 }
