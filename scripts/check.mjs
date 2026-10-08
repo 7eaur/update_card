@@ -1,5 +1,7 @@
 import { access, readFile, readdir } from 'node:fs/promises';
 import { join, relative, resolve, sep } from 'node:path';
+import { services } from '../src/data/services.js';
+import { getServiceCatalog } from '../src/data/serviceCatalog.js';
 
 const dist = resolve(process.cwd(), 'dist');
 const serviceRoutes = [
@@ -75,6 +77,36 @@ for (const ref of localRefs) {
   }
 }
 
+for (const service of services) {
+  const catalog = getServiceCatalog(service.slug);
+  const html = await readFile(join(dist, 'services', service.slug, 'index.html'), 'utf8');
+  const cardLinks = [...html.matchAll(/<a class="subservice-card[^"]*" href="([^"]+)"/g)]
+    .map((match) => match[1]);
+  const inquiryCards = (html.match(/class="subservice-inquiry"/g) || []).length;
+
+  if (cardLinks.length !== catalog.length) {
+    throw new Error(
+      `Expected ${catalog.length} WhatsApp subservice cards for ${service.slug}, found ${cardLinks.length}`
+    );
+  }
+  if (inquiryCards !== 1) {
+    throw new Error(`Expected one category inquiry card for ${service.slug}, found ${inquiryCards}`);
+  }
+
+  cardLinks.forEach((href, index) => {
+    const url = new URL(href);
+    const message = url.searchParams.get('text') || '';
+    const item = catalog[index];
+
+    if (url.hostname !== 'wa.me' || url.pathname !== '/967770498884') {
+      throw new Error(`Invalid WhatsApp destination for ${service.slug}/${item.slug}: ${href}`);
+    }
+    if (!message.includes(item.title) || !message.includes(service.title)) {
+      throw new Error(`WhatsApp message lacks service context for ${service.slug}/${item.slug}`);
+    }
+  });
+}
+
 const subserviceRoot = join(dist, 'assets', 'media', 'subservices');
 const subserviceAssets = [];
 async function walkSubserviceAssets(dir) {
@@ -97,5 +129,5 @@ if (unusedSubserviceAssets.length) {
 }
 
 console.log(
-  `Checked ${htmlFiles.length} HTML pages, ${localRefs.size} local references, and ${subserviceAssets.length} referenced subservice assets.`
+  `Checked ${htmlFiles.length} HTML pages, ${localRefs.size} local references, ${subserviceAssets.length} referenced subservice assets, and ${services.length} service inquiry flows.`
 );
