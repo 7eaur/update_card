@@ -1,6 +1,7 @@
 import { site } from '../config/site.js';
 import { renderHeader } from '../components/Header.js';
 import { renderFooter } from '../components/Footer.js';
+import { renderLogoIntro } from '../components/LogoIntro.js';
 import { icon } from '../components/icons.js';
 
 const jsonLdSafe = (value) => JSON.stringify(value).replace(/</g, '\\u003c');
@@ -138,11 +139,28 @@ export const renderLayout = ({
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Enable the optional intro before first paint; never show it on repeat visits. -->
+  <script>
+    (() => {
+      try {
+        const motionReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const constrained = connection && (connection.saveData || ['slow-2g', '2g'].includes(connection.effectiveType));
+        if (motionReduced || constrained || document.visibilityState === 'hidden') return;
+        if (sessionStorage.getItem('update-card-intro-v1')) return;
+        sessionStorage.setItem('update-card-intro-v1', 'seen');
+        document.documentElement.classList.add('brand-intro-active');
+      } catch (_) {
+        // Browsers that block storage simply load the page without a splash.
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="/assets/site.css?v=${site.assetVersion}">
   <script type="application/ld+json">${structuredGraph}</script>
   <script src="/assets/site.js?v=${site.assetVersion}" defer></script>
 </head>
 <body>
+  ${renderLogoIntro()}
   <a class="skip-link" href="#main-content">انتقل إلى المحتوى</a>
   ${renderHeader(currentPath)}
   <main id="main-content">${content}</main>
