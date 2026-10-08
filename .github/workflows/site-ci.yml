@@ -165,7 +165,17 @@ jobs:
           test "$JS_BYTES" -le 12000
           test "$HTML_BYTES" -le 40000
           test "$CORE_MEDIA_BYTES" -le 300000
-          test "$SUBSERVICE_MEDIA_BYTES" -le 700000
+
+          for FAMILY_DIR in dist/assets/media/subservices/*; do
+            [ -d "$FAMILY_DIR" ] || continue
+            FAMILY_BYTES=$(find "$FAMILY_DIR" -type f -printf '%s\n' | awk '{s+=$1} END {print s+0}')
+            FAMILY_NAME=$(basename "$FAMILY_DIR")
+            echo "Subservice family $FAMILY_NAME: $FAMILY_BYTES bytes"
+            if [ "$FAMILY_BYTES" -gt 600000 ]; then
+              echo "::error::Subservice family $FAMILY_NAME exceeds the 600 KB page-family media budget."
+              exit 1
+            fi
+          done
 
           if find dist/assets/media dist/assets/images -type f -size +50000c | grep -q .; then
             echo "::error::A content image exceeds the 50 KB performance budget."
