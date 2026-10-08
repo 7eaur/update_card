@@ -25,6 +25,9 @@ const required = [
   'assets/site.js',
   'assets/brand/logo-horizontal-320.webp',
   'assets/brand/logo-icon-512.webp',
+  'assets/social/update-card-share.png',
+  'sitemap.xml',
+  'robots.txt',
 ];
 
 for (const file of required) await access(join(dist, file));
@@ -45,6 +48,17 @@ for (const file of htmlFiles) {
   if (!html.includes('<html lang="ar" dir="rtl">')) throw new Error(`Missing Arabic RTL root: ${file}`);
   if (!html.includes('<main id="main-content">')) throw new Error(`Missing main landmark: ${file}`);
   if ((html.match(/<h1\b/g) || []).length !== 1) throw new Error(`Expected exactly one H1: ${file}`);
+  if (!html.includes('<meta name="description"')) throw new Error(`Missing meta description: ${file}`);
+  if (!html.includes('<link rel="canonical" href="https://updatecard.net/')) throw new Error(`Missing canonical on primary domain: ${file}`);
+  if (!file.endsWith('404.html')) {
+    if (!html.includes('<meta property="og:image" content="https://updatecard.net/assets/social/update-card-share.png">')) {
+      throw new Error(`Missing Open Graph share image: ${file}`);
+    }
+    if (!html.includes('<meta name="twitter:image" content="https://updatecard.net/assets/social/update-card-share.png">')) {
+      throw new Error(`Missing Twitter share image: ${file}`);
+    }
+    if (!html.includes('application/ld+json')) throw new Error(`Missing JSON-LD: ${file}`);
+  }
   for (const match of html.matchAll(/(?:href|src)="(\/[^"]+)"/g)) {
     const ref = match[1].split('#')[0].split('?')[0];
     if (ref) localRefs.add(ref);
