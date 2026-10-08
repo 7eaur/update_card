@@ -1,7 +1,7 @@
 import { site } from '../config/site.js';
 import { renderHeader } from '../components/Header.js';
 import { renderFooter } from '../components/Footer.js';
-import { renderLogoIntro } from '../components/LogoIntro.js';
+import { renderLogoIntro, renderNavigationStatus } from '../components/LogoIntro.js';
 import { icon } from '../components/icons.js';
 
 const jsonLdSafe = (value) => JSON.stringify(value).replace(/</g, '\\u003c');
@@ -139,19 +139,17 @@ export const renderLayout = ({
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <!-- Enable the optional intro before first paint; never show it on repeat visits. -->
+  <!-- Eligibility is recorded early; animation starts only after its real logo is decoded. -->
   <script>
     (() => {
       try {
-        const motionReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        const constrained = connection && (connection.saveData || ['slow-2g', '2g'].includes(connection.effectiveType));
-        if (motionReduced || constrained || document.visibilityState === 'hidden') return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (document.visibilityState === 'hidden') return;
         if (sessionStorage.getItem('update-card-intro-v1')) return;
         sessionStorage.setItem('update-card-intro-v1', 'seen');
-        document.documentElement.classList.add('brand-intro-active');
+        document.documentElement.dataset.brandIntroEligible = 'true';
       } catch (_) {
-        // Browsers that block storage simply load the page without a splash.
+        // Storage-restricted browsers show the website without interrupting navigation.
       }
     })();
   </script>
@@ -161,6 +159,7 @@ export const renderLayout = ({
 </head>
 <body>
   ${renderLogoIntro()}
+  ${renderNavigationStatus()}
   <a class="skip-link" href="#main-content">انتقل إلى المحتوى</a>
   ${renderHeader(currentPath)}
   <main id="main-content">${content}</main>

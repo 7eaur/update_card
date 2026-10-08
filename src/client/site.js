@@ -121,36 +121,141 @@ if (!prefersReducedMotion && !constrainedConnection && 'IntersectionObserver' in
   }
 }
 
-/* Session-only brand splash. CSS independently hides it if the script is delayed. */
+/* Entry motion is optional and starts only if the canonical logo decodes promptly.
+ * The page is already usable underneath; never wait for the logo or for other images.
+ */
 const brandIntro = document.querySelector('[data-brand-intro]');
-if (brandIntro && document.documentElement.classList.contains('brand-intro-active')) {
-  const interactionEvents = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
-  let removed = false;
-  let fallback;
-  const stopIntro = () => {
-    if (removed) return;
-    removed = true;
-    window.clearTimeout(fallback);
-    brandIntro.removeEventListener('animationend', onIntroAnimationEnd);
-    interactionEvents.forEach((eventName) => {
-      window.removeEventListener(eventName, stopIntro, true);
-    });
-    document.documentElement.classList.remove('brand-intro-active');
+if (brandIntro) {
+  const eligible = document.documentElement.dataset.brandIntroEligible === 'true';
+  delete document.documentElement.dataset.brandIntroEligible;
+
+  if (!eligible) {
     brandIntro.remove();
+  } else {
+    const exitEvents = ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'];
+    let disposed = false;
+    let interacted = false;
+    let timeout;
+
+    const disposeIntro = () => {
+      if (disposed) return;
+      disposed = true;
+      window.clearTimeout(timeout);
+      document.documentElement.classList.remove('brand-intro-active');
+      brandIntro.removeEventListener('animationend', onIntroAnimationEnd);
+      exitEvents.forEach((type) => window.removeEventListener(type, onIntroInteraction, true));
+      window.removeEventListener('pagehide', disposeIntro);
+      brandIntro.remove();
+    };
+
+    const onIntroAnimationEnd = (event) => {
+      if (event.target === brandIntro && event.animationName === 'uc-intro-out') {
+        disposeIntro();
+      }
+    };
+    const onIntroInteraction = () => {
+      interacted = true;
+      disposeIntro();
+    };
+
+    exitEvents.forEach((type) => {
+      window.addEventListener(type, onIntroInteraction, { capture: true, passive: true });
+    });
+    window.addEventListener('pagehide', disposeIntro, { once: true });
+    brandIntro.addEventListener('animationend', onIntroAnimationEnd);
+
+    const startIntro = async () => {
+      const logo = brandIntro.querySelector('.brand-intro__layer--finished');
+      if (!logo) { disposeIntro(); return; }
+      // A missing/slow image must never leave an empty splash screen.
+      const assetReady = typeof logo.decode === 'function'
+        ? logo.decode().then(() => true, () => false)
+        : new Promise((resolve) => {
+            if (logo.complete) { resolve(Boolean(logo.naturalWidth)); return; }
+            logo.addEventListener('load', () => resolve(true), { once: true });
+            logo.addEventListener('error', () => resolve(false), { once: true });
+          });
+
+      const ready = await Promise.race([
+        assetReady,
+        new Promise((resolve) => window.setTimeout(() => resolve(false), 650)),
+      ]);
+      if (!ready || disposed || interacted || document.hidden || performance.now() > 1400) {
+        disposeIntro();
+        return;
+      }
+
+      document.documentElement.classList.add('brand-intro-active');
+      // CSS cross-fades away, so the already-rendered page appears continuously.
+      // Last-resort cleanup for browser interruptions or missing animationend.
+      timeout = window.setTimeout(disposeIntro, 2100);
+    };
+    void startIntro();
+  }
+}
+
+/* Only indicate a genuinely slow, native in-site navigation.
+ * Never intercept the link or block scrolling, input, or the previous page.
+ */
+const navigationStatus = document.querySelector('[data-navigation-status]');
+if (navigationStatus) {
+  const message = navigationStatus.querySelector('[data-navigation-message]');
+  const dismiss = navigationStatus.querySelector('[data-navigation-dismiss]');
+  const DELAY_MS = 350;
+  const SLOW_MS = 7000;
+  let revealTimeout;
+  let slowTimeout;
+  let pending = false;
+
+  const resetStatus = () => {
+    window.clearTimeout(revealTimeout);
+    window.clearTimeout(slowTimeout);
+    pending = false;
+    navigationStatus.classList.remove('is-visible');
+    message.textContent = 'جاري فتح الصفحة…';
   };
 
-  const onIntroAnimationEnd = (event) => {
-    if (event.target === brandIntro && event.animationName === 'uc-intro-out') {
-      stopIntro();
-    }
+  const showStatus = () => {
+    if (!pending) return;
+    message.textContent = navigator.onLine
+      ? 'جاري فتح الصفحة…'
+      : 'الاتصال غير متاح. يمكنك المحاولة مجددًا.';
+    navigationStatus.classList.add('is-visible');
+    slowTimeout = window.setTimeout(() => {
+      if (!pending) return;
+      message.textContent = navigator.onLine
+        ? 'الاتصال بطيء. يمكنك مواصلة استخدام هذه الصفحة.'
+        : 'الاتصال غير متاح. يمكنك المحاولة مجددًا.';
+    }, SLOW_MS);
   };
-  // Child image animations bubble; only the outer exit animation completes the intro.
-  brandIntro.addEventListener('animationend', onIntroAnimationEnd);
 
-  interactionEvents.forEach((eventName) => {
-    window.addEventListener(eventName, stopIntro, { capture: true, passive: true });
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 ||
+        event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) return;
+    const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!link || link.hasAttribute('download') || link.hasAttribute('data-no-loading')) return;
+    if (link.target && link.target.toLowerCase() !== '_self') return;
+    let next;
+    try { next = new URL(link.href, location.href); } catch (_) { return; }
+    if (next.origin !== location.origin || !['https:', 'http:'].includes(next.protocol)) return;
+    if (next.pathname === location.pathname && next.search === location.search &&
+        (next.hash || next.href === location.href)) return;
+
+    resetStatus();
+    pending = true;
+    revealTimeout = window.setTimeout(showStatus, DELAY_MS);
+    // Native browser navigation runs as normal, even if the request fails.
   });
 
-  // Never leave a covering layer in the DOM if animation events are interrupted.
-  fallback = window.setTimeout(stopIntro, 2000);
+  dismiss?.addEventListener('click', resetStatus);
+  window.addEventListener('pagehide', resetStatus);
+  window.addEventListener('pageshow', resetStatus); // bfcache/back navigation
+  window.addEventListener('offline', () => {
+    if (pending && navigationStatus.classList.contains('is-visible')) {
+      message.textContent = 'الاتصال غير متاح. يمكنك المحاولة مجددًا.';
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && pending) resetStatus();
+  });
 }

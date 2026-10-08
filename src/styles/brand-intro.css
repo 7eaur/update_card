@@ -1,4 +1,4 @@
-/* UPDATE CARD first-session logo intro
+/* UPDATE CARD adaptive first-session logo intro
  * Signature Reveal #01 approved 2026-10-09.
  * Original branded raster, not an invented vector/path redraw.
  * Pure CSS; no dependency, layout shift or blocking pointer events.
@@ -16,7 +16,7 @@
 }
 .brand-intro-active .brand-intro{
   display:grid;
-  animation:uc-intro-out .28s ease 1.30s both;
+  animation:uc-intro-out .40s ease-in-out 1.26s both;
 }
 .brand-intro__mark{
   position:relative;
@@ -79,4 +79,71 @@
 }
 @media(prefers-reduced-motion:reduce){
   .brand-intro-active .brand-intro{display:none!important;animation:none!important}
+}
+
+/* Delayed native-navigation feedback: preserve the current page and native browser flow. */
+.navigation-status{
+  display:none;
+  position:fixed;
+  z-index:9997;
+  inset-inline-start:14px;
+  bottom:max(14px,env(safe-area-inset-bottom));
+  width:max-content;
+  max-width:calc(100vw - 28px);
+  align-items:center;
+  gap:9px;
+  padding:10px 12px;
+  border:1px solid #d8dfeb;
+  border-radius:14px;
+  background:#fff;
+  color:#071c4d;
+  box-shadow:0 7px 25px rgba(7,28,77,.12);
+  font-size:12px;
+  line-height:1.5;
+}
+.navigation-status.is-visible{
+  display:flex;
+  animation:uc-status-in .2s ease-out both;
+}
+.navigation-status__logo{
+  display:block;
+  width:60px;
+  height:auto;
+  flex:0 0 auto;
+}
+.navigation-status__spinner{
+  display:block;
+  width:13px;
+  height:13px;
+  flex:0 0 13px;
+  border:2px solid #d9deea;
+  border-top-color:#950331;
+  border-radius:50%;
+  animation:uc-status-spin .85s linear infinite;
+}
+.navigation-status__label{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.navigation-status__dismiss{
+  padding:4px 7px;
+  border:0;
+  background:#f2f4f9;
+  color:#071c4d;
+  border-radius:8px;
+  cursor:pointer;
+  font:inherit;
+}
+.navigation-status__dismiss:focus-visible{
+  outline:2px solid #950331;
+  outline-offset:2px;
+}
+@keyframes uc-status-in{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes uc-status-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){
+  .navigation-status.is-visible{animation:none}
+  .navigation-status__spinner{animation:none}
 }
