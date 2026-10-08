@@ -77,7 +77,7 @@ export const serviceCatalog = {
     { slug: 'computer-stores', title: 'متاجر الكمبيوتر', description: 'شراء من Dell وHP وASUS وAcer حسب المنتج والمتجر.', image: 'computer-stores', imageAlt: 'خدمة الشراء من متاجر الكمبيوتر' },
     { slug: 'shein', title: 'SHEIN', description: 'شراء من SHEIN حسب المنتجات وخيارات الشحن المتاحة.', image: 'shein', imageAlt: 'خدمة الشراء من SHEIN' },
     { slug: 'noon', title: 'نون', description: 'شراء من Noon حسب الدولة والمنتج والتوفر.', image: 'noon', imageAlt: 'خدمة الشراء من نون' },
-    { slug: 'jarir', title: 'مكتبة جرير', description: 'شراء منتجات من جرير حسب الرابط وخيارات التوصيل.' },
+    { slug: 'jarir', title: 'مكتبة جرير', description: 'شراء منتجات من جرير حسب الرابط وخيارات التوصيل.', image: 'jarir', imageAlt: 'خدمة الشراء من مكتبة جرير' },
     { slug: 'samma3a', title: 'سماعة', description: 'شراء منتجات من موقع سماعة حسب التوفر.', image: 'samma3a', imageAlt: 'خدمة الشراء من سماعة' },
     { slug: 'gcc-stores', title: 'متاجر العطور والإكسسوارات', description: 'شراء من متاجر مدعومة في الإمارات والسعودية حسب الرابط.', image: 'gcc-stores', imageAlt: 'خدمة الشراء من متاجر العطور والإكسسوارات' },
   ],
