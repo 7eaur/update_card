@@ -317,6 +317,8 @@ docs/
 `docs/SEO_SEARCH_VISIBILITY.md`
 
 القواعد الحالية:
+- Homepage primary brand intent: `أبديت كارد`, `UPDATE CARD`, `UpdateCard`, وخدمات الشحن والخدمات الرقمية في اليمن.
+- لا يتم حشو الأخطاء الإملائية عمدًا داخل الصفحة أو metadata.
 - الدومين الأساسي الوحيد لمحركات البحث هو `https://updatecard.net`.
 - كل صفحة عامة لها canonical وعنوان ووصف.
 - Open Graph وTwitter/X metadata مطلوبة لكل صفحة عامة.
