@@ -8,3 +8,12 @@ export const renderLogoIntro = () => `
       <span class="brand-intro__line"></span>
     </div>
   </div>`;
+
+/** Non-blocking network feedback for native, same-origin multi-page navigation. */
+export const renderNavigationStatus = () => `
+  <div class="navigation-status" data-navigation-status role="status" aria-live="polite" aria-atomic="true">
+    <img class="navigation-status__logo" src="/assets/brand/logo-horizontal-320.webp" width="320" height="137" alt="" decoding="async">
+    <span class="navigation-status__spinner" aria-hidden="true"></span>
+    <span class="navigation-status__label" data-navigation-message>جاري فتح الصفحة…</span>
+    <button class="navigation-status__dismiss" type="button" data-navigation-dismiss aria-label="إخفاء حالة الانتقال">إخفاء</button>
+  </div>`;
