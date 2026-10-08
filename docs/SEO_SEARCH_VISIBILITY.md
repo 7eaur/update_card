@@ -174,3 +174,33 @@ Monthly:
 - technical SEO regressions are blocked by CI,
 - performance remains within budget,
 - search traffic produces legitimate service inquiries.
+
+
+## 12. Live Search Console baseline — 2026-10-08
+
+Google Search Console domain property:
+`sc-domain:updatecard.net`
+
+Completed:
+- Domain ownership verified.
+- Sitemap submitted: `https://updatecard.net/sitemap.xml`.
+- 13 public URLs are tracked for indexing status.
+- All 13 public URLs were inspected using the Google URL Inspection API.
+- Branded keywords are configured in the monitoring workspace.
+- Topic clusters are configured for brand, games, digital cards, subscriptions, software licenses, digital payments and international shopping.
+- Content groups are configured for service pages and core pages.
+
+Initial indexing state:
+- Homepage: **Submitted and indexed**.
+- `/about/`: discovered, currently not indexed.
+- `/services/social-entertainment/`: discovered, currently not indexed.
+- `/services/custom-request/`: discovered, currently not indexed.
+- Other inspected public pages: unknown to Google at the first inspection.
+
+This is an early-stage baseline immediately after verification and sitemap submission, not evidence of a technical fault. Re-check after Google downloads the sitemap and crawls the discovered URLs.
+
+Search performance baseline:
+- Clicks: 0
+- Impressions: 0
+- CTR: 0
+- No settled query/page performance rows yet.
