@@ -317,6 +317,9 @@ docs/
 `docs/SEO_SEARCH_VISIBILITY.md`
 
 القواعد الحالية:
+- Search Console domain property verified: `sc-domain:updatecard.net`.
+- Sitemap submitted to Google: `https://updatecard.net/sitemap.xml`.
+- 13 public URLs are tracked for indexing status.
 - الدومين الأساسي الوحيد لمحركات البحث هو `https://updatecard.net`.
 - كل صفحة عامة لها canonical وعنوان ووصف.
 - Open Graph وTwitter/X metadata مطلوبة لكل صفحة عامة.
