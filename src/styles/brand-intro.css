@@ -18,6 +18,11 @@
   display:grid;
   animation:uc-intro-out .40s ease-in-out 1.26s both;
 }
+.brand-intro-pending .brand-intro{
+  display:grid;
+  /* CSS-only escape hatch: a missing script can never strand the visitor here. */
+  animation:uc-intro-pending-out .18s ease-out 1.42s both;
+}
 .brand-intro__mark{
   position:relative;
   width:min(78vw,390px);
@@ -56,6 +61,24 @@
 .brand-intro-active .brand-intro__line{
   animation:uc-intro-line .8s cubic-bezier(.22,.7,.2,1) .36s both;
 }
+.brand-intro__loader{
+  position:absolute;
+  left:50%;
+  bottom:8%;
+  width:18px;
+  height:18px;
+  margin-left:-9px;
+  border:2px solid #d9deea;
+  border-top-color:#950331;
+  border-radius:50%;
+  opacity:0;
+}
+.brand-intro-pending .brand-intro__loader{
+  animation:uc-intro-pending-spin .72s linear .16s infinite;
+}
+.brand-intro-active .brand-intro__loader{
+  display:none;
+}
 @keyframes uc-intro-symbol{
   0%{opacity:1;clip-path:inset(0 0 0 100%)}
   100%{opacity:1;clip-path:inset(0 0 0 51%)}
@@ -77,7 +100,17 @@
   from{opacity:1;visibility:visible}
   to{opacity:0;visibility:hidden}
 }
+@keyframes uc-intro-pending-spin{
+  0%{opacity:0;transform:rotate(0)}
+  18%{opacity:1}
+  100%{opacity:1;transform:rotate(360deg)}
+}
+@keyframes uc-intro-pending-out{
+  from{opacity:1;visibility:visible}
+  to{opacity:0;visibility:hidden}
+}
 @media(prefers-reduced-motion:reduce){
+  .brand-intro-pending .brand-intro,
   .brand-intro-active .brand-intro{display:none!important;animation:none!important}
 }
 

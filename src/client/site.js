@@ -127,9 +127,12 @@ if (!prefersReducedMotion && !constrainedConnection && 'IntersectionObserver' in
 const brandIntro = document.querySelector('[data-brand-intro]');
 if (brandIntro) {
   const eligible = document.documentElement.dataset.brandIntroEligible === 'true';
+  const queuedAt = Number(document.documentElement.dataset.brandIntroQueuedAt || 0);
   delete document.documentElement.dataset.brandIntroEligible;
+  delete document.documentElement.dataset.brandIntroQueuedAt;
 
   if (!eligible) {
+    document.documentElement.classList.remove('brand-intro-pending');
     brandIntro.remove();
   } else {
     const exitEvents = ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'];
@@ -141,7 +144,7 @@ if (brandIntro) {
       if (disposed) return;
       disposed = true;
       window.clearTimeout(timeout);
-      document.documentElement.classList.remove('brand-intro-active');
+      document.documentElement.classList.remove('brand-intro-pending', 'brand-intro-active');
       brandIntro.removeEventListener('animationend', onIntroAnimationEnd);
       exitEvents.forEach((type) => window.removeEventListener(type, onIntroInteraction, true));
       window.removeEventListener('pagehide', disposeIntro);
@@ -180,11 +183,14 @@ if (brandIntro) {
         assetReady,
         new Promise((resolve) => window.setTimeout(() => resolve(false), 650)),
       ]);
-      if (!ready || disposed || interacted || document.hidden || performance.now() > 1400) {
+      const queuedTooLong = queuedAt > 0 && performance.now() - queuedAt > 1400;
+      if (!ready || disposed || interacted || document.hidden || queuedTooLong) {
         disposeIntro();
         return;
       }
 
+      try { localStorage.setItem('update-card-intro-v2', 'seen'); } catch (_) {}
+      document.documentElement.classList.remove('brand-intro-pending');
       document.documentElement.classList.add('brand-intro-active');
       // CSS cross-fades away, so the already-rendered page appears continuously.
       // Last-resort cleanup for browser interruptions or missing animationend.

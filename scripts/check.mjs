@@ -56,7 +56,14 @@ for (const file of htmlFiles) {
   // Approved brand intro must be present without becoming page content or a second H1.
   if (!html.includes('data-brand-intro aria-hidden="true"')) throw new Error(`Missing accessible brand intro: ${file}`);
   if (!html.includes('data-navigation-status role="status" aria-live="polite"')) throw new Error(`Missing delayed-navigation accessibility feedback: ${file}`);
-  if (!html.includes("sessionStorage.getItem('update-card-intro-v1')")) throw new Error(`Intro session guard missing: ${file}`);
+  if (!html.includes("localStorage.getItem(introKey)") || !html.includes("'update-card-intro-v2'")) {
+    throw new Error(`Persistent first-visit intro guard missing: ${file}`);
+  }
+  if (!html.includes("classList.add('brand-intro-pending')")) throw new Error(`Early intro queue missing: ${file}`);
+  if (!html.includes("introPreload.href = '/assets/brand/logo-horizontal-640.webp'") ||
+      !html.includes("introPreload.fetchPriority = 'high'")) {
+    throw new Error(`Conditional high-priority intro logo preload missing: ${file}`);
+  }
   if (!html.includes('src="/assets/brand/logo-horizontal-640.webp"')) throw new Error(`Intro source asset missing: ${file}`);
   if ((html.match(/<h1\b/g) || []).length !== 1) throw new Error(`Expected exactly one H1: ${file}`);
   if (!html.includes('<meta name="description"')) throw new Error(`Missing meta description: ${file}`);
@@ -158,8 +165,13 @@ if (!siteCss.includes('@media(prefers-reduced-motion:reduce)')) {
 if (!siteJs.includes("event.animationName === 'uc-intro-out'") ||
     !siteJs.includes('brandIntro.remove()') ||
     !siteJs.includes('logo.decode()') ||
-    !siteJs.includes('650')) {
+    !siteJs.includes('650') ||
+    !siteJs.includes("localStorage.setItem('update-card-intro-v2', 'seen')")) {
   throw new Error('Adaptive decoded-logo intro or cleanup missing');
+}
+if (!siteCss.includes('.brand-intro-pending .brand-intro') ||
+    !siteCss.includes('@keyframes uc-intro-pending-out')) {
+  throw new Error('Early intro state or CSS-only escape hatch missing');
 }
 if (!siteJs.includes('const DELAY_MS = 350') ||
     !siteJs.includes('new URL(link.href, location.href)') ||
