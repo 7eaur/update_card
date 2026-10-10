@@ -4,6 +4,20 @@ import { services } from '../src/data/services.js';
 import { getServiceCatalog } from '../src/data/serviceCatalog.js';
 
 const dist = resolve(process.cwd(), 'dist');
+const repositoryFiles = [
+  'README.md',
+  'docs/ARCHITECTURE.md',
+  'docs/screenshots/home-desktop.webp',
+  'docs/screenshots/home-mobile.webp',
+];
+
+for (const file of repositoryFiles) await access(resolve(process.cwd(), file));
+
+const readme = await readFile(resolve(process.cwd(), 'README.md'), 'utf8');
+for (const screenshot of repositoryFiles.filter((file) => file.startsWith('docs/screenshots/'))) {
+  if (!readme.includes(screenshot)) throw new Error(`README screenshot reference missing: ${screenshot}`);
+}
+
 const serviceRoutes = [
   'games',
   'social-entertainment',

@@ -1,4 +1,4 @@
-# UPDATE CARD — Brand Identity Asset Package v1.0
+# UPDATE CARD — Brand Assets
 
 Production-oriented visual identity assets derived from the supplied original logo artwork.
 
@@ -36,12 +36,13 @@ A genuine editable vector master (SVG/EPS/PDF paths) is **not claimed** in this 
 
 Web delivery currently uses optimized WebP plus PNG/ICO where transparency or platform compatibility requires them. AVIF may be produced later in the deployment image pipeline when useful; it is not required for the logo system to be valid.
 
-## Reproducibility
+## Regenerating assets
 
 - `build_identity_assets.py` regenerates the core logo, web, favicon and app/PWA files from the canonical source.
 - `build_social_assets.py` regenerates the social-avatar files from the generated canonical UC icon.
-- `.github/workflows/build-brand-assets.yml` verifies and regenerates the production assets on the identity branch.
+
+Run these scripts manually only when the canonical source changes. Review generated files before committing them to `main`.
 
 ## Important
 
-Do not recolor, stretch, skew, rotate, retype, or redraw the logo. Use the supplied derivatives and the rules in `docs/brand/BRAND_IDENTITY_GUIDELINES.md`.
+Do not recolor, stretch, skew, rotate, retype, or redraw the logo. Preserve the prepared lockups, source colors and aspect ratio. Use the horizontal lockup at `>= 180 CSS px`, the UC icon for compact placements, and the prepared favicon files at browser sizes.
