@@ -31,7 +31,7 @@ html.brand-intro-fallback{overflow:hidden}
 .brand-intro__mark{
   position:relative;
   width:min(78vw,390px);
-  aspect-ratio:320/137;
+  aspect-ratio:320/76;
   contain:layout paint;
 }
 .brand-intro__layer{
@@ -66,23 +66,9 @@ html.brand-intro-fallback{overflow:hidden}
 .brand-intro-active .brand-intro__line{
   animation:uc-intro-line .8s cubic-bezier(.22,.7,.2,1) .36s both;
 }
-.brand-intro__loader{
-  position:absolute;
-  left:50%;
-  bottom:8%;
-  width:18px;
-  height:18px;
-  margin-left:-9px;
-  border:2px solid #d9deea;
-  border-top-color:#950331;
-  border-radius:50%;
-  opacity:0;
-}
-.brand-intro-pending .brand-intro__loader{
-  animation:uc-intro-pending-spin .72s linear .16s infinite;
-}
-.brand-intro-active .brand-intro__loader{
-  display:none;
+.brand-intro-pending .brand-intro__layer--finished{
+  opacity:1;
+  animation:uc-intro-pending-logo .22s ease-out both;
 }
 .brand-intro-static .brand-intro,
 .brand-intro-fallback .brand-intro{
@@ -90,10 +76,6 @@ html.brand-intro-fallback{overflow:hidden}
 }
 .brand-intro-static .brand-intro__layer--finished{
   opacity:1;
-}
-.brand-intro-static .brand-intro__loader,
-.brand-intro-fallback .brand-intro__loader{
-  display:none;
 }
 .brand-intro__fallback{
   position:absolute;
@@ -140,10 +122,9 @@ html.brand-intro-fallback{overflow:hidden}
   from{opacity:1;visibility:visible}
   to{opacity:0;visibility:hidden}
 }
-@keyframes uc-intro-pending-spin{
-  0%{opacity:0;transform:rotate(0)}
-  18%{opacity:1}
-  100%{opacity:1;transform:rotate(360deg)}
+@keyframes uc-intro-pending-logo{
+  from{opacity:0;transform:scale(.985)}
+  to{opacity:1;transform:scale(1)}
 }
 @keyframes uc-intro-pending-out{
   from{opacity:1;visibility:visible}
@@ -154,7 +135,7 @@ html.brand-intro-fallback{overflow:hidden}
   to{opacity:0;visibility:hidden}
 }
 @media(prefers-reduced-motion:reduce){
-  .brand-intro-pending .brand-intro__loader{animation:none;opacity:1}
+  .brand-intro-pending .brand-intro__layer--finished{animation:none;opacity:1}
   .brand-intro-static .brand-intro,
   .brand-intro-static .brand-intro__layer--finished{display:grid;opacity:1;animation:none}
   .brand-intro-fallback .brand-intro{animation:none}

@@ -2,11 +2,10 @@
 export const renderLogoIntro = () => `
   <div class="brand-intro" data-brand-intro aria-hidden="true">
     <div class="brand-intro__mark">
-      <img class="brand-intro__layer brand-intro__layer--symbol" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" decoding="async">
-      <img class="brand-intro__layer brand-intro__layer--wordmark" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" decoding="async">
-      <img class="brand-intro__layer brand-intro__layer--finished" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" decoding="async">
+      <img class="brand-intro__layer brand-intro__layer--symbol" src="/assets/brand/logo-horizontal-320.webp" width="320" height="76" alt="" decoding="async" fetchpriority="high">
+      <img class="brand-intro__layer brand-intro__layer--wordmark" src="/assets/brand/logo-horizontal-320.webp" width="320" height="76" alt="" decoding="async">
+      <img class="brand-intro__layer brand-intro__layer--finished" src="/assets/brand/logo-horizontal-320.webp" width="320" height="76" alt="" decoding="async">
       <span class="brand-intro__line"></span>
-      <span class="brand-intro__loader" aria-hidden="true"></span>
       <span class="brand-intro__fallback" aria-hidden="true">
         <strong>UPDATE CARD</strong>
         <small>جاري فتح الموقع…</small>
