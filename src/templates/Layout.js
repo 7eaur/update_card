@@ -140,31 +140,28 @@ export const renderLayout = ({
   <!-- Queue the one-time intro before body paint; animation starts only after its real logo decodes. -->
   <script>
     (() => {
+      const introKey = 'update-card-intro-v2';
+      let introSeen = false;
       try {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        if (document.visibilityState === 'hidden') return;
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        if (connection && (connection.saveData || ['slow-2g', '2g'].includes(connection.effectiveType))) return;
-        const introKey = 'update-card-intro-v2';
-        if (localStorage.getItem(introKey)) return;
+        introSeen = localStorage.getItem(introKey) === 'seen';
         // Preserve the previous session-only decision for tabs already open during this upgrade.
-        if (sessionStorage.getItem('update-card-intro-v1')) {
+        if (!introSeen && sessionStorage.getItem('update-card-intro-v1')) {
           localStorage.setItem(introKey, 'seen');
-          return;
+          introSeen = true;
         }
-        const introPreload = document.createElement('link');
-        introPreload.rel = 'preload';
-        introPreload.as = 'image';
-        introPreload.type = 'image/webp';
-        introPreload.href = '/assets/brand/logo-horizontal-640.webp';
-        introPreload.fetchPriority = 'high';
-        document.head.append(introPreload);
-        document.documentElement.dataset.brandIntroEligible = 'true';
-        document.documentElement.dataset.brandIntroQueuedAt = String(performance.now());
-        document.documentElement.classList.add('brand-intro-pending');
       } catch (_) {
-        // Storage-restricted browsers show the website normally without an unreliable repeat intro.
+        // If storage is unavailable, prefer showing the intro over skipping a real first visit.
       }
+      if (introSeen) return;
+      const introPreload = document.createElement('link');
+      introPreload.rel = 'preload';
+      introPreload.as = 'image';
+      introPreload.type = 'image/webp';
+      introPreload.href = '/assets/brand/logo-horizontal-640.webp';
+      introPreload.fetchPriority = 'high';
+      document.head.append(introPreload);
+      document.documentElement.dataset.brandIntroEligible = 'true';
+      document.documentElement.classList.add('brand-intro-pending');
     })();
   </script>
   <link rel="stylesheet" href="/assets/site.css?v=${site.assetVersion}">

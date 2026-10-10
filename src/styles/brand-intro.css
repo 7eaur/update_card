@@ -1,7 +1,7 @@
-/* UPDATE CARD adaptive first-session logo intro
+/* UPDATE CARD mandatory first-visit logo intro
  * Signature Reveal #01 approved 2026-10-09.
  * Original branded raster, not an invented vector/path redraw.
- * Pure CSS; no dependency, layout shift or blocking pointer events.
+ * Pure CSS; no dependency or layout shift. The first-visit sequence owns the viewport until complete.
  */
 .brand-intro{
   display:none;
@@ -10,7 +10,8 @@
   z-index:9998;
   padding:20px;
   background:#fff;
-  pointer-events:none;
+  pointer-events:auto;
+  touch-action:none;
   place-items:center;
   opacity:1;
 }
@@ -20,9 +21,13 @@
 }
 .brand-intro-pending .brand-intro{
   display:grid;
-  /* CSS-only escape hatch: a missing script can never strand the visitor here. */
-  animation:uc-intro-pending-out .18s ease-out 1.42s both;
+  /* CSS-only escape hatch: a missing script can never strand the visitor indefinitely. */
+  animation:uc-intro-pending-out .18s ease-out 3.2s both;
 }
+html.brand-intro-pending,
+html.brand-intro-active,
+html.brand-intro-static,
+html.brand-intro-fallback{overflow:hidden}
 .brand-intro__mark{
   position:relative;
   width:min(78vw,390px);
@@ -79,6 +84,41 @@
 .brand-intro-active .brand-intro__loader{
   display:none;
 }
+.brand-intro-static .brand-intro,
+.brand-intro-fallback .brand-intro{
+  display:grid;
+}
+.brand-intro-static .brand-intro__layer--finished{
+  opacity:1;
+}
+.brand-intro-static .brand-intro__loader,
+.brand-intro-fallback .brand-intro__loader{
+  display:none;
+}
+.brand-intro__fallback{
+  position:absolute;
+  inset:0;
+  display:none;
+  place-content:center;
+  gap:5px;
+  text-align:center;
+  color:#071c4d;
+}
+.brand-intro__fallback strong{
+  color:#950331;
+  font-size:clamp(20px,5vw,30px);
+  letter-spacing:.06em;
+}
+.brand-intro__fallback small{
+  color:#64708a;
+  font-size:13px;
+}
+.brand-intro-fallback .brand-intro__fallback{
+  display:grid;
+}
+.brand-intro-fallback .brand-intro{
+  animation:uc-intro-fallback-out .25s ease-out .95s both;
+}
 @keyframes uc-intro-symbol{
   0%{opacity:1;clip-path:inset(0 0 0 100%)}
   100%{opacity:1;clip-path:inset(0 0 0 51%)}
@@ -109,9 +149,15 @@
   from{opacity:1;visibility:visible}
   to{opacity:0;visibility:hidden}
 }
+@keyframes uc-intro-fallback-out{
+  from{opacity:1;visibility:visible}
+  to{opacity:0;visibility:hidden}
+}
 @media(prefers-reduced-motion:reduce){
-  .brand-intro-pending .brand-intro,
-  .brand-intro-active .brand-intro{display:none!important;animation:none!important}
+  .brand-intro-pending .brand-intro__loader{animation:none;opacity:1}
+  .brand-intro-static .brand-intro,
+  .brand-intro-static .brand-intro__layer--finished{display:grid;opacity:1;animation:none}
+  .brand-intro-fallback .brand-intro{animation:none}
 }
 
 /* Delayed native-navigation feedback: preserve the current page and native browser flow. */
