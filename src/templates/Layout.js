@@ -157,7 +157,7 @@ export const renderLayout = ({
       introPreload.rel = 'preload';
       introPreload.as = 'image';
       introPreload.type = 'image/webp';
-      introPreload.href = '/assets/brand/logo-horizontal-640.webp';
+      introPreload.href = '/assets/brand/logo-horizontal-320.webp';
       introPreload.fetchPriority = 'high';
       document.head.append(introPreload);
       document.documentElement.dataset.brandIntroEligible = 'true';

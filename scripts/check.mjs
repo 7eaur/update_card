@@ -1,4 +1,4 @@
-import { access, readFile, readdir } from 'node:fs/promises';
+import { access, readFile, readdir, stat } from 'node:fs/promises';
 import { join, relative, resolve, sep } from 'node:path';
 import { services } from '../src/data/services.js';
 import { getServiceCatalog } from '../src/data/serviceCatalog.js';
@@ -38,6 +38,11 @@ const required = [
 
 for (const file of required) await access(join(dist, file));
 
+const introLogo = await stat(join(dist, 'assets/brand/logo-horizontal-320.webp'));
+if (introLogo.size > 16 * 1024) {
+  throw new Error(`First-paint intro logo exceeds 16KB: ${introLogo.size} bytes`);
+}
+
 const htmlFiles = [];
 async function walkHtml(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -63,11 +68,15 @@ for (const file of htmlFiles) {
   if (html.includes("connection.saveData") || html.includes("document.visibilityState === 'hidden'")) {
     throw new Error(`First-visit intro must not be skipped for slow or background entry: ${file}`);
   }
-  if (!html.includes("introPreload.href = '/assets/brand/logo-horizontal-640.webp'") ||
+  if (!html.includes("introPreload.href = '/assets/brand/logo-horizontal-320.webp'") ||
       !html.includes("introPreload.fetchPriority = 'high'")) {
     throw new Error(`Conditional high-priority intro logo preload missing: ${file}`);
   }
-  if (!html.includes('src="/assets/brand/logo-horizontal-640.webp"')) throw new Error(`Intro source asset missing: ${file}`);
+  if (!html.includes('src="/assets/brand/logo-horizontal-320.webp"') ||
+      !html.includes('width="320" height="76"') ||
+      !html.includes('fetchpriority="high"')) {
+    throw new Error(`Fast first-paint intro source asset missing: ${file}`);
+  }
   if ((html.match(/<h1\b/g) || []).length !== 1) throw new Error(`Expected exactly one H1: ${file}`);
   if (!html.includes('<meta name="description"')) throw new Error(`Missing meta description: ${file}`);
   if (!html.includes('<link rel="preload" href="/assets/fonts/cairo-v31-arabic.woff2" as="font" type="font/woff2" crossorigin>')) {
@@ -176,9 +185,14 @@ if (!siteJs.includes("'uc-intro-out', 'uc-intro-fallback-out'") ||
 }
 if (!siteCss.includes('.brand-intro-pending .brand-intro') ||
     !siteCss.includes('@keyframes uc-intro-pending-out') ||
+    !siteCss.includes('.brand-intro-pending .brand-intro__layer--finished') ||
+    !siteCss.includes('@keyframes uc-intro-pending-logo') ||
     !siteCss.includes('.brand-intro-fallback .brand-intro') ||
     !siteCss.includes('pointer-events:auto')) {
-  throw new Error('Early intro state, visual fallback, or CSS-only escape hatch missing');
+  throw new Error('Immediate logo, early intro state, visual fallback, or CSS-only escape hatch missing');
+}
+if (siteCss.includes('.brand-intro__loader') || siteJs.includes('uc-intro-pending-spin')) {
+  throw new Error('Obsolete blank-screen intro spinner must not return');
 }
 if (!siteJs.includes('const DELAY_MS = 350') ||
     !siteJs.includes('new URL(link.href, location.href)') ||
