@@ -136,9 +136,7 @@ export const renderLayout = ({
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="/assets/fonts/cairo-v31-arabic.woff2" as="font" type="font/woff2" crossorigin>
   <!-- Eligibility is recorded early; animation starts only after its real logo is decoded. -->
   <script>
     (() => {

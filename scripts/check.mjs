@@ -25,6 +25,9 @@ const required = [
   '404.html',
   'assets/site.css',
   'assets/site.js',
+  'assets/fonts/cairo-v31-arabic.woff2',
+  'assets/fonts/cairo-v31-latin.woff2',
+  'assets/fonts/OFL.txt',
   'assets/brand/logo-horizontal-320.webp',
   'assets/brand/logo-horizontal-640.webp',
   'assets/brand/logo-icon-512.webp',
@@ -57,6 +60,12 @@ for (const file of htmlFiles) {
   if (!html.includes('src="/assets/brand/logo-horizontal-640.webp"')) throw new Error(`Intro source asset missing: ${file}`);
   if ((html.match(/<h1\b/g) || []).length !== 1) throw new Error(`Expected exactly one H1: ${file}`);
   if (!html.includes('<meta name="description"')) throw new Error(`Missing meta description: ${file}`);
+  if (!html.includes('<link rel="preload" href="/assets/fonts/cairo-v31-arabic.woff2" as="font" type="font/woff2" crossorigin>')) {
+    throw new Error(`Missing local Arabic font preload: ${file}`);
+  }
+  if (html.includes('fonts.googleapis.com') || html.includes('fonts.gstatic.com')) {
+    throw new Error(`External Google Fonts request found: ${file}`);
+  }
   if (!html.includes('<link rel="canonical" href="https://updatecard.net/')) throw new Error(`Missing canonical on primary domain: ${file}`);
   if (!file.endsWith('404.html')) {
     if (!html.includes('<meta property="og:image" content="https://updatecard.net/assets/social/update-card-share.png">')) {
