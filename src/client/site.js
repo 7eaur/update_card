@@ -121,59 +121,59 @@ if (!prefersReducedMotion && !constrainedConnection && 'IntersectionObserver' in
   }
 }
 
-/* Entry motion is optional and starts only if the canonical logo decodes promptly.
- * The page is already usable underneath; never wait for the logo or for other images.
- */
+/* Mandatory first-visit brand entry. It runs from any landing page before revealing content. */
 const brandIntro = document.querySelector('[data-brand-intro]');
 if (brandIntro) {
   const eligible = document.documentElement.dataset.brandIntroEligible === 'true';
-  const queuedAt = Number(document.documentElement.dataset.brandIntroQueuedAt || 0);
   delete document.documentElement.dataset.brandIntroEligible;
-  delete document.documentElement.dataset.brandIntroQueuedAt;
 
   if (!eligible) {
     document.documentElement.classList.remove('brand-intro-pending');
     brandIntro.remove();
   } else {
-    const exitEvents = ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'];
     let disposed = false;
-    let interacted = false;
     let timeout;
+    const onPageHide = () => disposeIntro(false);
 
-    const disposeIntro = () => {
+    const markIntroSeen = () => {
+      try { localStorage.setItem('update-card-intro-v2', 'seen'); } catch (_) {}
+    };
+    const disposeIntro = (completed = false) => {
       if (disposed) return;
       disposed = true;
+      if (completed) markIntroSeen();
       window.clearTimeout(timeout);
-      document.documentElement.classList.remove('brand-intro-pending', 'brand-intro-active');
+      document.documentElement.classList.remove(
+        'brand-intro-pending',
+        'brand-intro-active',
+        'brand-intro-static',
+        'brand-intro-fallback',
+      );
       brandIntro.removeEventListener('animationend', onIntroAnimationEnd);
-      exitEvents.forEach((type) => window.removeEventListener(type, onIntroInteraction, true));
-      window.removeEventListener('pagehide', disposeIntro);
+      window.removeEventListener('pagehide', onPageHide);
       brandIntro.remove();
     };
 
     const onIntroAnimationEnd = (event) => {
-      if (event.target === brandIntro && event.animationName === 'uc-intro-out') {
-        disposeIntro();
+      if (event.target === brandIntro &&
+          ['uc-intro-out', 'uc-intro-fallback-out'].includes(event.animationName)) {
+        disposeIntro(true);
       }
     };
-    const onIntroInteraction = () => {
-      interacted = true;
-      disposeIntro();
-    };
-
-    exitEvents.forEach((type) => {
-      window.addEventListener(type, onIntroInteraction, { capture: true, passive: true });
-    });
-    window.addEventListener('pagehide', disposeIntro, { once: true });
+    window.addEventListener('pagehide', onPageHide, { once: true });
     brandIntro.addEventListener('animationend', onIntroAnimationEnd);
 
     const startIntro = async () => {
+      while (document.hidden) {
+        await new Promise((resolve) => {
+          document.addEventListener('visibilitychange', resolve, { once: true });
+        });
+      }
       const logo = brandIntro.querySelector('.brand-intro__layer--finished');
-      if (!logo) { disposeIntro(); return; }
-      // A missing/slow image must never leave an empty splash screen.
-      const assetReady = typeof logo.decode === 'function'
+      const assetReady = logo && typeof logo.decode === 'function'
         ? logo.decode().then(() => true, () => false)
         : new Promise((resolve) => {
+            if (!logo) { resolve(false); return; }
             if (logo.complete) { resolve(Boolean(logo.naturalWidth)); return; }
             logo.addEventListener('load', () => resolve(true), { once: true });
             logo.addEventListener('error', () => resolve(false), { once: true });
@@ -181,20 +181,21 @@ if (brandIntro) {
 
       const ready = await Promise.race([
         assetReady,
-        new Promise((resolve) => window.setTimeout(() => resolve(false), 650)),
+        new Promise((resolve) => window.setTimeout(() => resolve(false), 3000)),
       ]);
-      const queuedTooLong = queuedAt > 0 && performance.now() - queuedAt > 1400;
-      if (!ready || disposed || interacted || document.hidden || queuedTooLong) {
-        disposeIntro();
+      if (disposed) return;
+
+      document.documentElement.classList.remove('brand-intro-pending');
+      if (!ready) {
+        document.documentElement.classList.add('brand-intro-fallback');
+        timeout = window.setTimeout(() => disposeIntro(true), 1500);
         return;
       }
 
-      try { localStorage.setItem('update-card-intro-v2', 'seen'); } catch (_) {}
-      document.documentElement.classList.remove('brand-intro-pending');
-      document.documentElement.classList.add('brand-intro-active');
-      // CSS cross-fades away, so the already-rendered page appears continuously.
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.documentElement.classList.add(reducedMotion ? 'brand-intro-static' : 'brand-intro-active');
       // Last-resort cleanup for browser interruptions or missing animationend.
-      timeout = window.setTimeout(disposeIntro, 2100);
+      timeout = window.setTimeout(() => disposeIntro(true), reducedMotion ? 1100 : 2100);
     };
     void startIntro();
   }

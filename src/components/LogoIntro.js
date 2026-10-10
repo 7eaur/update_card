@@ -1,4 +1,4 @@
-/* Approved first-session brand reveal; original UPDATE CARD raster is not redrawn. */
+/* Approved first-visit brand reveal; original UPDATE CARD raster is not redrawn. */
 export const renderLogoIntro = () => `
   <div class="brand-intro" data-brand-intro aria-hidden="true">
     <div class="brand-intro__mark">
@@ -7,6 +7,10 @@ export const renderLogoIntro = () => `
       <img class="brand-intro__layer brand-intro__layer--finished" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" decoding="async">
       <span class="brand-intro__line"></span>
       <span class="brand-intro__loader" aria-hidden="true"></span>
+      <span class="brand-intro__fallback" aria-hidden="true">
+        <strong>UPDATE CARD</strong>
+        <small>جاري فتح الموقع…</small>
+      </span>
     </div>
   </div>`;
 

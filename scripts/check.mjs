@@ -60,6 +60,9 @@ for (const file of htmlFiles) {
     throw new Error(`Persistent first-visit intro guard missing: ${file}`);
   }
   if (!html.includes("classList.add('brand-intro-pending')")) throw new Error(`Early intro queue missing: ${file}`);
+  if (html.includes("connection.saveData") || html.includes("document.visibilityState === 'hidden'")) {
+    throw new Error(`First-visit intro must not be skipped for slow or background entry: ${file}`);
+  }
   if (!html.includes("introPreload.href = '/assets/brand/logo-horizontal-640.webp'") ||
       !html.includes("introPreload.fetchPriority = 'high'")) {
     throw new Error(`Conditional high-priority intro logo preload missing: ${file}`);
@@ -162,16 +165,20 @@ if (!siteCss.includes('uc-intro-symbol') || !siteCss.includes('uc-intro-out')) {
 if (!siteCss.includes('@media(prefers-reduced-motion:reduce)')) {
   throw new Error('Brand intro reduced-motion fallback missing');
 }
-if (!siteJs.includes("event.animationName === 'uc-intro-out'") ||
+if (!siteJs.includes("'uc-intro-out', 'uc-intro-fallback-out'") ||
     !siteJs.includes('brandIntro.remove()') ||
     !siteJs.includes('logo.decode()') ||
-    !siteJs.includes('650') ||
-    !siteJs.includes("localStorage.setItem('update-card-intro-v2', 'seen')")) {
-  throw new Error('Adaptive decoded-logo intro or cleanup missing');
+    !siteJs.includes('3000') ||
+    !siteJs.includes("disposeIntro(true)") ||
+    !siteJs.includes("localStorage.setItem('update-card-intro-v2', 'seen')") ||
+    siteJs.includes("const exitEvents = ['pointerdown'")) {
+  throw new Error('Mandatory first-visit intro, fallback, or cleanup missing');
 }
 if (!siteCss.includes('.brand-intro-pending .brand-intro') ||
-    !siteCss.includes('@keyframes uc-intro-pending-out')) {
-  throw new Error('Early intro state or CSS-only escape hatch missing');
+    !siteCss.includes('@keyframes uc-intro-pending-out') ||
+    !siteCss.includes('.brand-intro-fallback .brand-intro') ||
+    !siteCss.includes('pointer-events:auto')) {
+  throw new Error('Early intro state, visual fallback, or CSS-only escape hatch missing');
 }
 if (!siteJs.includes('const DELAY_MS = 350') ||
     !siteJs.includes('new URL(link.href, location.href)') ||
