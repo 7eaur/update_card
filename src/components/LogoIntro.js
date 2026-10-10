@@ -6,6 +6,7 @@ export const renderLogoIntro = () => `
       <img class="brand-intro__layer brand-intro__layer--wordmark" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" decoding="async">
       <img class="brand-intro__layer brand-intro__layer--finished" src="/assets/brand/logo-horizontal-640.webp" width="640" height="274" alt="" decoding="async">
       <span class="brand-intro__line"></span>
+      <span class="brand-intro__loader" aria-hidden="true"></span>
     </div>
   </div>`;
 

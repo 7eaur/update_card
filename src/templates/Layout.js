@@ -137,17 +137,33 @@ export const renderLayout = ({
   <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preload" href="/assets/fonts/cairo-v31-arabic.woff2" as="font" type="font/woff2" crossorigin>
-  <!-- Eligibility is recorded early; animation starts only after its real logo is decoded. -->
+  <!-- Queue the one-time intro before body paint; animation starts only after its real logo decodes. -->
   <script>
     (() => {
       try {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         if (document.visibilityState === 'hidden') return;
-        if (sessionStorage.getItem('update-card-intro-v1')) return;
-        sessionStorage.setItem('update-card-intro-v1', 'seen');
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if (connection && (connection.saveData || ['slow-2g', '2g'].includes(connection.effectiveType))) return;
+        const introKey = 'update-card-intro-v2';
+        if (localStorage.getItem(introKey)) return;
+        // Preserve the previous session-only decision for tabs already open during this upgrade.
+        if (sessionStorage.getItem('update-card-intro-v1')) {
+          localStorage.setItem(introKey, 'seen');
+          return;
+        }
+        const introPreload = document.createElement('link');
+        introPreload.rel = 'preload';
+        introPreload.as = 'image';
+        introPreload.type = 'image/webp';
+        introPreload.href = '/assets/brand/logo-horizontal-640.webp';
+        introPreload.fetchPriority = 'high';
+        document.head.append(introPreload);
         document.documentElement.dataset.brandIntroEligible = 'true';
+        document.documentElement.dataset.brandIntroQueuedAt = String(performance.now());
+        document.documentElement.classList.add('brand-intro-pending');
       } catch (_) {
-        // Storage-restricted browsers show the website without interrupting navigation.
+        // Storage-restricted browsers show the website normally without an unreliable repeat intro.
       }
     })();
   </script>
