@@ -5,6 +5,8 @@ on:
     branches:
       - main
     paths:
+      - 'README.md'
+      - 'docs/**'
       - 'src/**'
       - 'scripts/**'
       - 'package.json'
@@ -15,6 +17,8 @@ on:
     branches:
       - main
     paths:
+      - 'README.md'
+      - 'docs/**'
       - 'src/**'
       - 'scripts/**'
       - 'package.json'

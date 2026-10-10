@@ -2,6 +2,20 @@
   "name": "update-card-profile",
   "private": true,
   "type": "module",
+  "description": "Production website for UPDATE CARD digital services in Yemen.",
+  "homepage": "https://updatecard.net",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/7eaur/update_card.git"
+  },
+  "keywords": [
+    "update-card",
+    "arabic",
+    "rtl",
+    "static-site",
+    "digital-services",
+    "vercel"
+  ],
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
