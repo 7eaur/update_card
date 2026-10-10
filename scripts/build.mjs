@@ -20,6 +20,7 @@ await mkdir(resolve(dist, 'assets/brand'), { recursive: true });
 await mkdir(resolve(dist, 'assets/favicon'), { recursive: true });
 await mkdir(resolve(dist, 'assets/media'), { recursive: true });
 await mkdir(resolve(dist, 'assets/images'), { recursive: true });
+await mkdir(resolve(dist, 'assets/fonts'), { recursive: true });
 await mkdir(resolve(dist, 'assets/social'), { recursive: true });
 
 const brandTokens = await readFile(resolve(root, 'brand/tokens/brand-tokens.css'), 'utf8');
@@ -29,6 +30,7 @@ await writeFile(resolve(dist, 'assets/site.css'), css);
 await cp(resolve(root, 'src/client/site.js'), resolve(dist, 'assets/site.js'));
 await cp(resolve(root, 'src/assets/media'), resolve(dist, 'assets/media'), { recursive: true });
 await cp(resolve(root, 'src/assets/images'), resolve(dist, 'assets/images'), { recursive: true });
+await cp(resolve(root, 'src/assets/fonts'), resolve(dist, 'assets/fonts'), { recursive: true });
 
 const assetCopies = [
   ['brand/web/logo-horizontal-320.webp', 'assets/brand/logo-horizontal-320.webp'],
