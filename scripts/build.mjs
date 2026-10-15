@@ -121,6 +121,7 @@ const pages = [
     title: 'أبديت كارد | خدمات رقمية للشحن والدفع في اليمن',
     description: 'أبديت كارد (UPDATE CARD) لخدمات الشحن الرقمي في اليمن: شحن الألعاب والبطاقات والاشتراكات والدفع الإلكتروني والشراء من المواقع العالمية.',
     pageType: 'WebPage',
+    lastModified: '2026-10-15',
     content: renderHomePage(),
   },
   {
@@ -129,6 +130,7 @@ const pages = [
     title: 'من نحن',
     description: 'تعرف على أبديت كارد وخبرتها في الخدمات الرقمية في اليمن منذ عام 2018 وخدمة الأفراد والجملة.',
     pageType: 'AboutPage',
+    lastModified: '2026-10-10',
     content: renderAboutPage(),
   },
   {
@@ -137,6 +139,7 @@ const pages = [
     title: 'الخدمات الرقمية في اليمن',
     description: 'استكشف خدمات أبديت كارد للشحن والبطاقات والاشتراكات والبرمجيات والدفع والشراء من المواقع العالمية.',
     pageType: 'CollectionPage',
+    lastModified: '2026-10-10',
     structuredData: [{
       '@type': 'ItemList',
       '@id': `${site.siteUrl}/services/#service-list`,
@@ -156,6 +159,7 @@ const pages = [
     title: 'الأسئلة الشائعة',
     description: 'إجابات واضحة حول طلب خدمات أبديت كارد والتوفر والأسعار والجملة والشراء من المواقع العالمية.',
     pageType: 'FAQPage',
+    lastModified: '2026-10-10',
     structuredData: [{
       '@type': 'FAQPage',
       '@id': `${site.siteUrl}/faq/#faq`,
@@ -176,6 +180,7 @@ const pages = [
     title: 'تواصل مع أبديت كارد',
     description: 'تواصل مع أبديت كارد في اليمن عبر واتساب أو الاتصال المباشر أو فيسبوك للاستفسار عن الخدمات المتاحة.',
     pageType: 'ContactPage',
+    lastModified: '2026-10-10',
     content: renderContactPage(),
   },
 ];
@@ -193,6 +198,7 @@ for (const service of services) {
     title: seo.title,
     description: seo.description,
     pageType: 'CollectionPage',
+    lastModified: '2026-10-10',
     structuredData: [
       {
         '@type': 'Service',
@@ -236,7 +242,12 @@ const notFound = renderLayout({
 await writeFile(resolve(dist, '404.html'), notFound);
 
 const sitemapEntries = pages
-  .map((page) => `  <url><loc>${new URL(page.path, site.siteUrl).toString()}</loc></url>`)
+  .map((page) => [
+    '  <url>',
+    `    <loc>${new URL(page.path, site.siteUrl).toString()}</loc>`,
+    `    <lastmod>${page.lastModified}</lastmod>`,
+    '  </url>',
+  ].join('\n'))
   .join('\n');
 await writeFile(
   resolve(dist, 'sitemap.xml'),
