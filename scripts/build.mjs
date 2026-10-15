@@ -118,7 +118,7 @@ const pages = [
   {
     path: '/',
     file: 'index.html',
-    title: 'أبديت كارد | UPDATE CARD | خدمات شحن ورقمية في اليمن',
+    title: 'أبديت كارد | خدمات رقمية للشحن والدفع في اليمن',
     description: 'أبديت كارد (UPDATE CARD) لخدمات الشحن الرقمي في اليمن: شحن الألعاب والبطاقات والاشتراكات والدفع الإلكتروني والشراء من المواقع العالمية.',
     pageType: 'WebPage',
     content: renderHomePage(),
