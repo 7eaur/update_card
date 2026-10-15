@@ -51,6 +51,26 @@ const required = [
 ];
 
 for (const file of required) await access(join(dist, file));
+const sitemapXml = await readFile(join(dist, 'sitemap.xml'), 'utf8');
+const expectedPublicUrls = [
+  'https://updatecard.net/',
+  'https://updatecard.net/about/',
+  'https://updatecard.net/services/',
+  ...serviceRoutes.map((slug) => `https://updatecard.net/services/${slug}/`),
+  'https://updatecard.net/faq/',
+  'https://updatecard.net/contact/',
+];
+for (const url of expectedPublicUrls) {
+  const count = sitemapXml.split(`<loc>${url}</loc>`).length - 1;
+  if (count !== 1) throw new Error(`Sitemap must contain exactly one canonical URL for ${url}; found ${count}`);
+}
+if ((sitemapXml.match(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g) || []).length !== expectedPublicUrls.length) {
+  throw new Error('Sitemap lastmod coverage does not match the public URL count');
+}
+if (sitemapXml.includes('/index.html</loc>') || sitemapXml.includes('<loc>https://www.updatecard.net/')) {
+  throw new Error('Sitemap contains a duplicate or non-canonical URL');
+}
+
 
 const introLogo = await stat(join(dist, 'assets/brand/logo-horizontal-320.webp'));
 if (introLogo.size > 16 * 1024) {
