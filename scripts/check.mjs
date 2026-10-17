@@ -1,6 +1,7 @@
 import { access, readFile, readdir, stat } from 'node:fs/promises';
 import { join, relative, resolve, sep } from 'node:path';
 import { services } from '../src/data/services.js';
+import { faqs } from '../src/data/faqs.js';
 import { getServiceCatalog } from '../src/data/serviceCatalog.js';
 
 const dist = resolve(process.cwd(), 'dist');
@@ -119,7 +120,31 @@ for (const file of htmlFiles) {
   if (html.includes('fonts.googleapis.com') || html.includes('fonts.gstatic.com')) {
     throw new Error(`External Google Fonts request found: ${file}`);
   }
-  if (!html.includes('<link rel="canonical" href="https://updatecard.net/')) throw new Error(`Missing canonical on primary domain: ${file}`);
+  const relativePage = relative(dist, file).split(sep).join('/');
+  if (relativePage === '404.html') {
+    if (!html.includes('<meta name="robots" content="noindex,follow">')) {
+      throw new Error('404 must stay noindex');
+    }
+  } else {
+    const canonical = relativePage === 'index.html'
+      ? 'https://updatecard.net/'
+      : `https://updatecard.net/${relativePage.replace(/index\\.html$/, '')}`;
+    if (!html.includes(`<link rel="canonical" href="${canonical}">`)) {
+      throw new Error(`Unexpected canonical (or missing trailing slash): ${file} -> ${canonical}`);
+    }
+    if (!html.includes('<meta name="robots" content="index,follow')) {
+      throw new Error(`Public page must be indexable: ${file}`);
+    }
+  }
+  for (const [, href] of html.matchAll(/<a\\b[^>]*\\bhref="(\\/[^"]*)"/g)) {
+    const target = href.split(/[?#]/)[0];
+    if (target !== '/' && !target.endsWith('/') && !/\\.[a-z0-9]{1,7}$/i.test(target)) {
+      throw new Error(`Internal link must point directly to trailing-slash canonical: ${file}: ${href}`);
+    }
+    if (target.endsWith('/index.html')) {
+      throw new Error(`Internal link must not point to redirected index.html: ${file}: ${href}`);
+    }
+  }
   if (!file.endsWith('404.html')) {
     if (!html.includes('<meta property="og:image" content="https://updatecard.net/assets/social/update-card-share.png">')) {
       throw new Error(`Missing Open Graph share image: ${file}`);
@@ -133,6 +158,22 @@ for (const file of htmlFiles) {
     const ref = match[1].split('#')[0].split('?')[0];
     if (ref) localRefs.add(ref);
   }
+}
+
+const faqHtml = await readFile(join(dist, 'faq/index.html'), 'utf8');
+const faqJsonLd = faqHtml.match(/<script type="application\\/ld\\+json">([\\s\\S]*?)<\\/script>/)?.[1];
+if (!faqJsonLd) throw new Error('FAQ JSON-LD was not generated');
+const faqGraph = JSON.parse(faqJsonLd)['@graph'];
+const faqNodes = faqGraph.filter((node) => node['@type'] === 'FAQPage');
+if (faqNodes.length !== 1) throw new Error(`Expected one FAQPage node, found ${faqNodes.length}`);
+if (faqNodes[0]['@id'] !== 'https://updatecard.net/faq/#webpage') {
+  throw new Error('FAQPage must reuse the canonical page node');
+}
+if (!Array.isArray(faqNodes[0].mainEntity) || faqNodes[0].mainEntity.length !== faqs.length ||
+    faqNodes[0].mainEntity.some((question) =>
+      question['@type'] !== 'Question' || !question.name ||
+      question.acceptedAnswer?.['@type'] !== 'Answer' || !question.acceptedAnswer?.text)) {
+  throw new Error('FAQPage must contain each visible Question with an acceptedAnswer');
 }
 
 for (const ref of localRefs) {
