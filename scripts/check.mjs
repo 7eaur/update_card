@@ -128,7 +128,7 @@ for (const file of htmlFiles) {
   } else {
     const canonical = relativePage === 'index.html'
       ? 'https://updatecard.net/'
-      : `https://updatecard.net/${relativePage.replace(/index\\.html$/, '')}`;
+      : `https://updatecard.net/${relativePage.replace(/index\.html$/, '')}`;
     if (!html.includes(`<link rel="canonical" href="${canonical}">`)) {
       throw new Error(`Unexpected canonical (or missing trailing slash): ${file} -> ${canonical}`);
     }
@@ -136,9 +136,9 @@ for (const file of htmlFiles) {
       throw new Error(`Public page must be indexable: ${file}`);
     }
   }
-  for (const [, href] of html.matchAll(/<a\\b[^>]*\\bhref="(\\/[^"]*)"/g)) {
+  for (const [, href] of html.matchAll(/<a\b[^>]*\bhref="(\/[^"]*)"/g)) {
     const target = href.split(/[?#]/)[0];
-    if (target !== '/' && !target.endsWith('/') && !/\\.[a-z0-9]{1,7}$/i.test(target)) {
+    if (target !== '/' && !target.endsWith('/') && !/\.[a-z0-9]{1,7}$/i.test(target)) {
       throw new Error(`Internal link must point directly to trailing-slash canonical: ${file}: ${href}`);
     }
     if (target.endsWith('/index.html')) {
@@ -161,7 +161,7 @@ for (const file of htmlFiles) {
 }
 
 const faqHtml = await readFile(join(dist, 'faq/index.html'), 'utf8');
-const faqJsonLd = faqHtml.match(/<script type="application\\/ld\\+json">([\\s\\S]*?)<\\/script>/)?.[1];
+const faqJsonLd = faqHtml.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
 if (!faqJsonLd) throw new Error('FAQ JSON-LD was not generated');
 const faqGraph = JSON.parse(faqJsonLd)['@graph'];
 const faqNodes = faqGraph.filter((node) => node['@type'] === 'FAQPage');
