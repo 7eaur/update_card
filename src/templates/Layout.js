@@ -27,6 +27,10 @@ export const renderLayout = ({
   const websiteId = `${site.siteUrl}/#website`;
   const webpageId = `${canonicalUrl}#webpage`;
 
+  // Extend the existing page node instead of publishing a second FAQPage/CollectionPage node.
+  // A duplicated FAQPage without mainEntity is flagged by structured-data validators.
+  const pageSpecificData = structuredData.find((entry) => entry['@type'] === pageType);
+
   const graph = [
     {
       '@type': 'Organization',
@@ -91,8 +95,10 @@ export const renderLayout = ({
         url: socialImageUrl,
       },
       inLanguage: site.language,
+      ...(pageSpecificData ?? {}),
+      '@id': webpageId,
     },
-    ...structuredData,
+    ...structuredData.filter((entry) => entry !== pageSpecificData),
   ];
 
   const structuredGraph = jsonLdSafe({

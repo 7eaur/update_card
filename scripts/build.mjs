@@ -121,16 +121,16 @@ const pages = [
     title: 'أبديت كارد | خدمات رقمية للشحن والدفع في اليمن',
     description: 'أبديت كارد (UPDATE CARD) لخدمات الشحن الرقمي في اليمن: شحن الألعاب والبطاقات والاشتراكات والدفع الإلكتروني والشراء من المواقع العالمية.',
     pageType: 'WebPage',
-    lastModified: '2026-10-15',
+    lastModified: '2026-10-17',
     content: renderHomePage(),
   },
   {
     path: '/about/',
     file: 'about/index.html',
-    title: 'من نحن',
+    title: 'من نحن وخدمات أبديت كارد الرقمية في اليمن',
     description: 'تعرف على أبديت كارد وخبرتها في الخدمات الرقمية في اليمن منذ عام 2018 وخدمة الأفراد والجملة.',
     pageType: 'AboutPage',
-    lastModified: '2026-10-10',
+    lastModified: '2026-10-17',
     content: renderAboutPage(),
   },
   {
@@ -139,7 +139,7 @@ const pages = [
     title: 'الخدمات الرقمية في اليمن',
     description: 'استكشف خدمات أبديت كارد للشحن والبطاقات والاشتراكات والبرمجيات والدفع والشراء من المواقع العالمية.',
     pageType: 'CollectionPage',
-    lastModified: '2026-10-10',
+    lastModified: '2026-10-17',
     structuredData: [{
       '@type': 'ItemList',
       '@id': `${site.siteUrl}/services/#service-list`,
@@ -156,10 +156,10 @@ const pages = [
   {
     path: '/faq/',
     file: 'faq/index.html',
-    title: 'الأسئلة الشائعة',
+    title: 'الأسئلة الشائعة عن خدمات الشحن والاشتراكات',
     description: 'إجابات واضحة حول طلب خدمات أبديت كارد والتوفر والأسعار والجملة والشراء من المواقع العالمية.',
     pageType: 'FAQPage',
-    lastModified: '2026-10-10',
+    lastModified: '2026-10-17',
     structuredData: [{
       '@type': 'FAQPage',
       '@id': `${site.siteUrl}/faq/#faq`,
@@ -177,10 +177,10 @@ const pages = [
   {
     path: '/contact/',
     file: 'contact/index.html',
-    title: 'تواصل مع أبديت كارد',
+    title: 'تواصل مع أبديت كارد لخدمات الشحن الرقمي في اليمن',
     description: 'تواصل مع أبديت كارد في اليمن عبر واتساب أو الاتصال المباشر أو فيسبوك للاستفسار عن الخدمات المتاحة.',
     pageType: 'ContactPage',
-    lastModified: '2026-10-10',
+    lastModified: '2026-10-17',
     content: renderContactPage(),
   },
 ];
