@@ -116,4 +116,4 @@ update_card/
 
 📱 **Phone / WhatsApp:** [+967 775 377 979](https://wa.me/967775377979)
 
-[GitHub](https://github.com/7eaur) · [Wasl Tech](https://www.wasl-tech.com)
+[GitHub](https://github.com/7eaur)
