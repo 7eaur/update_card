@@ -1,92 +1,119 @@
 <div align="center">
 
-<img src="brand/web/logo-horizontal-640.webp" alt="UPDATE CARD — أبديت كارد" width="260" />
+<img src="brand/web/logo-horizontal-640.webp" alt="UPDATE CARD Logo" width="260" />
 
 # أبديت كارد | UPDATE CARD
+### خدماتك الرقمية في مكان واحد
 
-موقع عربي لخدمات الشحن والبطاقات والاشتراكات والدفع والشراء الإلكتروني في اليمن، يعرّف العميل بالخدمات المتاحة ويوجّهه إلى طلبها عبر واتساب.
+**موقع عربي لخدمات الشحن والبطاقات الرقمية والاشتراكات والدفع والشراء الإلكتروني في اليمن، يسهّل استعراض الخدمات وطلبها مباشرة عبر واتساب.**
 
-[زيارة الموقع](https://updatecard.net) · [الخدمات](https://updatecard.net/services/) · [التواصل](https://updatecard.net/contact/)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+
+**[🌐 زيارة الموقع](https://updatecard.net)**
 
 </div>
 
-## فكرة المشروع
+---
 
-يجمع الموقع خدمات أبديت كارد للأفراد والجملة في واجهة سريعة ومتجاوبة. يتصفح العميل فئة الخدمة، يختار المنصة أو المنتج، ثم ينتقل إلى واتساب برسالة تتضمن سياق الطلب. يُؤكَّد التوفر والسعر والمنطقة أو الخطة المناسبة قبل التنفيذ.
+## 📱 Screenshots | صور الموقع
 
-الموقع تعريفي وتجاري؛ لا يحتوي لوحة إدارة أو حسابات مستخدمين أو قاعدة بيانات أو سلة شراء أو دفعًا داخل الموقع. المحتوى يُحدَّث من ملفات المشروع، وتتم متابعة الطلب خارج الموقع عبر واتساب.
-
-## معاينة الموقع
+<div align="center">
 
 **سطح المكتب**
 
-![الصفحة الرئيسية — سطح المكتب](docs/screenshots/home-desktop.webp)
+<img src="docs/screenshots/home-desktop.webp" alt="UPDATE CARD — Desktop Homepage" width="100%" />
 
 **الهاتف**
 
-<p align="center"><img src="docs/screenshots/home-mobile.webp" width="360" alt="الصفحة الرئيسية — الهاتف" /></p>
+<img src="docs/screenshots/home-mobile.webp" alt="UPDATE CARD — Mobile Homepage" width="360" />
 
-## الخدمات والصفحات
+</div>
 
-- شحن الألعاب والتطبيقات الاجتماعية والترفيهية.
-- البطاقات الرقمية والاشتراكات وتراخيص البرامج.
-- الدفع الإلكتروني والشراء من المواقع العالمية والخدمات حسب الطلب.
-- صفحات الرئيسية، من نحن، الخدمات وفئاتها الثماني، الأسئلة الشائعة، التواصل و404.
+---
 
-تُعرض الخدمات الفرعية داخل صفحة فئتها، ولكل خدمة رابط واتساب برسالة مخصصة. يجمع نموذج التواصل تفاصيل الطلب ويحوّلها إلى واتساب دون تخزينها على خادم.
+## ✨ Key Features | المميزات الرئيسية
 
-## تجربة الاستخدام
+- 🎮 **خدمات رقمية متنوعة:** شحن الألعاب والتطبيقات والبطاقات الرقمية والاشتراكات وتراخيص البرامج.
+- 🛒 **الدفع والشراء الإلكتروني:** عرض خدمات الدفع والشراء من المتاجر والمواقع العالمية.
+- 💬 **الطلب عبر واتساب:** روابط طلب مخصصة تنقل تفاصيل الخدمة المطلوبة إلى المحادثة.
+- 🗂️ **كتالوج منظم:** تصنيف الخدمات إلى فئات مع صفحات واضحة للتصفح والاستكشاف.
+- 📱 **تصميم متجاوب:** واجهة عربية RTL مناسبة للهاتف والحاسوب.
+- ⚡ **أداء محسّن:** صور WebP وAVIF وخطوط محلية وصفحات ثابتة سريعة.
+- 🔎 **تهيئة لمحركات البحث:** بيانات وصفية، وروابط مشاركة، وملفات sitemap وrobots وبيانات منظمة.
 
-- واجهة عربية RTL متجاوبة مع الهاتف والحاسوب.
-- مقدمة شعار خفيفة للزيارة الأولى، مع حفظ حالة المشاهدة محليًا ودعم تقليل الحركة.
-- صور AVIF/WebP محسّنة وخط Cairo مستضاف محليًا.
-- بيانات مشاركة الروابط، وcanonical، وJSON-LD، وsitemap وrobots.
-- النطاق الأساسي `https://updatecard.net` دون `www`؛ المسارات النهائية تنتهي بـ `/`، والروابط القديمة تُحوّل إليها.
-- صفحات المحتوى قابلة للفهرسة، وصفحة 404 تحمل `noindex`؛ تجهيز SEO لا يضمن ترتيبًا أو فهرسة من Google.
+---
 
-## التقنية والبنية
+## 🛠️ Tech Stack | التقنيات
 
-الموقع مبني بـHTML وCSS وJavaScript ES Modules، دون إطار واجهات أو اعتماديات npm خارجية. يستخدم Node.js 24 لتوليد الصفحات؛ لا يحتاج إلى خادم تطبيقات وقت التشغيل.
-
-| المسار | وظيفته |
+| الجانب | التقنيات |
 |---|---|
-| `src/config/site.js` | بيانات العلامة والنطاق والتواصل |
-| `src/data/` | فئات الخدمات والكتالوج والأسئلة ورسائل الطلب |
-| `src/pages/` | تكوين الصفحات |
-| `src/components/` و`src/templates/` | العناصر المشتركة وقالب HTML وبيانات SEO |
-| `src/client/` و`src/styles/` | التفاعلات والتنسيق والتجاوب |
-| `src/assets/` | الصور والوسائط والخطوط المحلية |
-| `brand/` | مصدر الشعار وأصول الهوية وأدوات توليدها |
-| `scripts/build.mjs` | توليد ملفات الموقع داخل `dist/` |
-| `scripts/dev.mjs` | بناء الموقع وتشغيل المعاينة المحلية |
-| `vercel.json` | البناء والتوجيهات ورؤوس الاستجابة والتخزين المؤقت |
+| **Frontend** | HTML5, CSS3, JavaScript (ES Modules) |
+| **Build** | Node.js 24 |
+| **Architecture** | Static Website, Reusable Components & Templates |
+| **SEO** | Metadata, JSON-LD, Sitemap |
+| **Deployment** | Vercel |
 
-تُعدّل بيانات الخدمة في `src/data/`، وبيانات التواصل في `src/config/site.js`، ثم يعاد البناء. تُضاف المسارات وبيانات sitemap من `scripts/build.mjs`.
+---
 
-مصدر الشعار المعتمد صورة `brand/source/originals/update-card-logo-reference.jpeg`، ومشتقاته داخل `brand/`. الخطوط والألوان والأصول الحالية جزء من هوية الموقع. تُشغَّل أدوات Python الخاصة بالهوية يدويًا عند الحاجة، وتتطلب Pillow؛ ليست جزءًا من بناء الموقع. ترخيص خط Cairo محفوظ مع ملفاته.
+## 📂 Project Structure | هيكل المشروع
 
-## التشغيل والنشر
-
-المتطلبات: **Node.js 24.x** وnpm. لا يلزم `npm install` لأن المشروع لا يعرّف اعتماديات خارجية.
-
-```bash
-npm run dev
+```text
+update_card/
+├── src/
+│   ├── config/          # إعدادات الموقع والتواصل
+│   ├── data/            # بيانات الخدمات والكتالوج
+│   ├── pages/           # صفحات الموقع
+│   ├── components/      # المكونات المشتركة
+│   ├── templates/       # قوالب الصفحات
+│   ├── client/          # تفاعلات الواجهة
+│   ├── styles/          # التنسيقات والتجاوب
+│   └── assets/          # الصور والخطوط
+├── brand/               # أصول الهوية والشعار
+├── docs/screenshots/    # صور الواجهات
+├── scripts/             # أدوات البناء والمعاينة
+├── package.json
+└── vercel.json
 ```
 
-المعاينة: `http://localhost:4173`. بعد تعديل ملفات المصدر أعد تشغيل المعاينة لإعادة البناء.
+---
 
-لبناء نسخة النشر:
+## 🚀 Getting Started | التشغيل المحلي
 
-```bash
-npm run build
-```
+**المتطلبات:** Node.js 24.x وnpm.
 
-يولّد البناء **14 صفحة HTML** مع CSS وJavaScript والأصول وملفات الفهرسة داخل `dist/`. هذا المجلد مولّد ولا يُحفظ في Git. النشر على **Vercel** من `main`، بأمر `npm run build` ومجلد إخراج `dist`، وعلى النطاق [updatecard.net](https://updatecard.net).
+1. استنساخ المستودع:
 
-## المطور
+   ```bash
+   git clone https://github.com/7eaur/update_card.git
+   cd update_card
+   ```
 
-**م. إلياس الشعيبي — Elyas Al Shaebi**
+2. تشغيل المعاينة المحلية:
 
-تصميم الهوية الرقمية، تطوير الواجهة والموقع، تحسين الأداء وSEO، وإعداد البناء والنشر.
+   ```bash
+   npm run dev
+   ```
 
-[GitHub](https://github.com/7eaur) · [وصل تك](https://www.wasl-tech.com)
+   افتح `http://localhost:4173`. أعد تشغيل الأمر بعد تعديل المصدر لإعادة البناء.
+
+3. إنشاء ملفات النشر:
+
+   ```bash
+   npm run build
+   ```
+
+تُنشأ ملفات الموقع الثابتة داخل `dist/`، وتُنشر النسخة على [updatecard.net](https://updatecard.net).
+
+---
+
+## 👨‍💻 Developer | المطور
+
+**Eng. Elyas Al Shaebi — المهندس إلياس الشعيبي**
+
+📱 **Phone / WhatsApp:** [+967 775 377 979](https://wa.me/967775377979)
+
+[GitHub](https://github.com/7eaur) · [Wasl Tech](https://www.wasl-tech.com)
