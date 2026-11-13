@@ -2,7 +2,7 @@
   "name": "update-card-profile",
   "private": true,
   "type": "module",
-  "description": "Production website for UPDATE CARD digital services in Yemen.",
+  "description": "UPDATE CARD | Arabic digital services website in Yemen, with service catalogs and WhatsApp inquiries. HTML · CSS · JavaScript.",
   "homepage": "https://updatecard.net",
   "repository": {
     "type": "git",
@@ -18,7 +18,6 @@
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "node scripts/check.mjs",
     "dev": "node scripts/dev.mjs"
   },
   "engines": {
