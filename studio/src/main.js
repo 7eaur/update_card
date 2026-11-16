@@ -81,8 +81,9 @@ form.addEventListener('submit',e=>{
  if(safe(fd.get('notes')))items.push('ملاحظات: '+safe(fd.get('notes')));
  items.push('أرجو تأكيد التوفر والسعر وطريقة التنفيذ قبل الطلب.');
  const href='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(items.join('\n'));
- const opened=window.open(href,'_blank','noopener,noreferrer');
- if(!opened)window.location.href=href;
+ const link=document.createElement('a');
+ link.href=href;link.target='_blank';link.rel='noopener noreferrer';
+ document.body.append(link);link.click();link.remove();
 });
 function focusSearch(){
  chooseFilter('all');search.value='';renderCatalog();
