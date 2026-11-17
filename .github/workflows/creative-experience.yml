@@ -1,0 +1,57 @@
+name: Creative Experience QA
+on:
+  push:
+    branches: [feature/creative-experience-20261117]
+    paths:
+      - 'experience/**'
+      - 'src/data/**'
+      - 'src/assets/**'
+      - 'brand/web/**'
+      - 'package.json'
+      - '.github/workflows/creative-experience.yml'
+  pull_request:
+    paths:
+      - 'experience/**'
+      - 'src/data/**'
+      - 'src/assets/**'
+      - 'package.json'
+      - '.github/workflows/creative-experience.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: creative-experience-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  storefront:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: experience
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install experience dependencies
+        run: npm install
+      - name: Validate catalog and request composition
+        run: npm test
+      - name: Build production bundle
+        run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Verify responsive flows
+        run: npm run test:e2e
+      - name: Upload bundle and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: update-card-experience-${{ github.run_number }}
+          path: |
+            experience/dist
+            experience/package-lock.json
+            experience/playwright-report
+            experience/test-results
+          retention-days: 14
