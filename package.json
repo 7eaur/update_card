@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "postinstall": "npm --prefix experience install",
-    "dev": "npm --prefix experience run dev",
+    "dev": "npm --prefix experience run dev --",
     "build": "npm --prefix experience run build",
     "preview": "npm --prefix experience run preview",
     "test": "npm --prefix experience test",
