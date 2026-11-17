@@ -17,12 +17,13 @@ for (const width of [320,360,390,768,1280]) {
     await physicalCard.press('Space');
     await expect(physicalCard).toHaveAttribute('aria-pressed','false');
     await physicalCard.evaluate(node => Promise.all(node.getAnimations().map(animation => animation.finished)));
+    const baseAngle = await physicalCard.evaluate(node => parseFloat(node.style.getPropertyValue('--turn')) || 0);
     const bounds = await physicalCard.boundingBox();
     await page.mouse.move(bounds.x + bounds.width * .3, bounds.y + bounds.height * .45);
     await page.mouse.down();
     await page.mouse.move(bounds.x + bounds.width * .9, bounds.y + bounds.height * .45, {steps:16});
     const handAngle = await physicalCard.evaluate(node => parseFloat(node.style.getPropertyValue('--turn')));
-    expect(Math.abs(handAngle)).toBeGreaterThan(42);
+    expect(Math.abs(handAngle - baseAngle)).toBeGreaterThan(42);
     await page.mouse.up();
     await expect(physicalCard).toHaveAttribute('aria-pressed','true');
     const previousTitle = await physicalCard.getAttribute('aria-label');
