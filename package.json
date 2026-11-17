@@ -1,8 +1,8 @@
 {
-  "name": "update-card-profile",
+  "name": "update-card-experience",
   "private": true,
   "type": "module",
-  "description": "UPDATE CARD | Arabic digital services website in Yemen, with service catalogs and WhatsApp inquiries. HTML · CSS · JavaScript.",
+  "description": "UPDATE CARD | Interactive Arabic digital services experience. React · Vite · CSS.",
   "homepage": "https://updatecard.net",
   "repository": {
     "type": "git",
@@ -17,8 +17,14 @@
     "vercel"
   ],
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "dev": "node scripts/dev.mjs"
+    "postinstall": "npm --prefix experience install",
+    "dev": "npm --prefix experience run dev",
+    "build": "npm --prefix experience run build",
+    "preview": "npm --prefix experience run preview",
+    "test": "npm --prefix experience test",
+    "test:e2e": "npm --prefix experience run test:e2e",
+    "legacy:build": "node scripts/build.mjs",
+    "legacy:dev": "node scripts/dev.mjs"
   },
   "engines": {
     "node": ">=24 <25"
