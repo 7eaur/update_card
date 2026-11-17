@@ -3,6 +3,7 @@ import { services, products, findProducts, orderUrl, routeProduct, contact } fro
 import { faqs } from '../../src/data/faqs.js';
 import logo from '../../brand/web/logo-horizontal-320.webp';
 import mark from '../../brand/web/logo-icon-256.webp';
+import FlipDeck from './FlipDeck.jsx';
 
 const worlds = [
   { id: 'games', en: 'PLAY', name: 'عالم الألعاب', label: 'اشحن حماسك', color: '#ad87ff', product: 'pubg-mobile', second: 'free-fire', third: 'efootball' },
@@ -80,12 +81,12 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selected, setSelected] = useState(() => routeProduct(window.location.hash));
   const searchRef = useRef(null);
+  const gridRef = useRef(null);
   const openedInternally = useRef(false);
   const returnFocus = useRef(null);
   const productWasOpen = useRef(Boolean(selected));
   const world = worlds[worldIndex];
   const matches = useMemo(() => findProducts(query, category), [query, category]);
-  const featured = [world.product, world.second, world.third].map(slug => products.find(p => p.category === world.id && p.slug === slug));
   useEffect(() => {
     const onHash = () => {
       const product = routeProduct(window.location.hash);
@@ -116,6 +117,15 @@ export default function App() {
     document.querySelectorAll('[data-observe]').forEach(node => observer.observe(node));
     return () => observer.disconnect();
   }, []);
+  useEffect(() => {
+    const node = gridRef.current;
+    if (!node || !('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) { node.dataset.arrived = 'true'; observer.disconnect(); }
+    }, { threshold: .08 });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [category, query]);
   function openProduct(product, target) {
     returnFocus.current = target;
     openedInternally.current = true;
@@ -157,34 +167,31 @@ export default function App() {
         <div className="hero-copy">
           <p className="eyebrow"><span className="status-dot" /> من اليمن، لعالمك الرقمي</p>
           <h1 id="hero-title">بطاقتك<br />تفتح <span className="outline-word">عالمك<span className="heading-star">✦</span></span></h1>
-          <p className="hero-description">لعبتك. اشتراكك. وكل اللي تحبّه.<br />خدماتك الرقمية أقرب مع أبديت كارد.</p>
+          <p className="hero-description">اسحب البطاقة، اقلبها، واكتشف عالمك الجاي.<br />ألعاب، اشتراكات وبطاقات… بطريقتك.</p>
           <div className="hero-actions"><a className="button primary" href="#catalog">اكتشف عالمك <Icon /></a><a className="text-link" href="#how">كيف نسهّلها عليك؟ <span>↙</span></a></div>
           <div className="hero-caption"><span className="small-line" /><span>ألعاب · بطاقات · اشتراكات · وأكثر</span></div>
         </div>
         <div className="hero-visual">
-          <div className="world-orbit" aria-hidden="true"><span /><span /><span /></div>
-          <div className="scene-label" aria-hidden="true"><span>UPDATE YOUR WORLD</span><span>0{worldIndex + 1} / 03</span></div>
-          <div className="card-scene" key={world.id}>
-            <div className="world-word" aria-hidden="true">{world.en}</div>
-            <div className="scene-card back-card back-two" aria-hidden="true"><ProductImage product={featured[2]} eager /><span>{featured[2].title}</span></div>
-            <div className="scene-card back-card back-one" aria-hidden="true"><ProductImage product={featured[1]} eager /><span>{featured[1].title}</span></div>
-            <button className="scene-card main-card" onClick={() => explore(world.id)} aria-label={'استكشف ' + world.name}>
-              <div className="card-top"><span dir="ltr">UPDATE CARD</span><Icon name="sparkle" /></div>
-              <div className="main-card-art"><ProductImage product={featured[0]} eager /><span className="art-shine" /></div>
-              <div className="card-bottom"><span><small>{world.name}</small><strong>{world.label}</strong></span><span className="round-arrow"><Icon /></span></div>
-            </button>
-            <span className="floating-token token-plus" aria-hidden="true">+</span>
-            <span className="floating-token token-star" aria-hidden="true">✦</span>
-            <span className="scene-stamp" aria-hidden="true">YOUR<br />NEXT LEVEL ↗</span>
-          </div>
+          <div className="scene-label" aria-hidden="true"><span>TOUCH. FLIP. DISCOVER.</span><span>0{worldIndex + 1} / 03</span></div>
           <div className="world-picker" role="group" aria-label="اختر العالم الذي يظهر في المشهد">
             {worlds.map((item, index) => <button key={item.id} aria-pressed={worldIndex === index} onClick={() => setWorldIndex(index)}><span>0{index + 1}</span>{item.name}</button>)}
           </div>
+          <FlipDeck key={world.id} world={world} onOpenProduct={openProduct} />
         </div>
         <a className="scroll-cue" href="#catalog"><span />استكشف أكثر</a>
       </section>
 
-      <div className="platform-ribbon" aria-label="أمثلة من المنصات المدعومة حسب التوفر"><div><span>PUBG MOBILE</span><span>PlayStation</span><span>Netflix</span><span>Google Play</span><span>Apple</span><span>Amazon</span><span>شحن، وأكثر <Icon name="sparkle" /></span></div></div>
+      <section className="world-portals section-shell" aria-label="اختر وجهتك الرقمية">
+        <div className="portal-heading"><p className="eyebrow">THREE DOORS. YOUR CHOICE.</p><span>كل بطاقة… بداية عالم ↙</span></div>
+        <div className="portal-grid">{worlds.map((item, index) => {
+          const art = products.find(product => product.category === item.id && product.slug === item.second);
+          return <button className="world-portal" key={item.id} onClick={() => explore(item.id)} style={{ '--portal-accent': item.color }}>
+            <img src={art.imageUrl} alt="" width="512" height="512" loading="lazy" />
+            <span className="portal-overlay" /><span className="portal-number">0{index + 1} /</span><span className="portal-english">{item.en}</span>
+            <span className="portal-bottom"><span><small>{item.label}</small><strong>{item.name}</strong></span><span className="portal-arrow"><Icon /></span></span>
+          </button>;
+        })}</div>
+      </section>
 
       <section className="catalog section-shell" id="catalog" tabIndex="-1" aria-labelledby="catalog-title">
         <div className="section-heading"><div><p className="eyebrow">PICK YOUR NEXT</p><h2 id="catalog-title">إيش عالمك اليوم<span>؟</span></h2></div><p>من أول لعبة… لآخر اشتراك.<br />ابدأ بالخدمة اللي تحتاجها.</p></div>
@@ -194,7 +201,7 @@ export default function App() {
         </div>
         <div className="category-filter" role="group" aria-label="تصفية حسب نوع الخدمة"><button aria-pressed={category === 'all'} onClick={() => setCategory('all')}>كل العوالم <span>{products.length}</span></button>{services.map(item => <button key={item.slug} aria-pressed={category === item.slug} onClick={() => setCategory(item.slug)}>{item.title}</button>)}</div>
         <div className="results-line"><p role="status">{matches.length} خدمة{query ? ' تطابق بحثك' : ' للاستكشاف'}{audience === 'wholesale' ? ' · طلبات الجملة والتوزيع' : ''}</p><span>التوفر والسعر عند الاستفسار <span className="status-dot" /></span></div>
-        <div className="product-grid">
+        <div className="product-grid" ref={gridRef} key={category + query}>
           {matches.slice(0, limit).map((item, index) => <article className="product-card" key={item.category + '/' + item.slug} data-category={item.category} style={{ '--card-order': Math.min(index, 7) }}>
             <a className="product-open" href={'#service/' + item.category + '/' + item.slug} onClick={event => { event.preventDefault(); openProduct(item, event.currentTarget); }}>
               <div className="product-art"><ProductImage product={item} /><span className="product-tag">{item.categoryTitle}</span><span className="product-open-icon"><Icon /></span></div>
