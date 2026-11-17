@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
+  "outputDirectory": "experience/dist",
   "headers": [
     {
       "source": "/(.*)",
@@ -17,6 +17,10 @@
         {
           "key": "Permissions-Policy",
           "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     },
@@ -28,142 +32,14 @@
           "value": "public, max-age=86400, stale-while-revalidate=604800"
         }
       ]
-    },
-    {
-      "source": "/(favicon.ico|icon-192.png|icon-512.png|maskable-icon-192.png|maskable-icon-512.png|site.webmanifest)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, stale-while-revalidate=604800"
-        }
-      ]
     }
   ],
-  "redirects": [
+  "redirects": [],
+  "installCommand": "npm install",
+  "rewrites": [
     {
-      "source": "/index.html",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/about",
-      "destination": "/about/",
-      "permanent": true
-    },
-    {
-      "source": "/about/index.html",
-      "destination": "/about/",
-      "permanent": true
-    },
-    {
-      "source": "/services",
-      "destination": "/services/",
-      "permanent": true
-    },
-    {
-      "source": "/services/index.html",
-      "destination": "/services/",
-      "permanent": true
-    },
-    {
-      "source": "/faq",
-      "destination": "/faq/",
-      "permanent": true
-    },
-    {
-      "source": "/faq/index.html",
-      "destination": "/faq/",
-      "permanent": true
-    },
-    {
-      "source": "/contact",
-      "destination": "/contact/",
-      "permanent": true
-    },
-    {
-      "source": "/contact/index.html",
-      "destination": "/contact/",
-      "permanent": true
-    },
-    {
-      "source": "/services/games",
-      "destination": "/services/games/",
-      "permanent": true
-    },
-    {
-      "source": "/services/games/index.html",
-      "destination": "/services/games/",
-      "permanent": true
-    },
-    {
-      "source": "/services/social-entertainment",
-      "destination": "/services/social-entertainment/",
-      "permanent": true
-    },
-    {
-      "source": "/services/social-entertainment/index.html",
-      "destination": "/services/social-entertainment/",
-      "permanent": true
-    },
-    {
-      "source": "/services/gift-cards",
-      "destination": "/services/gift-cards/",
-      "permanent": true
-    },
-    {
-      "source": "/services/gift-cards/index.html",
-      "destination": "/services/gift-cards/",
-      "permanent": true
-    },
-    {
-      "source": "/services/subscriptions",
-      "destination": "/services/subscriptions/",
-      "permanent": true
-    },
-    {
-      "source": "/services/subscriptions/index.html",
-      "destination": "/services/subscriptions/",
-      "permanent": true
-    },
-    {
-      "source": "/services/software-licenses",
-      "destination": "/services/software-licenses/",
-      "permanent": true
-    },
-    {
-      "source": "/services/software-licenses/index.html",
-      "destination": "/services/software-licenses/",
-      "permanent": true
-    },
-    {
-      "source": "/services/digital-payments",
-      "destination": "/services/digital-payments/",
-      "permanent": true
-    },
-    {
-      "source": "/services/digital-payments/index.html",
-      "destination": "/services/digital-payments/",
-      "permanent": true
-    },
-    {
-      "source": "/services/international-shopping",
-      "destination": "/services/international-shopping/",
-      "permanent": true
-    },
-    {
-      "source": "/services/international-shopping/index.html",
-      "destination": "/services/international-shopping/",
-      "permanent": true
-    },
-    {
-      "source": "/services/custom-request",
-      "destination": "/services/custom-request/",
-      "permanent": true
-    },
-    {
-      "source": "/services/custom-request/index.html",
-      "destination": "/services/custom-request/",
-      "permanent": true
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
