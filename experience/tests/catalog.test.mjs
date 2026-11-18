@@ -34,3 +34,9 @@ test('unknown routes fail safely and custom requests remain available', () => {
   assert.equal(routeProduct('#faq'), null);
   assert.ok(new URL(orderUrl({})).searchParams.get('text').includes('خدمة حسب الطلب'));
 });
+
+test('common customer abbreviations find the intended service', () => {
+  assert.deepEqual(findProducts('PSN').map(product => product.slug), ['playstation']);
+  assert.ok(findProducts('فيفا').some(product => product.slug === 'fc-mobile'));
+  assert.ok(findProducts('قوقل').some(product => product.slug === 'google-play'));
+});
