@@ -120,3 +120,32 @@ test('native vertical touch scrolling is not trapped by the cards', async ({brow
   await expect(card).toHaveAttribute('aria-pressed','false');
   await context.close();
 });
+
+test('native card activation and arrow navigation retain keyboard focus', async ({page}) => {
+  await page.goto('/');
+  const card = page.locator('.physical-card');
+  await expect(card).toHaveJSProperty('tagName','BUTTON');
+  await card.evaluate(node => node.click());
+  await expect(card).toHaveAttribute('aria-pressed','true');
+  await card.press('ArrowLeft');
+  await expect(card).toHaveAttribute('aria-label','اقلب بطاقة ببجي نيو ستيت');
+  await expect(card).toBeFocused();
+});
+test('missing service link recovers to the catalog', async ({page}) => {
+  await page.goto('/#service/missing/missing');
+  await expect(page.getByRole('alert')).toContainText('هذه الخدمة غير موجودة');
+  await page.getByRole('alert').getByRole('link',{name:'تصفح الخدمات'}).click();
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  await expect(page.getByRole('heading',{name:'إيش عالمك اليوم؟'})).toBeVisible();
+});
+test('all eight service categories and familiar aliases remain discoverable', async ({page}) => {
+  await page.goto('/#catalog');
+  for (const [title,count] of [['الألعاب والشحن',12],['التطبيقات الاجتماعية والترفيهية',8],['البطاقات الرقمية',7],['الاشتراكات الرقمية',10],['البرمجيات والتراخيص',6],['الدفع الإلكتروني',6],['الشراء من المواقع العالمية',13],['خدمة حسب الطلب',4]]) {
+    await page.locator('.category-filter').getByRole('button',{name:title,exact:true}).click();
+    await expect(page.locator('.results-line')).toContainText(count+' خدمة');
+  }
+  await page.locator('.category-filter').getByRole('button',{name:/كل العوالم/}).click();
+  await page.getByRole('searchbox').fill('PSN');
+  await expect(page.locator('.product-card')).toHaveCount(1);
+  await expect(page.locator('.product-info h3')).toHaveText('بطاقات PlayStation');
+});
