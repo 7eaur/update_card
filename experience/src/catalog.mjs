@@ -8,9 +8,18 @@ export const contact = {
   email: 'mailto:updatecardye@gmail.com',
   facebook: 'https://www.facebook.com/Update.Cards.770498884/',
 };
+const aliases = {
+  'pubg-mobile': 'ببجي ببجى uc pubg',
+  'playstation': 'بلايستيشن بلاي ستيشن psn ps',
+  'apple-itunes': 'ايتونز آيتونز ابل ايفون itunes apple',
+  'google-play': 'جوجل قوقل غوغل google play',
+  'call-of-duty': 'كول اوف ديوتي cod',
+  'fc-mobile': 'فيفا fifa fc',
+  'free-fire': 'فري فاير freefire',
+};
 export const products = services.flatMap(category => (serviceCatalog[category.slug] || []).map(item => ({
   ...item, category: category.slug, categoryTitle: category.title,
-  keywords: category.examples.join(' '),
+  keywords: aliases[item.slug] || '',
   imageUrl: '/media/subservices/' + category.slug + '/' + item.image + '.avif',
 })));
 export const normalize = value => String(value).toLowerCase().normalize('NFKD')
@@ -18,7 +27,7 @@ export const normalize = value => String(value).toLowerCase().normalize('NFKD')
 export function findProducts(query, category = 'all') {
   const terms = normalize(query).split(/\s+/).filter(Boolean);
   return products.filter(item => (category === 'all' || item.category === category) &&
-    terms.every(term => normalize(item.title + ' ' + item.slug + ' ' + item.description + ' ' + item.categoryTitle).includes(term)));
+    terms.every(term => normalize(item.title + ' ' + item.slug + ' ' + item.description + ' ' + item.categoryTitle + ' ' + item.keywords).includes(term)));
 }
 export function orderUrl({ product, region = '', details = '', audience = 'individual' }) {
   const lines = [
